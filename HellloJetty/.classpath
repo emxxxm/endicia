@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/cdi-core-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/cdi-servlet-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/cdi-websocket-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/gcloud-session-manager-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-alpn-server-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-annotations-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-client-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-continuation-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-deploy-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-http-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-infinispan-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-io-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-jaas-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-jaspi-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-jmx-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-jndi-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-nosql-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-plus-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-proxy-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-quickstart-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-rewrite-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-schemas-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-security-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-server-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-servlet-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-servlets-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-util-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-webapp-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/jetty-xml-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/xxu/endicia/lib/jetty-distribution-9.3.6.v20151106/lib/servlet-api-3.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
