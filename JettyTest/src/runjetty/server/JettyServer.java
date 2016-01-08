@@ -1,3 +1,4 @@
+package runjetty.server;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 
@@ -6,7 +7,7 @@ public class JettyServer {
 	private Server server;
 	
 	public JettyServer() {
-		this(8585);
+		this(8995);
 	}
 	public JettyServer(Integer runningPort) {
 		server = new Server(runningPort);
