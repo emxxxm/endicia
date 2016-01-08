@@ -6,8 +6,9 @@ public class JettyServer {
 	private Server server;
 	
 	public JettyServer() {
-		this(8585);
+		this(8080);
 	}
+	
 	public JettyServer(Integer runningPort) {
 		server = new Server(runningPort);
 	}
