@@ -1,3 +1,4 @@
+package runjetty.context;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 public class AppContextBuilder {
@@ -9,6 +10,8 @@ public class AppContextBuilder {
 		webAppContext.setDescriptor(webAppContext + "/WEB-INF/web.xml");
 		webAppContext.setResourceBase(".");
 		 webAppContext.setContextPath("/runJetty");
+		 System.out.println(webAppContext.getResourceBase());
+		 System.out.println(webAppContext.getDescriptor());
 		return webAppContext;
 	}
 }
