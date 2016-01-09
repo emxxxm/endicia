@@ -1,0 +1,3 @@
+#Configuration files to be ignored; don't change this on me git
+*.class
+*.classpath
