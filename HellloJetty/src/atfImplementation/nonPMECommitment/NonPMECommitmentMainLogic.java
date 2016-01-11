@@ -1,20 +1,21 @@
 package atfImplementation.nonPMECommitment;
 import java.util.LinkedHashMap;
 public class NonPMECommitmentMainLogic {
+	
 	public NonPMECommitmentMainLogic(LinkedHashMap<String, String> queryTuples){
 		
-		//TODO determin the class type 
-			//if type is is PRI, create and call getPRICOT
-			//else create and call get_EAD_DOW_COT()
+		//TODO determine the class type 
+			//if type is is PRI, getPRICOT()
+			//else get_EAD_DOW_COT()
 		
 		//if isDestHFPU, 
-			//create subroutinegetHFPULocation
+			//Get HFPULocation
 		
 		//Lookup Origin Close Times from ATF_ADDRESS_CLOSE
 		
 		//[DROOLS] Execute Rules Engine for Acceptance Rules
 		
-		//create subroutine getNonPMEServiceStandard
+		//Get NonPMEServiceStandard
 		
 		//[DROOLS]Execute Rules Engine for Transit Time Rules
 		
