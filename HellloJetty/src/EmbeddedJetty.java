@@ -21,7 +21,6 @@ public class EmbeddedJetty extends AbstractHandler
         throws IOException, ServletException
     {
         String xmlResp = "<ExpressMail><OriginZip>90201</OriginZip><Date></Date><Location><City>Mountains</City><State>CA</State></Location></ExpressMail>";
-        	
     	
     	response.setContentType("application/xml;charset=utf-8"); //@TODO have serializer to dispatch based on content-type in get request
         response.setStatus(HttpServletResponse.SC_OK);
