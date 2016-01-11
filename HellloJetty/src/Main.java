@@ -6,7 +6,7 @@ public class Main {
     {
     	Server server = new Server(4651);
         try {
-	        server.setHandler(new EmbeddedJetty());
+	        server.setHandler(new JettyRequestHandler());
 	        server.start();
 	        server.join();
         } catch (Exception e) {

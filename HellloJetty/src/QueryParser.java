@@ -9,8 +9,10 @@ public class QueryParser {
 	public static Map<String, String> parseStringForTuples(String queryString) throws UnsupportedEncodingException, InvalidQueryFormatException {
 		Map<String, String> queryTuples = new LinkedHashMap<String, String>();
 		
-		if (queryString == null || !queryString.contains("&") || !queryString.contains("=")) {
-			throw new InvalidQueryFormatException("The query is either null or contains not enough parameters.");
+		if (queryString == null) {
+			throw new InvalidQueryFormatException("The query string is null.");
+		} else if (!queryString.contains("&") || !queryString.contains("=")) {
+			throw new InvalidQueryFormatException("The query contains at most one parameter. Please refer to documentation for proper format.");
 		}
 		
 		String[] tuples = queryString.split("&");
@@ -27,15 +29,10 @@ public class QueryParser {
 			System.out.println("current calendar instance: " + Calendar.getInstance().toString());
 			//TODO actually add date into queryString queryTuples.put("Date", Calendar.getInstance())
 		}
-		
 		return queryTuples;
 	}
 
 	public static boolean validateQuery(Map<String, String> queryTuples) {
 		return true; //TODO make actual validation
-	}
-	
-	
-	
-	
+	}	
 }
