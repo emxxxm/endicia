@@ -4,11 +4,11 @@ public class NonPMECommitmentMainLogic {
 	public NonPMECommitmentMainLogic(LinkedHashMap<String, String> queryTuples){
 		
 		//TODO determin the class type 
-			//if type is is PRI, create and call getPRICOT
-			//else create and call get_EAD_DOW_COT()
+			//if type is is PRI, create and call getPRICOT(ZIP, EAD);
+			//else get EAD_DOW_COT for Mail Class from ATF_REF_VALUE
 		
 		//if isDestHFPU, 
-			//create subroutinegetHFPULocation
+			//create subroutine getHFPULocation
 		
 		//Lookup Origin Close Times from ATF_ADDRESS_CLOSE
 		
