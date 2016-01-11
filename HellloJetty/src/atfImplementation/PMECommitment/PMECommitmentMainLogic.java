@@ -1,4 +1,4 @@
-package atfImplementation;
+package atfImplementation.PMECommitment;
 
 public class PMECommitmentMainLogic {
 	
@@ -8,7 +8,6 @@ public class PMECommitmentMainLogic {
 		//TODO create and run get HFPU Location subroutine
 	//else
 		//TODO lookup origin close times from ATF_Address_close
-	
 	
 	//TODO create and run Calculate PME Commitments subroutine
 	
