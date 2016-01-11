@@ -3,7 +3,7 @@ package atfImplementation.nonPMECommitment;
 public class PRI_COT {
 	
 	public PRI_COT(String ZIP, String EAD){
-		//get USPS_HOL from ATF_REF_VALUE
+		//[DataAccess] get USPS_HOL from ATF_REF_VALUE
 		
 		//if(EAD is a USPS_HOL)
 			//DOW = 8

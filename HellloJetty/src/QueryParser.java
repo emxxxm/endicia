@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class QueryParser {
 	
-	public static Map<String, String> parseStringForTuples(String queryString) throws UnsupportedEncodingException, InvalidQueryFormatException {
-		Map<String, String> queryTuples = new LinkedHashMap<String, String>();
+	public static LinkedHashMap<String, String> parseStringForTuples(String queryString) throws UnsupportedEncodingException, InvalidQueryFormatException {
+		LinkedHashMap<String, String> queryTuples = new LinkedHashMap<String, String>();
 		
 		if (queryString == null) {
 			throw new InvalidQueryFormatException("The query string is null.");

@@ -1,5 +1,5 @@
 package atfImplementation.PMECommitment;
 
-public class PMECommitmentOptimizer {
+public class BestPMECommitment {
 
 }
