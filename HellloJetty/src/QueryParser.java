@@ -1,8 +1,6 @@
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.Calendar;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class QueryParser {
 	
@@ -26,13 +24,12 @@ public class QueryParser {
 		validateQuery(queryTuples);
 		
 		if (!queryTuples.containsKey("Date")) {
-			System.out.println("current calendar instance: " + Calendar.getInstance().toString());
-			//TODO actually add date into queryString queryTuples.put("Date", Calendar.getInstance())
+			queryTuples.put("Date", DateTimeUtilities.getCurrentUTCDateTime());
 		}
 		return queryTuples;
 	}
 
-	public static boolean validateQuery(Map<String, String> queryTuples) {
+	public static boolean validateQuery(LinkedHashMap<String, String> queryTuples) {
 		return true; //TODO make actual validation
 	}	
 }
