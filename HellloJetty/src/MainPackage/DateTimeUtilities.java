@@ -1,11 +1,9 @@
+package MainPackage;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DateTimeUtilities {
-	private final static Logger logger = Logger.getLogger(Main.class.getName());
 	/**
 	 * Utility function which computes the Date and Time in UTC with the following format:
 	 * "yyyy-mm-ddThh:mm:ssZ", where T and Z are literals within the String.
@@ -32,9 +30,5 @@ public class DateTimeUtilities {
 		String d = getCurrentUTCDateTime();
 		d = d.replace(":", "-");
 		return d;
-	}
-	
-	public static void logStuff() {
-		logger.log(Level.WARNING, "Masterful cross-architecture logging");
 	}
 }
