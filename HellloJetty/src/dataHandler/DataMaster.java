@@ -1,5 +1,8 @@
 package dataHandler;
 
+import dataHandler.dataFiles.APOFPODPOData;
+import dataHandler.dataFiles.AbsDataMaster;
+
 public class DataMaster extends AbsDataMaster implements IDataMaster {
 	private static IDataMaster instance = null;
 	APOFPODPOData d;
