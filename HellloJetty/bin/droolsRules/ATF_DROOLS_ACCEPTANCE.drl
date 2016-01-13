@@ -1,0 +1,2482 @@
+package droolsRules;
+
+import droolsRules.SDCKnowledgeDTO;
+import java.util.*;
+
+rule "70099"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Nov-2010",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70100"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Nov-2010",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70102"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "04-Jul-2011",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70103"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "04-Jul-2011",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70105"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "17-Aug-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70106"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "17-Aug-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70108"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "28-May-2012",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70109"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "28-May-2012",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70111"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "31-Dec-2013")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70113"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "22-Dec-2017")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70114"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "26-May-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70115"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "26-May-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70117"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "14-Dec-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70118"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "14-Dec-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70120"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2009",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70121"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2009",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70123"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "04-Jul-2009",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70124"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "04-Jul-2009",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70129"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "17-Feb-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70130"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "17-Feb-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70132"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "12-Dec-2017")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70133"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "31-May-2010",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70134"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "31-May-2010",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70136"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "21-Nov-2012")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70138"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "26-Dec-2011",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70139"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "26-Dec-2011",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70141"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "24-Dec-2015")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70143"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2016",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70144"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2016",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70146"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Nov-2012",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70147"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Nov-2012",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70149"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Nov-2011",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70150"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Nov-2011",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70152"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "18-Jan-2016",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70153"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "18-Jan-2016",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70156"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "21-Jan-2013",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70157"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "21-Jan-2013",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70159"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "24-Dec-2013")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70161"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "22-Nov-2012",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70162"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "22-Nov-2012",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70164"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "08-Oct-2012",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70165"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "08-Oct-2012",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70168"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Dec-2013",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70171"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2011",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70172"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2011",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70174"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "05-Sep-2011",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70175"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "05-Sep-2011",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70177"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "10-Jan-2015",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70178"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "10-Jan-2015",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70181"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "04-Jul-2012",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70182"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "04-Jul-2012",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70184"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Oct-2010",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70185"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Oct-2010",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70167"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Dec-2013",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70187"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "28-Apr-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70188"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "28-Apr-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70190"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "18-Jan-2010",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70191"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "18-Jan-2010",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70194"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "03-Jul-2012")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70196"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Dec-2012",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70197"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Dec-2012",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70199"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "27-May-2013",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70200"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "27-May-2013",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70202"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "27-Nov-2013")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70204"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "19-Jan-2015",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70205"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "19-Jan-2015",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70207"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "20-Jan-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70208"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "20-Jan-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70210"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2010",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70211"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2010",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70213"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2015",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70214"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2015",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70216"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Dec-2010",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70217"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Dec-2010",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70219"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "13-Oct-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70220"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "13-Oct-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70222"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Nov-2009",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70223"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Nov-2009",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70032"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Dec-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70033"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Dec-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70035"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "24-Dec-2012")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70037"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "20-Feb-2012",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70038"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "20-Feb-2012",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70040"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "04-Jul-2015",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70041"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "04-Jul-2015",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70043"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "03-Jul-2014")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70045"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "16-Feb-2015",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70046"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "16-Feb-2015",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70048"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "02-Sep-2013",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70049"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "02-Sep-2013",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70051"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-May-2009",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70052"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-May-2009",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70054"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "16-Jan-2012",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70055"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "16-Jan-2012",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70057"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "23-Apr-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70058"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "23-Apr-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70060"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "07-Sep-2009",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70061"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "07-Sep-2009",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70063"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "28-Nov-2013",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70064"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "28-Nov-2013",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70066"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Nov-2013",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70067"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Nov-2013",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70070"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Dec-2015",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70071"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Dec-2015",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70073"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "19-Jan-2009",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70074"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "19-Jan-2009",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70076"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "12-Oct-2015",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70077"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "12-Oct-2015",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70079"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "01-Mar-2015")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70080"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "21-Feb-2011",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70081"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "21-Feb-2011",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70083"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "31-Dec-2014")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70085"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "03-Jul-2013")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70089"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "04-Jul-2013",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70090"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "04-Jul-2013",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70092"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "25-Nov-2015")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "70095"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-May-2015",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70096"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-May-2015",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69846"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10519",
+			destinationZipAs5Digit == "60006",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69854"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20044",
+			destinationZipAs5Digit == "55812",
+			mailClass == "PME",
+			!noExpressMail,
+			eadDow in (2,3))
+	then
+		modify ( $dto ) {
+			setNoExpressMail(true)
+		}
+end
+
+rule "69882"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "90210",
+			destinationZipAs5Digit == "21821",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69885"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "12-Jan-2015" && ead <= "13-Jan-2015",
+			originZipAs5Digit == "90210",
+			destinationZipAs5Digit == "78214",
+			mailClass == "PME",
+			!noExpressMail,
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		modify ( $dto ) {
+			setNoExpressMail(true)
+		}
+end
+
+rule "69886"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			isOriginZipWithinRange("10530","10532"),
+			destinationZipAs5Digit == "53401",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69888"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "13-Jan-2014" && ead <= "13-Jan-2014",
+			originZipAs5Digit == "10520",
+			destinationZipAs5Digit == "60007",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69894"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20039",
+			destinationZipAs5Digit == "55805",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "68355"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10517",
+			destinationZipAs5Digit == "60004",
+			mailClass == "PME",
+			!noExpressMail,
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		modify ( $dto ) {
+			setNoExpressMail(true)
+		}
+end
+
+rule "68356"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10313",
+			destinationZipAs5Digit == "51591",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "68357"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20008",
+			destinationZipAs5Digit == "55801",
+			mailClass == "PME",
+			eadDow in (2,3,4))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69633"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10516",
+			destinationZipAs5Digit == "59403",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69635"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10519",
+			destinationZipAs5Digit == "60006",
+			mailClass == "PME",
+			!noExpressMail,
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		modify ( $dto ) {
+			setNoExpressMail(true)
+		}
+end
+
+rule "69641"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20044",
+			destinationZipAs5Digit == "55812",
+			mailClass == "PME",
+			eadDow in (2,3))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69663"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20001",
+			destinationZipAs5Digit == "21824",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69666"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "03-Apr-2014" && ead <= "04-Apr-2014",
+			originZipAs5Digit == "63011",
+			destinationZipAs5Digit == "63011",
+			mailClass == "PME",
+			!noExpressMail,
+			eadDow in (2))
+	then
+		modify ( $dto ) {
+			setNoExpressMail(true)
+		}
+end
+
+rule "69712"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10519",
+			destinationZipAs5Digit == "97902",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69716"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "24-Dec-2005" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10501",
+			destinationZipAs5Digit == "59401",
+			mailClass == "PME",
+			!noExpressMail,
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		modify ( $dto ) {
+			setNoExpressMail(true)
+		}
+end
+
+rule "69717"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10501",
+			destinationZipAs5Digit == "59401",
+			mailClass == "PME",
+			!noExpressMail,
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		modify ( $dto ) {
+			setNoExpressMail(true)
+		}
+end
+
+rule "69718"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10514",
+			destinationZipAs5Digit == "59402",
+			mailClass == "PME",
+			!noExpressMail,
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		modify ( $dto ) {
+			setNoExpressMail(true)
+		}
+end
+
+rule "69723"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20013",
+			destinationZipAs5Digit == "55802",
+			mailClass == "PME",
+			!noExpressMail,
+			eadDow in (2,3,4))
+	then
+		modify ( $dto ) {
+			setNoExpressMail(true)
+		}
+end
+
+rule "69724"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20043",
+			destinationZipAs5Digit == "55808",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69729"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20037",
+			destinationZipAs5Digit == "50707",
+			mailClass == "PME",
+			eadDow in (2))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69761"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "63116",
+			destinationZipAs5Digit == "01601",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69762"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10305",
+			destinationZipAs5Digit == "22810",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69767"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10518",
+			destinationZipAs5Digit == "60005",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69768"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10521",
+			destinationZipAs5Digit == "60010",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69774"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20008",
+			destinationZipAs5Digit == "55806",
+			mailClass == "PME",
+			!noExpressMail,
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		modify ( $dto ) {
+			setNoExpressMail(true)
+		}
+end
+
+rule "69778"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20032",
+			destinationZipAs5Digit == "50704",
+			mailClass == "PME",
+			eadDow in (4))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69765"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10512",
+			destinationZipAs5Digit == "59404",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69797"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "70601",
+			destinationZipAs5Digit == "21813",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69798"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20039",
+			destinationZipAs5Digit == "85922",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69800"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			isOriginZipWithinRange("00000","99999"),
+			destinationZipAs5Digit == "21821",
+			mailClass == "FCM",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69802"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "13-Jan-2014" && ead <= "13-Jan-2014",
+			originZipAs5Digit == "10520",
+			destinationZipAs5Digit == "60007",
+			mailClass == "PME",
+			!noExpressMail,
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		modify ( $dto ) {
+			setNoExpressMail(true)
+		}
+end
+
+rule "69806"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "08-Oct-2013" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10312",
+			destinationZipAs5Digit == "51566",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "70008"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "12-Oct-2009",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70009"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "12-Oct-2009",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70011"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "26-Nov-2015",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70012"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "26-Nov-2015",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70014"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "30-May-2011",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70015"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "30-May-2011",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70017"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "04-Jul-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70018"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "04-Jul-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70020"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "14-Oct-2013",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70021"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "14-Oct-2013",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70023"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "05-Jul-2010",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70024"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "05-Jul-2010",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70026"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "20-Aug-2015",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70027"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "20-Aug-2015",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70029"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Nov-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70030"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Nov-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69932"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20039",
+			destinationZipAs5Digit == "21810",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69933"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "01420",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69934"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "63125",
+			destinationZipAs5Digit == "21874",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.isNotGuaranteed();
+end
+
+rule "69944"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Jun-2015",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69945"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Jun-2015",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69948"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "18-Feb-2013",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69949"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "18-Feb-2013",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69951"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Dec-2009",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69952"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "25-Dec-2009",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69954"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "07-Sep-2015",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69955"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "07-Sep-2015",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69939"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "31-Dec-2012")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "69941"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "16-Feb-2009",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69942"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "16-Feb-2009",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69957"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "24-Dec-2014")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "69959"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "10-Oct-2011",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69960"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "10-Oct-2011",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69962"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Nov-2010",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69963"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "11-Nov-2010",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69965"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "15-Feb-2010",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69966"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "15-Feb-2010",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "68361"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			eadDow == 1,
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "68366"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			mailClass != "PME",
+			acceptTime > cutOffTime,
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		$dto.setMissedCot(true);
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69968"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69969"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69971"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "26-Nov-2009",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69972"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "26-Nov-2009",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69974"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "02-Jan-2012",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69975"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "02-Jan-2012",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69977"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "24-Dec-2010")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "69979"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "31-Dec-2015")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "69981"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "26-Nov-2014")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "69983"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			ead == "31-Dec-2010")
+	then
+		$dto.setEadDow(7);
+end
+
+rule "69985"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "06-Sep-2010",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69992"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2013",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69994"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "24-Nov-2011",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69995"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "24-Nov-2011",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69997"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "27-Nov-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69998"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "27-Nov-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70000"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Sep-2014",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70001"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Sep-2014",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "70004"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "17-Jan-2011",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "70005"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "17-Jan-2011",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69986"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "06-Sep-2010",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69988"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "03-Sep-2012",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+
+rule "69989"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "03-Sep-2012",
+			eadDow != 8)
+	then
+		modify ( $dto ) {
+			setEadDow(8)
+		}
+end
+
+rule "69991"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == "01-Jan-2013",
+			mailClass != "PME",
+			getDaysBetweenDates(acceptDate,ead) < 30)
+	then
+		modify ( $dto ) {
+			incrementEad(1)
+		}
+end
+

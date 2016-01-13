@@ -1,0 +1,3327 @@
+package droolsRules;
+
+//import java.util.*;
+import droolsRules.SDCKnowledgeDTO;
+
+rule "70098"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PER",
+			ead == "24-Feb-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70112"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "31-Dec-2013",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70126"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI" && !isPtfas(originZip) && !isPtfas(destinationZip) && ((isApoFpoDpo(originZip) && !isDpo(originZip) && !isDpo(destinationZip)) || (!isApoFpoDpo(originZip) && isApoFpoDpo(destinationZip) && !isDpo(destinationZip))),
+			ead == "20-Jun-2014",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70127"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI" && !isPtfas(originZip) && !isPtfas(destinationZip) && ((isApoFpoDpo(originZip) && !isDpo(originZip) && !isDpo(destinationZip)) || (!isApoFpoDpo(originZip) && isApoFpoDpo(destinationZip) && !isDpo(destinationZip))),
+			ead == "19-Jun-2014",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70128"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI" && svcStd == 2,
+			ead == "18-Jun-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40507" || destinationZipAs5Digit != "63123" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "12-Jun-2015" && ead <= "15-Aug-2015") || mailClass != "PRI")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70137"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "21-Nov-2012",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70142"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "24-Dec-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "10510" || destinationZipAs5Digit != "10512" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "26-Jun-2015" && ead <= "15-Mar-2016") || destType != "1" || mailClass != "PRI" || !(svcStd == 1))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70155"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI",
+			ead == "31-Aug-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "10510" || destinationZipAs5Digit != "10512" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "26-Jun-2015" && ead <= "15-Mar-2016") || destType != "1" || mailClass != "PRI" || !(svcStd == 1))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70160"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "24-Dec-2013",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70170"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "STD",
+			ead == "17-Sep-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "10510" || destinationZipAs5Digit != "10512" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "26-Jun-2015" && ead <= "15-Mar-2016") || destType != "1" || mailClass != "PRI" || !(svcStd == 1))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70180"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI" && svcStd == 3,
+			ead == "12-Sep-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "10510" || destinationZipAs5Digit != "10512" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "26-Jun-2015" && ead <= "15-Mar-2016") || destType != "1" || mailClass != "PRI" || !(svcStd == 1))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70193"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI" && !isPtfas(originZip) && !isPtfas(destinationZip) && ((isDpo(originZip) && !isApoFpoDpo(destinationZip)) || (!isDpo(originZip) && isDpo(destinationZip))),
+			ead == "04-May-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70195"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "03-Jul-2012",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70203"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "27-Nov-2013",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70036"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "24-Dec-2012",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70044"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "03-Jul-2014",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70069"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI",
+			ead == "21-Jul-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40507" || destinationZipAs5Digit != "63123" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "12-Jun-2015" && ead <= "15-Aug-2015") || mailClass != "PRI",
+			originZipAs5Digit != "10510" || destinationZipAs5Digit != "10512" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "26-Jun-2015" && ead <= "15-Mar-2016") || destType != "1" || mailClass != "PRI" || !(svcStd == 1))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70084"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "31-Dec-2014",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70086"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "03-Jul-2013",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70087"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PKG",
+			ead == "15-May-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70088"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI",
+			ead == "31-Aug-2016",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70093"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "25-Nov-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "10510" || destinationZipAs5Digit != "10512" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "26-Jun-2015" && ead <= "15-Mar-2016") || destType != "1" || mailClass != "PRI" || !(svcStd == 1))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70094"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI" && !isPtfas(originZip) && !isPtfas(destinationZip) && ((isApoFpoDpo(originZip) && !isDpo(originZip) && !isDpo(destinationZip)) || (!isApoFpoDpo(originZip) && isApoFpoDpo(destinationZip) && !isDpo(destinationZip))),
+			ead == "06-May-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69822"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (1,2,3,4,5,6,7),
+			isOriginZipWithinRange("00000","99999"),
+			isDestinationZipWithinRange("96900","96999"),
+			!isOriginZipWithinRange("96900","96999"))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69823"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (1,2,3,4,5,6,7),
+			isOriginZipWithinRange("00000","99999"),
+			isDestinationZipWithinRange("96900","96999"),
+			mailClass == "PME",
+			!isOriginZipWithinRange("96900","96999"),
+			svcStd < 2)
+	then
+		$dto.increasePmeServiceStandard(1);
+end
+
+rule "69824"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (1,2,3,4,5,6,7),
+			isOriginZipWithinRange("00000","99999"),
+			isDestinationZipWithinRange("96900","96999"),
+			mailClass == "PRI",
+			!isOriginZipWithinRange("96900","96999"),
+			svcStd < 3)
+	then
+		$dto.increasePriServiceStandard(1);
+end
+
+rule "69825"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (1,2,3,4,5,6,7),
+			isOriginZipWithinRange("00000","99999"),
+			isDestinationZipWithinRange("96900","96999"),
+			mailClass != "PME",
+			mailClass != "PRI",
+			!isOriginZipWithinRange("96900","96999"),
+			svcStd < 99)
+	then
+		$dto.increaseNonPmeServiceStandard(1);
+end
+
+rule "69826"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "16-Oct-2014" && ead <= "17-Oct-2014",
+			eadDow in (3),
+			isOriginZipWithinRange("00023","03161"),
+			isDestinationZipWithinRange("01644","13464"),
+			mailClass == "PRI",
+			!isOriginZipWithinRange("01644","13464"))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69827"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "16-Oct-2014" && ead <= "17-Oct-2014",
+			eadDow in (3),
+			isOriginZipWithinRange("00023","03161"),
+			isDestinationZipWithinRange("01644","13464"),
+			mailClass == "PRI",
+			!isOriginZipWithinRange("01644","13464"),
+			svcStd < 3)
+	then
+		$dto.increasePriServiceStandard(2);
+end
+
+rule "69828"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "14-Oct-2014" && ead <= "14-Oct-2099",
+			eadDow in (1,2,3,4,5,6,7),
+			originZipAs5Digit == "96933",
+			destinationZipAs5Digit == "00111",
+			mailClass == "PRI")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69829"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "14-Oct-2014" && ead <= "14-Oct-2099",
+			eadDow in (1,2,3,4,5,6,7),
+			originZipAs5Digit == "96933",
+			destinationZipAs5Digit == "00111",
+			mailClass == "PRI",
+			svcStd < 3)
+	then
+		$dto.increasePriServiceStandard(1);
+end
+
+rule "69830"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PER",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(3);
+end
+
+rule "69831"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "STD",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(4);
+end
+
+rule "69832"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PKG",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(4);
+end
+
+rule "69833"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20667",
+			destinationZipAs5Digit == "99606",
+			mailClass == "STD",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69834"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99502",
+			destinationZipAs5Digit == "96910",
+			mailClass == "PKG",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69835"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99504",
+			destinationZipAs5Digit == "34035",
+			mailClass == "PER",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69836"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PER",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69837"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PKG",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69838"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53225",
+			destinationZipAs5Digit == "34051",
+			mailClass == "STD",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69839"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53225",
+			destinationZipAs5Digit == "34051",
+			mailClass == "PER",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69840"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "64013",
+			destinationZipAs5Digit == "15001",
+			mailClass == "PER",
+			eadDow in (3))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69841"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "64022",
+			destinationZipAs5Digit == "15022",
+			mailClass == "FCM",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69842"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28018",
+			destinationZipAs5Digit == "70068",
+			mailClass == "PER",
+			eadDow in (4))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69843"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28075",
+			destinationZipAs5Digit == "70041",
+			mailClass == "PKG",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69844"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Dec-2014" && ead <= "24-Dec-2014",
+			originZipAs5Digit == "55203",
+			isDestinationZipWithinRange("55206","55207"),
+			mailClass == "PME",
+			eadDow in (4))
+	then
+		$dto.incrementTransitTime(25);
+end
+
+rule "69845"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10512",
+			destinationZipAs5Digit == "59404",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69858"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "26-Jun-2015" && ead <= "15-Mar-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && svcStd == 1,
+			originZipAs5Digit == "10510",
+			destinationZipAs5Digit == "10512",
+			destType == "1")
+	then
+		$dto.incrementTransitTime(4);
+end
+
+rule "69859"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "26-Jun-2015" && ead <= "15-Mar-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && svcStd == 1,
+			originZipAs5Digit == "10510",
+			destinationZipAs5Digit == "10512",
+			destType == "1")
+	then
+		$dto.incrementTransitTime(4);
+end
+
+rule "69860"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "09-Jan-2016" && ead <= "12-Jan-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PER",
+			originZipAs5Digit == "95112",
+			destinationZipAs5Digit == "90832",
+			destType == "1")
+	then
+		$dto.incrementTransitTime(3);
+end
+
+rule "69861"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "09-Jan-2016" && ead <= "12-Jan-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PER",
+			originZipAs5Digit == "95112",
+			destinationZipAs5Digit == "90832",
+			destType == "1")
+	then
+		$dto.incrementTransitTime(3);
+end
+
+rule "69862"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (1,2,3,4,5,6,7),
+			isOriginZipWithinRange("96900","96999"),
+			isDestinationZipWithinRange("00000","99999"),
+			!isDestinationZipWithinRange("96900","96999"))
+	then
+		$dto.incrementTransitTime(-1);
+end
+
+rule "69863"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (1,2,3,4,5,6,7),
+			isOriginZipWithinRange("96900","96999"),
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PME",
+			!isDestinationZipWithinRange("96900","96999"),
+			svcStd > 1)
+	then
+		$dto.decreaseServiceStandard(1);
+end
+
+rule "69864"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (1,2,3,4,5,6,7),
+			isOriginZipWithinRange("96900","96999"),
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PRI",
+			!isDestinationZipWithinRange("96900","96999"),
+			svcStd > 1)
+	then
+		$dto.decreaseServiceStandard(1);
+end
+
+rule "69865"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (1,2,3,4,5,6,7),
+			isOriginZipWithinRange("96900","96999"),
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass != "PME",
+			mailClass != "PRI",
+			!isDestinationZipWithinRange("96900","96999"),
+			svcStd > 1)
+	then
+		$dto.decreaseServiceStandard(1);
+end
+
+rule "69866"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			isOriginZipWithinRange("99800","99899"),
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "STD",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69867"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			isOriginZipWithinRange("99800","99899"),
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PER",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69868"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			isOriginZipWithinRange("99900","99999"),
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PER",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69869"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "FCM",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(3);
+end
+
+rule "69870"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99605",
+			destinationZipAs5Digit == "21111",
+			mailClass == "PRI",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69871"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99605",
+			destinationZipAs5Digit == "21111",
+			mailClass == "PER",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69872"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99506",
+			destinationZipAs5Digit == "21000",
+			mailClass == "PKG",
+			eadDow in (4))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69873"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "09006",
+			destinationZipAs5Digit == "99505",
+			mailClass == "STD",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69874"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "STD",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69875"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "64022",
+			destinationZipAs5Digit == "15022",
+			mailClass == "PRI",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69876"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28037",
+			destinationZipAs5Digit == "70040",
+			mailClass == "FCM",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69878"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28018",
+			destinationZipAs5Digit == "70068",
+			mailClass == "FCM",
+			eadDow in (4))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69879"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28018",
+			destinationZipAs5Digit == "70068",
+			mailClass == "PKG",
+			eadDow in (4))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69880"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28075",
+			destinationZipAs5Digit == "70041",
+			mailClass == "STD",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69881"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "30082",
+			destinationZipAs5Digit == "38029",
+			mailClass == "FCM",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69883"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "04-Mar-2015" && ead <= "01-Mar-2099",
+			eadDow in (1,2,3,4,5,6,7),
+			originZipAs5Digit == "96913",
+			destinationZipAs5Digit == "63101",
+			mailClass == "PME")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69884"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "04-Mar-2015" && ead <= "01-Mar-2099",
+			eadDow in (1,2,3,4,5,6,7),
+			originZipAs5Digit == "96913",
+			destinationZipAs5Digit == "63101",
+			mailClass == "PME",
+			svcStd < 2)
+	then
+		$dto.increasePmeServiceStandard(1);
+end
+
+rule "69887"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10516",
+			destinationZipAs5Digit == "59403",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69890"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "13-Jan-2014" && ead <= "13-Jan-2014",
+			isOriginZipWithinRange("10310","10311"),
+			destinationZipAs5Digit == "51555",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69892"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10451",
+			destinationZipAs5Digit == "51601",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69893"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "26-Sep-2013" && ead <= "27-Sep-2013",
+			originZipAs5Digit == "00701",
+			destinationZipAs5Digit == "14429",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69877"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28037",
+			destinationZipAs5Digit == "70040",
+			mailClass == "PKG",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "68354"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10505",
+			destinationZipAs5Digit == "59405",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "68359"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "16-Oct-2014" && ead <= "18-Oct-2014",
+			originZipAs5Digit == "45687",
+			isDestinationZipWithinRange("44785","47856"),
+			mailClass == "PRI",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "68360"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20667",
+			destinationZipAs5Digit == "99606",
+			mailClass == "FCM",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69621"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99502",
+			destinationZipAs5Digit == "96910",
+			mailClass == "STD",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69622"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "09006",
+			destinationZipAs5Digit == "99505",
+			mailClass == "PRI",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69623"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "09006",
+			destinationZipAs5Digit == "99505",
+			mailClass == "FCM",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69624"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "15-Dec-2014" && ead <= "31-Jan-2015",
+			eadDow in (1,2,3,4,5,6,7),
+			isOriginZipWithinRange("12345","12347"),
+			isDestinationZipWithinRange("20400","20411"),
+			mailClass == "PME",
+			!isOriginZipWithinRange("20400","20411"))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69625"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "15-Dec-2014" && ead <= "31-Jan-2015",
+			eadDow in (1,2,3,4,5,6,7),
+			isOriginZipWithinRange("12345","12347"),
+			isDestinationZipWithinRange("20400","20411"),
+			mailClass == "PME",
+			!isOriginZipWithinRange("20400","20411"),
+			svcStd < 2)
+	then
+		$dto.increasePmeServiceStandard(1);
+end
+
+rule "69626"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53202",
+			destinationZipAs5Digit == "96940",
+			mailClass == "PRI",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69627"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53295",
+			destinationZipAs5Digit == "09006",
+			mailClass == "PKG",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69628"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28037",
+			destinationZipAs5Digit == "70040",
+			mailClass == "STD",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69629"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28025",
+			destinationZipAs5Digit == "70081",
+			mailClass == "PER",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69630"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "30082",
+			destinationZipAs5Digit == "38029",
+			mailClass == "STD",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69631"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Dec-2014" && ead <= "24-Dec-2014",
+			isOriginZipWithinRange("22101","22103"),
+			isDestinationZipWithinRange("41520","41525"),
+			mailClass == "PME",
+			eadDow in (1))
+	then
+		$dto.incrementTransitTime(56);
+end
+
+rule "69632"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "13-Mar-2014" && ead <= "14-Mar-2014",
+			originZipAs5Digit == "10212",
+			destinationZipAs5Digit == "10312",
+			mailClass == "PME",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69634"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10518",
+			destinationZipAs5Digit == "60005",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69639"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "04-Nov-2013" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10310",
+			destinationZipAs5Digit == "51534",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69642"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20064",
+			destinationZipAs5Digit == "50707",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69643"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20037",
+			destinationZipAs5Digit == "50707",
+			mailClass == "PME",
+			eadDow in (1,4,5,6,7))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69644"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "04-Jan-2016" && ead <= "06-Jan-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && !isPtfas(originZip) && !isPtfas(destinationZip) && ((isDpo(originZip) && !isApoFpoDpo(destinationZip)) || (!isDpo(originZip) && isDpo(destinationZip))),
+			originZipAs5Digit == "34025",
+			destinationZipAs5Digit == "63125",
+			destType == "1")
+	then
+		$dto.incrementTransitTime(6);
+end
+
+rule "69645"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "04-Jan-2016" && ead <= "06-Jan-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && !isPtfas(originZip) && !isPtfas(destinationZip) && ((isDpo(originZip) && !isApoFpoDpo(destinationZip)) || (!isDpo(originZip) && isDpo(destinationZip))),
+			originZipAs5Digit == "34025",
+			destinationZipAs5Digit == "63125",
+			destType == "1")
+	then
+		$dto.incrementTransitTime(6);
+end
+
+rule "69646"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "07-Sep-2016" && ead <= "09-Sep-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "STD",
+			originZipAs5Digit == "28436",
+			destinationZipAs5Digit == "40507")
+	then
+		$dto.incrementTransitTime(14);
+end
+
+rule "69647"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "07-Sep-2016" && ead <= "09-Sep-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "STD",
+			originZipAs5Digit == "28436",
+			destinationZipAs5Digit == "40507")
+	then
+		$dto.incrementTransitTime(14);
+end
+
+rule "69648"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "13-Sep-2014" && ead <= "12-Sep-2014",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			isOriginZipWithinRange("00001","00002"),
+			isDestinationZipWithinRange("00001","00002"),
+			destType == "1")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69649"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "13-Sep-2014" && ead <= "12-Sep-2014",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			isOriginZipWithinRange("00001","00002"),
+			isDestinationZipWithinRange("00001","00002"),
+			destType == "1")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69650"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "80266",
+			destinationZipAs5Digit == "80401",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69651"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			isOriginZipWithinRange("99800","99899"),
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PRI",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69652"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			isOriginZipWithinRange("99800","99899"),
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PKG",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69653"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PRI",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(3);
+end
+
+rule "69654"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "FCM",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(4);
+end
+
+rule "69655"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99605",
+			destinationZipAs5Digit == "21111",
+			mailClass == "PKG",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69656"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "FCM",
+			eadDow in (1))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69657"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PKG",
+			eadDow in (1))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69658"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "64013",
+			destinationZipAs5Digit == "15001",
+			mailClass == "STD",
+			eadDow in (3))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69659"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28075",
+			destinationZipAs5Digit == "70041",
+			mailClass == "FCM",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69660"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "30082",
+			destinationZipAs5Digit == "38029",
+			mailClass == "PKG",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69661"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "30082",
+			destinationZipAs5Digit == "38029",
+			mailClass == "PER",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69662"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Dec-2014" && ead <= "24-Dec-2014",
+			isOriginZipWithinRange("22203","22204"),
+			isDestinationZipWithinRange("44203","44204"),
+			mailClass == "PME",
+			eadDow in (1))
+	then
+		$dto.incrementTransitTime(70);
+end
+
+rule "69665"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Apr-2014" && ead <= "02-Apr-2014",
+			isOriginZipWithinRange("00000","99999"),
+			destinationZipAs5Digit == "63123",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.incrementTransitTime(3);
+end
+
+rule "69667"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10511",
+			destinationZipAs5Digit == "59406",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.incrementTransitTime(4);
+end
+
+rule "69678"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20043",
+			destinationZipAs5Digit == "55808",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69681"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20032",
+			destinationZipAs5Digit == "50704",
+			mailClass == "PME",
+			eadDow in (2))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69684"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "06-Jun-2016" && ead <= "11-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "09710")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69685"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "06-Jun-2016" && ead <= "11-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "09710")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69686"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "12-Jun-2016" && ead <= "15-Aug-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "40507",
+			destinationZipAs5Digit == "63123")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69687"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "12-Jun-2016" && ead <= "15-Aug-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "40507",
+			destinationZipAs5Digit == "63123")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69688"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "04-Jun-2016" && ead <= "05-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && svcStd == 1,
+			originZipAs5Digit == "49009",
+			destinationZipAs5Digit == "49004",
+			destType == "3")
+	then
+		$dto.incrementTransitTime(4);
+end
+
+rule "69689"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "04-Jun-2016" && ead <= "05-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && svcStd == 1,
+			originZipAs5Digit == "49009",
+			destinationZipAs5Digit == "49004",
+			destType == "3")
+	then
+		$dto.incrementTransitTime(4);
+end
+
+rule "69690"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "19-Jun-2017" && ead <= "21-Jun-2017",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "18001",
+			destinationZipAs5Digit == "18201")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69691"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "19-Jun-2017" && ead <= "21-Jun-2017",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "18001",
+			destinationZipAs5Digit == "18201")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69692"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PKG",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(3);
+end
+
+rule "69693"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PER",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(4);
+end
+
+rule "69694"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99605",
+			destinationZipAs5Digit == "21111",
+			mailClass == "FCM",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69695"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99506",
+			destinationZipAs5Digit == "21000",
+			mailClass == "PRI",
+			eadDow in (4))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69696"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99506",
+			destinationZipAs5Digit == "21000",
+			mailClass == "FCM",
+			eadDow in (4))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69697"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99506",
+			destinationZipAs5Digit == "21000",
+			mailClass == "STD",
+			eadDow in (4))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69698"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99504",
+			destinationZipAs5Digit == "34035",
+			mailClass == "PRI",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69699"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "09006",
+			destinationZipAs5Digit == "99505",
+			mailClass == "PER",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69700"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (3),
+			mailClass == "PRI",
+			originZipAs5Digit == "99508",
+			destinationZipAs5Digit == "21136")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69701"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (3),
+			mailClass == "PRI",
+			originZipAs5Digit == "99508",
+			destinationZipAs5Digit == "21136")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69702"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53202",
+			destinationZipAs5Digit == "96940",
+			mailClass == "STD",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69703"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53225",
+			destinationZipAs5Digit == "34051",
+			mailClass == "PRI",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69704"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53295",
+			destinationZipAs5Digit == "09006",
+			mailClass == "STD",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69705"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "64013",
+			destinationZipAs5Digit == "15001",
+			mailClass == "FCM",
+			eadDow in (3))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69706"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "64013",
+			destinationZipAs5Digit == "15001",
+			mailClass == "PKG",
+			eadDow in (3))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69707"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "64022",
+			destinationZipAs5Digit == "15022",
+			mailClass == "PKG",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69708"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28025",
+			destinationZipAs5Digit == "70081",
+			mailClass == "PRI",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69709"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28025",
+			destinationZipAs5Digit == "70081",
+			mailClass == "PKG",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69710"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28075",
+			destinationZipAs5Digit == "70041",
+			mailClass == "PRI",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69711"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "30082",
+			destinationZipAs5Digit == "38029",
+			mailClass == "PKG",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69713"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "12-Jan-2015" && ead <= "13-Jan-2015",
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "78214",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69715"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "12-Jul-2010" && ead <= "12-Jul-2010",
+			isOriginZipWithinRange("00100","96699"),
+			isDestinationZipWithinRange("96800","96899"),
+			mailClass == "PME",
+			eadDow in (6))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69719"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10519",
+			destinationZipAs5Digit == "60006",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69720"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "13-Jan-2014" && ead <= "13-Jan-2014",
+			originZipAs5Digit == "10520",
+			destinationZipAs5Digit == "60007",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69722"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "04-Nov-2013" && ead <= "06-Mar-2014",
+			originZipAs5Digit == "10310",
+			destinationZipAs5Digit == "51534",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.incrementTransitTime(4);
+end
+
+rule "69730"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "04-Apr-2016" && ead <= "04-May-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && svcStd == 3,
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "49721",
+			destType == "1")
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69731"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "04-Apr-2016" && ead <= "04-May-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && svcStd == 3,
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "49721",
+			destType == "1")
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69732"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "17-Dec-2016" && ead <= "19-Dec-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && svcStd == 2,
+			originZipAs5Digit == "49721",
+			destinationZipAs5Digit == "49009",
+			destType == "2")
+	then
+		$dto.incrementTransitTime(3);
+end
+
+rule "69733"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "17-Dec-2016" && ead <= "19-Dec-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && svcStd == 2,
+			originZipAs5Digit == "49721",
+			destinationZipAs5Digit == "49009",
+			destType == "2")
+	then
+		$dto.incrementTransitTime(3);
+end
+
+rule "69734"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "20-Jun-2017" && ead <= "29-Jun-2017",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "09002")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69735"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "20-Jun-2017" && ead <= "29-Jun-2017",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "09002")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69736"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "16-Oct-2014" && ead <= "22-Oct-2014",
+			eadDow in (2),
+			originZipAs5Digit == "12546",
+			isDestinationZipWithinRange("12436","14785"),
+			mailClass == "PRI",
+			!isOriginZipWithinRange("12436","14785"))
+	then
+		$dto.incrementTransitTime(23);
+end
+
+rule "69737"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "16-Oct-2014" && ead <= "22-Oct-2014",
+			eadDow in (2),
+			originZipAs5Digit == "12546",
+			isDestinationZipWithinRange("12436","14785"),
+			mailClass == "PRI",
+			!isOriginZipWithinRange("12436","14785"),
+			svcStd < 3)
+	then
+		$dto.increasePriServiceStandard(23);
+end
+
+rule "69738"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			isOriginZipWithinRange("99800","99899"),
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "FCM",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69739"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "STD",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(3);
+end
+
+rule "69740"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20667",
+			destinationZipAs5Digit == "99606",
+			mailClass == "PER",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69741"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99508",
+			destinationZipAs5Digit == "21136",
+			mailClass == "PRI",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69742"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (2),
+			mailClass == "PRI",
+			originZipAs5Digit == "99508",
+			destinationZipAs5Digit == "21136")
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69743"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (2),
+			mailClass == "PRI",
+			originZipAs5Digit == "99508",
+			destinationZipAs5Digit == "21136")
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69744"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99502",
+			destinationZipAs5Digit == "96910",
+			mailClass == "PER",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69745"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99504",
+			destinationZipAs5Digit == "34035",
+			mailClass == "STD",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69746"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PRI",
+			eadDow in (1))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69747"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PRI",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69748"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "STD",
+			eadDow in (1))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69749"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PER",
+			eadDow in (1))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69750"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53202",
+			destinationZipAs5Digit == "96940",
+			mailClass == "FCM",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69751"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53225",
+			destinationZipAs5Digit == "34051",
+			mailClass == "FCM",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69752"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53295",
+			destinationZipAs5Digit == "09006",
+			mailClass == "PRI",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69753"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53295",
+			destinationZipAs5Digit == "09006",
+			mailClass == "PER",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69754"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "64022",
+			destinationZipAs5Digit == "15022",
+			mailClass == "PER",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69755"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28075",
+			destinationZipAs5Digit == "70041",
+			mailClass == "PER",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69756"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "30082",
+			destinationZipAs5Digit == "38029",
+			mailClass == "PRI",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69757"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "30082",
+			destinationZipAs5Digit == "38029",
+			mailClass == "FCM",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69758"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "30082",
+			destinationZipAs5Digit == "38029",
+			mailClass == "STD",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69759"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Dec-2014" && ead <= "24-Dec-2014",
+			eadDow in (1),
+			isOriginZipWithinRange("55555","55556"),
+			isDestinationZipWithinRange("77502","77503"),
+			mailClass == "PME",
+			!isOriginZipWithinRange("77502","77503"))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69760"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Dec-2014" && ead <= "24-Dec-2014",
+			eadDow in (1),
+			isOriginZipWithinRange("55555","55556"),
+			isDestinationZipWithinRange("77502","77503"),
+			mailClass == "PME",
+			!isOriginZipWithinRange("77502","77503"),
+			svcStd < 2)
+	then
+		$dto.increasePmeServiceStandard(1);
+end
+
+rule "69763"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (4),
+			mailClass == "PRI",
+			originZipAs5Digit == "40023",
+			destinationZipAs5Digit == "96915")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69764"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			eadDow in (4),
+			mailClass == "PRI",
+			originZipAs5Digit == "40023",
+			destinationZipAs5Digit == "96915")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69766"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Aug-2007" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10518",
+			destinationZipAs5Digit == "60005",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69773"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20035",
+			destinationZipAs5Digit == "55804",
+			mailClass == "PME",
+			eadDow in (2,3,4))
+	then
+		$dto.incrementTransitTime(4);
+end
+
+rule "69779"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "14-Jun-2016" && ead <= "17-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "75938")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69780"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "14-Jun-2016" && ead <= "17-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "75938")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69781"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "06-Jun-2016" && ead <= "11-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "96260",
+			destinationZipAs5Digit == "96278")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69782"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "06-Jun-2016" && ead <= "11-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "96260",
+			destinationZipAs5Digit == "96278")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69783"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "20-Feb-2016" && ead <= "22-Feb-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && !isPtfas(originZip) && !isPtfas(destinationZip) && ((isApoFpoDpo(originZip) && !isDpo(originZip) && !isDpo(destinationZip)) || (!isApoFpoDpo(originZip) && isApoFpoDpo(destinationZip) && !isDpo(destinationZip))),
+			originZipAs5Digit == "09006",
+			destinationZipAs5Digit == "63119")
+	then
+		$dto.incrementTransitTime(5);
+end
+
+rule "69784"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "20-Feb-2016" && ead <= "22-Feb-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && !isPtfas(originZip) && !isPtfas(destinationZip) && ((isApoFpoDpo(originZip) && !isDpo(originZip) && !isDpo(destinationZip)) || (!isApoFpoDpo(originZip) && isApoFpoDpo(destinationZip) && !isDpo(destinationZip))),
+			originZipAs5Digit == "09006",
+			destinationZipAs5Digit == "63119")
+	then
+		$dto.incrementTransitTime(5);
+end
+
+rule "69785"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "09-Nov-2016" && ead <= "10-Nov-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PER",
+			originZipAs5Digit == "18953",
+			destinationZipAs5Digit == "19021",
+			destType == "1")
+	then
+		$dto.incrementTransitTime(99);
+end
+
+rule "69786"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "09-Nov-2016" && ead <= "10-Nov-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PER",
+			originZipAs5Digit == "18953",
+			destinationZipAs5Digit == "19021",
+			destType == "1")
+	then
+		$dto.incrementTransitTime(99);
+end
+
+rule "69787"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "21-Oct-2014" && ead <= "23-Oct-2014",
+			originZipAs5Digit == "00012",
+			isDestinationZipWithinRange("00022","00023"),
+			mailClass == "PRI",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69788"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			isOriginZipWithinRange("99900","99999"),
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "STD",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69789"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			isOriginZipWithinRange("99900","99999"),
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PKG",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69790"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "20-Feb-2015" && ead <= "30-Dec-2099",
+			originZipAs5Digit == "20667",
+			destinationZipAs5Digit == "99606",
+			mailClass == "PRI",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69791"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99502",
+			destinationZipAs5Digit == "96910",
+			mailClass == "PRI",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69792"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53202",
+			destinationZipAs5Digit == "96940",
+			mailClass == "PER",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69793"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28037",
+			destinationZipAs5Digit == "70040",
+			mailClass == "PRI",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69794"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28037",
+			destinationZipAs5Digit == "70040",
+			mailClass == "PER",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69795"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "30082",
+			destinationZipAs5Digit == "38029",
+			mailClass == "PRI",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69796"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "30082",
+			destinationZipAs5Digit == "38029",
+			mailClass == "PER",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69801"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "01-Oct-2013" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "10510",
+			destinationZipAs5Digit == "59405",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69807"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20033",
+			destinationZipAs5Digit == "55803",
+			mailClass == "PME",
+			eadDow in (2,3,4))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69808"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20039",
+			destinationZipAs5Digit == "55805",
+			mailClass == "PME",
+			eadDow in (1,2,3,4,5,6,7))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69809"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Mar-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20044",
+			destinationZipAs5Digit == "55812",
+			mailClass == "PME",
+			eadDow in (2,3))
+	then
+		$dto.setTransitTime(2);
+end
+
+rule "69813"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "12-Jun-2015" && ead <= "15-Aug-2015",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "40507",
+			destinationZipAs5Digit == "63123")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69814"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "12-Jun-2015" && ead <= "15-Aug-2015",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "40507",
+			destinationZipAs5Digit == "63123")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69815"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "06-Jun-2016" && ead <= "11-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "09002",
+			destinationZipAs5Digit == "63123")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69816"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "06-Jun-2016" && ead <= "11-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "09002",
+			destinationZipAs5Digit == "63123")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69817"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "11-Aug-2016" && ead <= "12-Aug-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && (isPtfas(originZip) || isPtfas(destinationZip)),
+			originZipAs5Digit == "96912",
+			destinationZipAs5Digit == "90210",
+			destType == "2")
+	then
+		$dto.incrementTransitTime(7);
+end
+
+rule "69818"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "11-Aug-2016" && ead <= "12-Aug-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && (isPtfas(originZip) || isPtfas(destinationZip)),
+			originZipAs5Digit == "96912",
+			destinationZipAs5Digit == "90210",
+			destType == "2")
+	then
+		$dto.incrementTransitTime(7);
+end
+
+rule "69819"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "11-Sep-2014" && ead <= "10-Sep-2014",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			isOriginZipWithinRange("00000","00001"),
+			isDestinationZipWithinRange("00000","00001"))
+	then
+		$dto.incrementTransitTime(3);
+end
+
+rule "69820"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "11-Sep-2014" && ead <= "10-Sep-2014",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			isOriginZipWithinRange("00000","00001"),
+			isDestinationZipWithinRange("00000","00001"))
+	then
+		$dto.incrementTransitTime(3);
+end
+
+rule "69897"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "06-Jun-2016" && ead <= "11-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "96942")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69898"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "06-Jun-2016" && ead <= "11-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI",
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "96942")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69899"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "05-Jun-2015" && ead <= "06-Jun-2015",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && svcStd == 3,
+			originZipAs5Digit == "49009",
+			destinationZipAs5Digit == "40003",
+			destType == "3")
+	then
+		$dto.incrementTransitTime(4);
+end
+
+rule "69900"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "05-Jun-2015" && ead <= "06-Jun-2015",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && svcStd == 3,
+			originZipAs5Digit == "49009",
+			destinationZipAs5Digit == "40003",
+			destType == "3")
+	then
+		$dto.incrementTransitTime(4);
+end
+
+rule "69901"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "06-Jun-2016" && ead <= "11-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "FCM",
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "75938")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69902"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "06-Jun-2016" && ead <= "11-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "FCM",
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "75938")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69903"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "04-Jun-2016" && ead <= "05-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PKG",
+			originZipAs5Digit == "91003",
+			destinationZipAs5Digit == "98207")
+	then
+		$dto.incrementTransitTime(35);
+end
+
+rule "69904"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "04-Jun-2016" && ead <= "05-Jun-2016",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PKG",
+			originZipAs5Digit == "91003",
+			destinationZipAs5Digit == "98207")
+	then
+		$dto.incrementTransitTime(35);
+end
+
+rule "69905"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == acceptDate,
+			ead >= "20-Dec-2018" && ead <= "21-Dec-2018",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && svcStd == 1,
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "63125",
+			destType == "1")
+	then
+		$dto.incrementTransitTime(28);
+end
+
+rule "69906"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead == addDaysToDate(acceptDate,1),
+			missedCot,
+			ead >= "20-Dec-2018" && ead <= "21-Dec-2018",
+			eadDow in (1,2,3,4,5,6,7),
+			mailClass == "PRI" && svcStd == 1,
+			originZipAs5Digit == "63123",
+			destinationZipAs5Digit == "63125",
+			destType == "1")
+	then
+		$dto.incrementTransitTime(28);
+end
+
+rule "69907"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "14-Oct-2014" && ead <= "24-Dec-2014",
+			eadDow in (1,2,3,4,5,6,7),
+			originZipAs5Digit == "00111",
+			destinationZipAs5Digit == "96933",
+			mailClass == "PRI")
+	then
+		$dto.incrementTransitTime(-1);
+end
+
+rule "69908"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "14-Oct-2014" && ead <= "24-Dec-2014",
+			eadDow in (1,2,3,4,5,6,7),
+			originZipAs5Digit == "00111",
+			destinationZipAs5Digit == "96933",
+			mailClass == "PRI",
+			svcStd > 1)
+	then
+		$dto.decreaseServiceStandard(1);
+end
+
+rule "69909"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			isOriginZipWithinRange("99900","99999"),
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "PRI",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69910"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			isOriginZipWithinRange("99900","99999"),
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "FCM",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(2);
+end
+
+rule "69911"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99605",
+			destinationZipAs5Digit == "21111",
+			mailClass == "STD",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69912"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99506",
+			destinationZipAs5Digit == "21000",
+			mailClass == "PER",
+			eadDow in (4))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69913"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "20667",
+			destinationZipAs5Digit == "99606",
+			mailClass == "PKG",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69914"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "35229",
+			destinationZipAs5Digit == "99507",
+			mailClass == "PRI",
+			eadDow in (3))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69915"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99502",
+			destinationZipAs5Digit == "96910",
+			mailClass == "FCM",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69916"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99504",
+			destinationZipAs5Digit == "34035",
+			mailClass == "FCM",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70007"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI",
+			ead == "10-Aug-2016",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "40507" || destinationZipAs5Digit != "63123" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "12-Jun-2016" && ead <= "15-Aug-2016") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69917"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "99504",
+			destinationZipAs5Digit == "34035",
+			mailClass == "PKG",
+			eadDow in (7))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69918"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "26-Jan-2015" && ead <= "26-Jan-2015",
+			originZipAs5Digit == "96913",
+			isDestinationZipWithinRange("00000","99999"),
+			mailClass == "FCM",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(-1);
+end
+
+rule "69919"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53202",
+			destinationZipAs5Digit == "96940",
+			mailClass == "PKG",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69920"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53225",
+			destinationZipAs5Digit == "34051",
+			mailClass == "PKG",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69921"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "53295",
+			destinationZipAs5Digit == "09006",
+			mailClass == "FCM",
+			eadDow in (5))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69922"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "23-Jan-2015" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "64013",
+			destinationZipAs5Digit == "15001",
+			mailClass == "PRI",
+			eadDow in (3))
+	then
+		$dto.incrementTransitTime(-1);
+end
+
+rule "69923"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "64028",
+			destinationZipAs5Digit == "15075",
+			mailClass == "PRI",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69924"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "64022",
+			destinationZipAs5Digit == "15022",
+			mailClass == "STD",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69925"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28018",
+			destinationZipAs5Digit == "70068",
+			mailClass == "PRI",
+			eadDow in (4))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69926"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28018",
+			destinationZipAs5Digit == "70068",
+			mailClass == "STD",
+			eadDow in (4))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69927"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28025",
+			destinationZipAs5Digit == "70081",
+			mailClass == "FCM",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69928"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "22-Sep-2014" && ead <= "31-Dec-2099",
+			originZipAs5Digit == "28025",
+			destinationZipAs5Digit == "70081",
+			mailClass == "STD",
+			eadDow in (6))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69929"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Dec-2014" && ead <= "24-Dec-2014",
+			eadDow in (1),
+			isOriginZipWithinRange("22507","22508"),
+			isDestinationZipWithinRange("22607","22608"),
+			mailClass == "PRI",
+			!isOriginZipWithinRange("22607","22608"))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69930"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Dec-2014" && ead <= "24-Dec-2014",
+			eadDow in (1),
+			isOriginZipWithinRange("22507","22508"),
+			isDestinationZipWithinRange("22607","22608"),
+			mailClass == "PRI",
+			!isOriginZipWithinRange("22607","22608"),
+			svcStd < 3)
+	then
+		$dto.increasePriServiceStandard(1);
+end
+
+rule "69931"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "25-Dec-2014" && ead <= "24-Dec-2014",
+			isOriginZipWithinRange("66666","66667"),
+			isDestinationZipWithinRange("77777","77778"),
+			mailClass == "PME",
+			eadDow in (1))
+	then
+		$dto.incrementTransitTime(25);
+end
+
+rule "69936"
+	when
+		$dto : SDCKnowledgeDTO (
+			ead >= "24-Mar-2014" && ead <= "25-Mar-2014",
+			originZipAs5Digit == "63011",
+			destinationZipAs5Digit == "63011",
+			mailClass == "PME",
+			eadDow in (2))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69947"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "FCM",
+			ead == "30-Jun-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40507" || destinationZipAs5Digit != "63123" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "12-Jun-2015" && ead <= "15-Aug-2015") || mailClass != "PRI",
+			originZipAs5Digit != "10510" || destinationZipAs5Digit != "10512" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "26-Jun-2015" && ead <= "15-Mar-2016") || destType != "1" || mailClass != "PRI" || !(svcStd == 1))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69937"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI" && (isPtfas(originZip) || isPtfas(destinationZip)),
+			ead == "14-Dec-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "10510" || destinationZipAs5Digit != "10512" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "26-Jun-2015" && ead <= "15-Mar-2016") || destType != "1" || mailClass != "PRI" || !(svcStd == 1))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69938"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI" && !isPtfas(originZip) && !isPtfas(destinationZip) && ((isApoFpoDpo(originZip) && !isDpo(originZip) && !isDpo(destinationZip)) || (!isApoFpoDpo(originZip) && isApoFpoDpo(destinationZip) && !isDpo(destinationZip))),
+			ead == "18-Jun-2014",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69940"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "31-Dec-2012",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69958"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "24-Dec-2014",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "68365"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			isApoFpoDpo(destinationZip) || isApoFpoDpo(originZip))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69978"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "24-Dec-2010",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69980"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "31-Dec-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "10510" || destinationZipAs5Digit != "10512" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "26-Jun-2015" && ead <= "15-Mar-2016") || destType != "1" || mailClass != "PRI" || !(svcStd == 1))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69982"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "26-Nov-2014",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI")
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "69984"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass != "PME",
+			ead == "31-Dec-2010",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+	then
+		$dto.incrementTransitTime(1);
+end
+
+rule "70003"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI" && svcStd == 1,
+			ead == "03-Jul-2015",
+			ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot),
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (3) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "99508" || destinationZipAs5Digit != "21136" || eadDow not in (2) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40023" || destinationZipAs5Digit != "96915" || eadDow not in (4) || !(ead >= "22-Sep-2014" && ead <= "31-Dec-2099") || mailClass != "PRI",
+			originZipAs5Digit != "40507" || destinationZipAs5Digit != "63123" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "12-Jun-2015" && ead <= "15-Aug-2015") || mailClass != "PRI",
+			originZipAs5Digit != "10510" || destinationZipAs5Digit != "10512" || eadDow not in (1,2,3,4,5,6,7) || !(ead >= "26-Jun-2015" && ead <= "15-Mar-2016") || destType != "1" || mailClass != "PRI" || !(svcStd == 1))
+	then
+		$dto.incrementTransitTime(1);
+end
+

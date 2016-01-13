@@ -1,0 +1,129 @@
+package droolsRules;
+
+import java.util.*;
+import droolsRules.SDCKnowledgeDTO;
+
+rule "68364"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			isApoFpoDpo(destinationZip) || isApoFpoDpo(originZip))
+	then
+		$dto.setDeliveryTime(1500);
+end
+
+rule "68368"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass not in ("PME","PRI"),
+			svcStd == 1)
+	then
+		$dto.setSvcStdMsg("1 Day");
+end
+
+rule "68369"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass not in ("PME","PRI"),
+			svcStd != 1)
+	then
+		$dto.setSvcStdMsg($dto.getSvcStd() + " Days");
+end
+
+rule "68370"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			transitTime == 1,
+			acceptDate == ead,
+			!isApoFpoDpo(originZip),
+			!isApoFpoDpo(destinationZip),
+			!isDpo(destinationZip),
+			!isPtfas(originZip),
+			!isPtfas(destinationZip))
+	then
+		$dto.setSvcStdMsg("1-Day");
+end
+
+rule "68371"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			transitTime != 1 || acceptDate != ead,
+			!isApoFpoDpo(originZip),
+			!isApoFpoDpo(destinationZip),
+			!isDpo(destinationZip),
+			!isPtfas(originZip),
+			!isPtfas(destinationZip))
+	then
+		$dto.setSvcStdMsg("2-Day");
+end
+
+rule "68372"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PRI",
+			!isApoFpoDpo(originZip),
+			!isApoFpoDpo(destinationZip),
+			!isDpo(destinationZip),
+			!isPtfas(originZip),
+			!isPtfas(destinationZip))
+	then
+		$dto.setSvcStdMsg($dto.getSvcStd() + "-Day");
+end
+
+rule "68373"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass in ("PME","PRI"),
+			isPtfas(destinationZip) || isPtfas(originZip))
+	then
+		$dto.setSvcStdMsg("");
+end
+
+rule "68374"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass in ("PME","PRI"),
+			isDpo(destinationZip),
+			!isPtfas(originZip),
+			!isPtfas(destinationZip))
+	then
+		$dto.setSvcStdMsg("DPO");
+end
+
+rule "68375"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass in ("PME","PRI"),
+			isApoFpoDpo(destinationZip),
+			!isDpo(destinationZip),
+			!isPtfas(originZip),
+			!isPtfas(destinationZip))
+	then
+		$dto.setSvcStdMsg("Military");
+end
+
+rule "68376"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass in ("PME","PRI"),
+			isApoFpoDpo(originZip),
+			!isApoFpoDpo(destinationZip),
+			!isDpo(destinationZip),
+			!isPtfas(originZip),
+			!isPtfas(destinationZip))
+	then
+		$dto.setSvcStdMsg("");
+end
+
+rule "68377"
+	when
+		$dto : SDCKnowledgeDTO (
+			mailClass == "PME",
+			deliveryDow in (1,8),
+			deliveryTime == 1200)
+	then
+		$dto.setDeliveryTime(1500);
+end
+
