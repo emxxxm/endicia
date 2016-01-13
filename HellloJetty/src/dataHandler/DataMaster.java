@@ -5,6 +5,7 @@ public class DataMaster extends AbsDataMaster implements IDataMaster {
 
 
 	private DataMaster() {
+		
 		super();
 	}
 	
