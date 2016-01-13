@@ -8,5 +8,4 @@ public class APOFPODPOData extends AbsDataFile implements IDataFile {
 		records = DataFileParser.parseFile("ATF_APOFPODPO.txt");
 	}
 	
-	
 }
