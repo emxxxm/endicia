@@ -1,20 +1,27 @@
 package atfImplementation.PMECommitment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import atfImplementation.CalculationNotPossibleException;
+import dataHandler.DataMaster;
+import dataHandler.IDataMaster;
+import dataHandler.dataFiles.APOFPODPO;
+import dataHandler.dataFiles.AbsDataFile;
+import dataHandler.dataFiles.RefValue;
 
-public class APO_FPO_DPO_Subroutine {
+public class APOFPODPOSubroutine {
 	
 	int progradeOffset=0,retrogradeOffset=0, retrogradeOffsetFromRecord, progradeOffsetFromRecord;
-	int upperBound=10000,lowerBound=20000;
+	ArrayList<Integer> lowerbounds = new ArrayList<Integer>(), upperbounds = new ArrayList<Integer>();
 	String originZip="01609", destZip ="90610"; //TODO actually get these from the data
 	String retrogradeZip, progradeZip, dropOffTime, retrogradeArrivalTime;
 	
 	
-	public APO_FPO_DPO_Subroutine(LinkedHashMap<String,String> queryTuples) throws CalculationNotPossibleException {
-		HashMap<String,String> dataFromFile = new HashMap<String,String>();
+	public APOFPODPOSubroutine(LinkedHashMap<String,String> queryTuples) throws CalculationNotPossibleException {
+		
+	/*	HashMap<String,String> dataFromFile = new HashMap<String,String>();
 		//TODO [DataAccess] get APOFPODPO data
 		
 		initializeValuesFromDataFile();
@@ -57,7 +64,7 @@ public class APO_FPO_DPO_Subroutine {
 			} else {
 				return;
 			}
-		}	
+		} */	
 	}
 	
 	private boolean isHFPU() {
@@ -65,16 +72,40 @@ public class APO_FPO_DPO_Subroutine {
 	}
 
 	private void initializeValuesFromDataFile() {
-		//TODO [DataAccess]
+		IDataMaster dm = DataMaster.getInstance();
+		RefValue refData = dm.getRefValue();
+		APOFPODPO APOData = dm.getAPOFPODPOData(); 
+		
+		initRanges(refData.getMilitaryZipRanges());
+		
 		dropOffTime = "-1";
 		retrogradeArrivalTime= "-1";
 		retrogradeOffsetFromRecord=-1;
 		progradeOffsetFromRecord=-1;
 	}
 	
-	private boolean zipInRange(String zip) {
+	/**
+	 * Initializes the variables lowerbounds and upperbounds to contain a list of the parsed values
+	 * @param militaryRanges a list of strings in the format "LOWERZIP-UPPERZIP" (i.e. "34000-34099") 
+	 * These strings are obtained from the ATF_REF_VALUE file; any tuples with the prefix "APOFPODPO_ZIP_RANGE" are taken to be bounds
+	 */
+	public void initRanges(ArrayList<String> militaryRanges) {
+		String[] bounds;
+		for (String s: militaryRanges) {
+			bounds = s.split("-");
+			lowerbounds.add(Integer.parseInt(bounds[0]));
+			upperbounds.add(Integer.parseInt(bounds[1]));
+		}
+		
+	}
+
+	public boolean zipInRange(String zip) {
 		int intZip = Integer.parseInt(zip);
-		return intZip > lowerBound && intZip < upperBound;
+		boolean inRange = true;
+		
+		
+		
+		return inRange;
 	}
 			
 	private boolean originOrDestDPO() {

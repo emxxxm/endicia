@@ -6,13 +6,12 @@ import org.apache.commons.csv.CSVRecord;
 
 import dataHandler.DataFileParser;
 
-public class RefValue extends AbsDataFile implements IDataFile {
+public class RefValue extends AbsDataFile {
 	int tupleID = 0, rangeID = 2;
 	private static String MILITARY_RANGE_ID = "APOFPODPO_ZIP_RANGE";
 	
 	public RefValue() {
-		super();
-		records = DataFileParser.parseFile("ATF_REF_VALUE.txt");
+		records = DataFileParser.parseFile(FilenameConstants.REF_VAL);
 	}
 	
 	public ArrayList<String> getMilitaryZipRanges() {
