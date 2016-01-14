@@ -1,6 +1,6 @@
 package dataHandler;
 
-public class DataUpdater extends AbsDataMaster implements IDataMaster {
+public class DataUpdater extends AbsDataMaster {
 
 	public DataUpdater() {
 		super();

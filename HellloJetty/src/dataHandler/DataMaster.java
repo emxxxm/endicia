@@ -1,6 +1,6 @@
 package dataHandler;
 
-public class DataMaster extends AbsDataMaster implements IDataMaster {
+public class DataMaster extends AbsDataMaster  {
 	private static IDataMaster instance = null;
 
 

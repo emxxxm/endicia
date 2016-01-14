@@ -9,4 +9,8 @@ public class SDCKnowledgeDTO {
 	public void incrementEad() {
 		
 	}
+	
+	public void runRules() {
+
+	}
 }

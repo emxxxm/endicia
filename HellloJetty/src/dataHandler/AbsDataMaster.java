@@ -6,7 +6,7 @@ import dataHandler.dataFiles.PMEDestSchedule;
 import dataHandler.dataFiles.PMEDispSchedule;
 import dataHandler.dataFiles.RefValue;
 
-public abstract class AbsDataMaster {
+public abstract class AbsDataMaster implements IDataMaster {
 	APOFPODPOData APOFPODPO;
 	AddressClose ac;
 	PMEDestSchedule PMEDest;
