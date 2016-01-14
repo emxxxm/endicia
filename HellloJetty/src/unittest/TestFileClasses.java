@@ -16,6 +16,7 @@ import junit.framework.TestCase;
 public class TestFileClasses{
 
 	static ArrayList<String> refVal;
+	static ArrayList<String> holidays;
 	
 	@BeforeClass
 	public static void setUp() {
@@ -23,12 +24,12 @@ public class TestFileClasses{
 		
 		//For testMilitaryZipRanges
 		refVal = m.getRefValue().getMilitaryZipRanges();
+		holidays = m.getRefValue().getHolidays();
 	}
 
 	@Test
 	public void testMilitaryZipRanges() {
 		assertEquals(3, refVal.size());
-
 		for (String s: refVal){
 			System.out.println(s);
 		}
@@ -37,13 +38,20 @@ public class TestFileClasses{
 	@Test
 	public void testSingletonReuseability() {
 		assertEquals(3, refVal.size());
+	}
+	
+	@Test
+	public void test2() {
+		System.out.println(refVal);
+		assertEquals(103, holidays.size());
+
 
 	}
 	
 	@Test
 	public void temporaryTestAPOFPODPOsubroutine() {
-		APOFPODPOSubroutine afd = new APOFPODPO();
-		afd.
+		//APOFPODPOSubroutine afd = new APOFPODPO();
+//		afd.
 	}
 
 }

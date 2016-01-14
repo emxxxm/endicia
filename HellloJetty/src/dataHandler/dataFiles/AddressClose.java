@@ -4,8 +4,12 @@ import dataHandler.DataFileParser;
 
 public class AddressClose extends AbsDataFile {
 
-	public AddressClose() {
-		records = DataFileParser.parseFile(FilenameConstants.ADDRESS_CLOSE);
+	
+
+	@Override
+	public String getFileName() {
+		// TODO Auto-generated method stub
+		return FilenameConstants.ADDRESS_CLOSE;
 	}
 	
 }
