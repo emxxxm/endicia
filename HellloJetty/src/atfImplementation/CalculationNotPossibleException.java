@@ -1,4 +1,4 @@
-package atfImplementation;
+package atfImplementation; 
 
 public class CalculationNotPossibleException extends Exception {
 

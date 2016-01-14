@@ -18,7 +18,7 @@ public class IntraFacilityCommitment {
 			//dropOffTime=-1;
 		//}
 	
-		//else break;
+		//else break;gur
 	//}
 	
 	//if(dropOffTime <= Origin DOW COT){

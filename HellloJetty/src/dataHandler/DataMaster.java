@@ -4,8 +4,7 @@ public class DataMaster extends AbsDataMaster  {
 	private static IDataMaster instance = null;
 
 
-	private DataMaster() {
-		
+	private DataMaster() {	
 		super();
 	}
 	

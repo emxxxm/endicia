@@ -2,7 +2,7 @@ package atfImplementation.nonPMECommitment;
 import java.util.LinkedHashMap;
 /**
  * 
- * @author xxu
+ * 
  *
  */
 public class NonPMECommitmentMainLogic {
