@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import atfImplementation.PMECommitment.APOFPODPOSubroutine;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
 import junit.framework.TestCase;
@@ -15,36 +16,42 @@ import junit.framework.TestCase;
 public class TestFileClasses{
 
 	static ArrayList<String> refVal;
+	static ArrayList<String> holidays;
 	
 	@BeforeClass
 	public static void setUp() {
 		IDataMaster m = DataMaster.getInstance();
+		
+		//For testMilitaryZipRanges
 		refVal = m.getRefValue().getMilitaryZipRanges();
+		holidays = m.getRefValue().getHolidays();
 	}
 
 	@Test
-	public void test() {
-		System.out.println(refVal);
+	public void testMilitaryZipRanges() {
 		assertEquals(3, refVal.size());
-		assertEquals(3, refVal.size());
-
-//		for (String s: refVal){
-//			System.out.println(s);
-//		}
+		for (String s: refVal){
+			System.out.println(s);
+		}
 	}
 
+	@Test
+	public void testSingletonReuseability() {
+		assertEquals(3, refVal.size());
+	}
+	
 	@Test
 	public void test2() {
 		System.out.println(refVal);
-		assertEquals(3, refVal.size());
+		assertEquals(103, holidays.size());
+
 
 	}
 	
 	@Test
-	public void test3() {
-		System.out.println(refVal);
-		assertEquals(3, refVal.size());
-
+	public void temporaryTestAPOFPODPOsubroutine() {
+		//APOFPODPOSubroutine afd = new APOFPODPO();
+//		afd.
 	}
 
 }
