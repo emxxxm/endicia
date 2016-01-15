@@ -5,6 +5,7 @@ import dataHandler.dataFiles.AddressClose;
 import dataHandler.dataFiles.PMEDestSchedule;
 import dataHandler.dataFiles.PMEDispSchedule;
 import dataHandler.dataFiles.RefValue;
+import dataHandler.dataFiles.RulesObject;
 
 public abstract class AbsDataMaster implements IDataMaster {
 	APOFPODPO APOFPODPO;
@@ -12,14 +13,19 @@ public abstract class AbsDataMaster implements IDataMaster {
 	PMEDestSchedule PMEDest;
 	PMEDispSchedule PMEDisp;
 	RefValue refVal;
-	
+	RulesObject rules;
 	
 	public AbsDataMaster() {
 		APOFPODPO = new APOFPODPO();
 		ac = new AddressClose();
 		PMEDest = new PMEDestSchedule();
 		PMEDisp = new PMEDispSchedule();
-		refVal = new RefValue();			
+		refVal = new RefValue();
+		rules = new RulesObject();
+	}
+	
+	public RulesObject getRulesObject() {
+		return rules;
 	}
 	
 	public APOFPODPO getAPOFPODPO() {
