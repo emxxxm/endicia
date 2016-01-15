@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import MainPackage.LoggingHub;
@@ -20,7 +19,6 @@ public abstract class AbsDataFile implements IDataFile {
 		try {
 			recordsList = DataFileParser.parseFile(this.getFileName()).getRecords();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 		

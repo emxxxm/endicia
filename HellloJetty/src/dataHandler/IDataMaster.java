@@ -8,7 +8,7 @@ import dataHandler.dataFiles.RefValue;
 
 public interface IDataMaster {
 
-	public APOFPODPO getAPOFPODPOData();
+	public APOFPODPO getAPOFPODPO();
 	public AddressClose getAddressClose();
 	public PMEDestSchedule getPMEDest();
 	public PMEDispSchedule getPMEDisp();

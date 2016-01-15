@@ -1,18 +1,14 @@
 package dataHandler.dataFiles;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
 
 import org.apache.commons.csv.CSVRecord;
-
-import dataHandler.DataFileParser;
 
 public class RefValue extends AbsDataFile {
 	int tupleID = 0, rangeID = 2;
 	private static String MILITARY_RANGE_ID = "APOFPODPO_ZIP_RANGE";
 	private static String HOLIDAY_RANGE_ID = "HOLIDAY";
+	private static String DPO_ZIP_ID = "DPO_ZIPS";
 	
 	
 	public ArrayList<String> getMilitaryZipRanges() {
@@ -20,8 +16,7 @@ public class RefValue extends AbsDataFile {
 		ArrayList<String> ranges = new ArrayList<String>();
 		
 		for (CSVRecord r: recordsList) {
-			String teststr= r.get(tupleID);
-			if (teststr.equals(MILITARY_RANGE_ID)) {
+			if (r.get(tupleID).equals(MILITARY_RANGE_ID)) {
 				ranges.add(r.get(rangeID)); 
 			}
 		}
@@ -37,10 +32,21 @@ public class RefValue extends AbsDataFile {
 		}
 		return holidays;
 	}
+	
+	public ArrayList<String> getDPOZips() {
+		ArrayList<String> DPOZips = new ArrayList<String>();
+		
+		for (CSVRecord r: recordsList) {
+			if (r.get(tupleID).equals(DPO_ZIP_ID)) {
+				DPOZips.add(r.get(rangeID));
+			}
+		}
+		
+		return DPOZips;
+	}
 
 	@Override
 	public String getFileName() {
-		
 		return FilenameConstants.REF_VAL;
 	}
 

@@ -22,7 +22,7 @@ public abstract class AbsDataMaster implements IDataMaster {
 		refVal = new RefValue();			
 	}
 	
-	public APOFPODPO getAPOFPODPOData() {
+	public APOFPODPO getAPOFPODPO() {
 		return APOFPODPO;
 	}
 	

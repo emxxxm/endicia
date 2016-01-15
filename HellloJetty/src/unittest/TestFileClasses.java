@@ -3,55 +3,95 @@ package unittest;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
-import org.junit.Before;
+import org.apache.commons.csv.CSVRecord;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import atfImplementation.CalculationNotPossibleException;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
-import junit.framework.TestCase;
+import dataHandler.dataFiles.APOFPODPO;
+import dataHandler.dataFiles.RefValue;
 
 public class TestFileClasses{
 
-	static ArrayList<String> refVal;
+	static RefValue refVal;
+	static APOFPODPO afd;
 	static ArrayList<String> holidays;
+	static ArrayList<String> range = new ArrayList<String>();
 	
 	@BeforeClass
 	public static void setUp() {
 		IDataMaster m = DataMaster.getInstance();
 		
+		//For testemporaryAPOFPODPOsubroutine
+		
+		
+		
+		for (int i = 34000; i <= 34099; i++) {
+			range.add(Integer.toString(i));
+		}
+		
+		for (int i = 9000; i <= 9999; i++) {
+			range.add(Integer.toString(i));
+		}
+		
+		for (int i = 96200; i <= 96699; i++) {
+			range.add(Integer.toString(i));
+		}
+		
 		//For testMilitaryZipRanges
-		refVal = m.getRefValue().getMilitaryZipRanges();
+		refVal = m.getRefValue();
+		afd = m.getAPOFPODPO();
 		holidays = m.getRefValue().getHolidays();
 	}
 
+	/*****************Test RefValue Class******************************/
 	@Test
 	public void testMilitaryZipRanges() {
-		assertEquals(3, refVal.size());
-		for (String s: refVal){
-			System.out.println(s);
-		}
+		assertEquals(3, refVal.getMilitaryZipRanges().size());
 	}
 
 	@Test
 	public void testSingletonReuseability() {
-		assertEquals(3, refVal.size());
+		assertEquals(3, refVal.getMilitaryZipRanges().size());
 	}
 	
 	@Test
 	public void test2() {
-		System.out.println(refVal);
 		assertEquals(103, holidays.size());
-
-
 	}
 	
 	@Test
-	public void temporaryTestAPOFPODPOsubroutine() {
-		//APOFPODPOSubroutine afd = new APOFPODPO();
-//		afd.
+	public void testGetDPOZips() {
+		assertEquals(189, refVal.getDPOZips().size());
 	}
+	
+
+	/*****************Test IDataFile APOFPODPO Class******************************/
+	@Test
+	public void testAPOFPODPOgetRecords() {
+		String stuffedMail = "2";
+	    String stuffedZip = "09107";
+		ArrayList<CSVRecord> records = afd.getRecords(stuffedMail, stuffedZip);
+		
+		assertEquals(1, records.size());
+	}
+	
+	
+	/*****************Test APOFPODPOsubroutine******************************/
+	@Test
+	public void testTemporaryAPOFPODPOsubroutine() throws CalculationNotPossibleException {
+		LinkedHashMap<String, String> q = new LinkedHashMap<>();
+		APOFPODPOSubroutine afdSub = new APOFPODPOSubroutine(q);
+		
+		for (String s: range) {
+			assertTrue(afdSub.zipInRange(s));
+		}
+	}
+	
 
 }
