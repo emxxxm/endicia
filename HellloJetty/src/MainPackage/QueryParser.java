@@ -1,11 +1,15 @@
 package MainPackage;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import com.sun.nio.zipfs.ZipDirectoryStream;
+
 public class QueryParser {
-	public static LinkedHashMap<String, String> parseStringForTuples(String queryString) throws UnsupportedEncodingException, InvalidQueryFormatException {
-		LinkedHashMap<String, String> queryTuples = new LinkedHashMap<String, String>();
+	public static HashMap<String, String> parseStringForTuples(String queryString) throws UnsupportedEncodingException, InvalidQueryFormatException {
+		HashMap<String, String> queryTuples = new HashMap<String, String>();
 		
 		if (queryString == null) {
 			throw new InvalidQueryFormatException("The query string is null.");
@@ -18,7 +22,7 @@ public class QueryParser {
 		int index;
 		for (String tuple: tuples) {
 			index = tuple.indexOf("=");
-			queryTuples.put(URLDecoder.decode(tuple.substring(0,index), "UTF-8"),URLDecoder.decode(tuple.substring(index+1), "UTF-8")); 
+			queryTuples.put(URLDecoder.decode(tuple.substring(0,index).toLowerCase(), "UTF-8"),URLDecoder.decode(tuple.substring(index+1), "UTF-8")); 
 		}
 		
 		if (!queryTuples.containsKey(QueryStrings.DATE)) {
@@ -36,14 +40,63 @@ public class QueryParser {
 	 * @return
 	 * @throws InvalidQueryFormatException 
 	 */
-	public static void validateQuery(LinkedHashMap<String, String> queryTuples) throws InvalidQueryFormatException {
+	public static void validateQuery(HashMap<String, String> queryTuples) throws InvalidQueryFormatException {
+		ArrayList<String> queryParameters;
+		boolean hasValidParameters = true;
+		
 		if (queryTuples.size() != 6) {
 			throw new InvalidQueryFormatException("The query string does not have enough Parameters. You gave " + queryTuples.size() + ". Six are required.");
 		}
+		
+		queryParameters = QueryStrings.getQueryParameters();
+		
+		
+		for (String s: queryParameters) {
+			hasValidParameters &= queryTuples.containsKey(s);
+		}
+		
+		if (!hasValidParameters) {
+			throw new InvalidQueryFormatException("The query string has the correct amount of parameters, but some parameter names are incorrect. The following parameters are necessary: originzip, destzip, date, dropofftime, mailclass, desttype");
+		}
+		
+		validateZip(queryTuples.get(QueryStrings.DEST_ZIP));
+		validateZip(queryTuples.get(QueryStrings.ORIGIN_ZIP));
+		
+		
+		
+		
 	}
 	
-	public static LinkedHashMap<String, String> getFakeQueryTuples() {
-		LinkedHashMap<String, String> fakeQueryTuples = new LinkedHashMap<String,String>();
+	private static void validateZip(String zip) throws InvalidQueryFormatException {
+		try {
+			Integer.parseInt(zip);
+		} catch (NumberFormatException e) {
+			throw new InvalidQueryFormatException("Attempted to parse the zipcode " + zip + ", but it is in an invalid format");
+		}
+		
+		if ( !(zip.length() == 5 || zip.length() == 9) ) {
+			throw new InvalidQueryFormatException("Attempted to parse the zip code" + zip + ", but it is an improper length.");
+		}
+	}
+	
+	private static void validateDropOffTime() {
+		//TODO
+	}
+	
+	private static void validateDate() {
+		//TODO make a datetime Utility function and update the get date and time function
+	}
+	
+	private static void validateMailClass() {
+		//TODO
+	}
+	
+	private static void validateDestType() {
+		
+	}
+	
+	public static HashMap<String, String> getFakeQueryTuples() {
+		HashMap<String, String> fakeQueryTuples = new HashMap<String,String>();
 		
 		fakeQueryTuples.put(QueryStrings.ORIGIN_ZIP, "01609");
 		fakeQueryTuples.put(QueryStrings.DEST_ZIP, "90610");

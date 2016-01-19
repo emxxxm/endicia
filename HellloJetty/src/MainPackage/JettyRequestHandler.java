@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
  
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class JettyRequestHandler extends AbstractHandler
                        HttpServletResponse response) 
         throws IOException, ServletException
     {
-    	LinkedHashMap<String, String> queryTuples = new LinkedHashMap<String,String>();
+    	HashMap<String, String> queryTuples = new LinkedHashMap<String,String>();
         String xmlResp = "<ExpressMail><OriginZip>90201</OriginZip><Date></Date><Location><City>Mountains</City><State>CA</State></Location></ExpressMail>";
     	
     	response.setContentType("application/xml;charset=utf-8"); //TODO have serializer to dispatch based on content-type in get request

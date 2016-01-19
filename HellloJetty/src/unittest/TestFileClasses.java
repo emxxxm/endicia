@@ -3,7 +3,7 @@ package unittest;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 
 import org.apache.commons.csv.CSVRecord;
 import org.junit.BeforeClass;
@@ -86,7 +86,7 @@ public class TestFileClasses{
 	/*****************Test APOFPODPOsubroutine******************************/
 	@Test
 	public void testTemporaryAPOFPODPOsubroutine() throws CalculationNotPossibleException {
-		LinkedHashMap<String, String> q = QueryParser.getFakeQueryTuples();
+		HashMap<String, String> q = QueryParser.getFakeQueryTuples();
 		APOFPODPOSubroutine afdSub = new APOFPODPOSubroutine(q);
 		
 		for (String s: range) {
