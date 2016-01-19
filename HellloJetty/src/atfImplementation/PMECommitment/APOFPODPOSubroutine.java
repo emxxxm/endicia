@@ -29,9 +29,9 @@ public class APOFPODPOSubroutine {
 	public APOFPODPOSubroutine(LinkedHashMap<String,String> queryTuples) throws CalculationNotPossibleException {
 		initializeValuesFromDataFile(queryTuples);
 
-		if (zipInRange(originZip)) {//Path if origin zip is within military range
-			if (zipInRange(destZip)) {
-				if (originOrDestDPO()) {
+		if (isZipInRange(originZip)) {//Path if origin zip is within military range
+			if (isZipInRange(destZip)) {
+				if (isOriginOrDestDPO()) {
 					throw new CalculationNotPossibleException("Either the origin or destination ZIP is DPO. Calculation not possible with supplied data");
 				} else {				
 					return;//progradeOffset and retrogradeOffset are 0
@@ -51,7 +51,7 @@ public class APOFPODPOSubroutine {
 			}
 
 		} else {//Path if origin zip is not within military range
-			if (zipInRange(destZip)) {
+			if (isZipInRange(destZip)) {
 				if (records.size() == 1) {//If one record is found
 					initAPOFPODPOData(records.get(0));
 					if (isHFPUOrPOBox()) {
@@ -81,7 +81,6 @@ public class APOFPODPOSubroutine {
 		DPOZips = refData.getDPOZips();
 
 		records = APOData.getRecords(mailClass, originZip);
-
 		dropOffTime = queryTuples.get("dropOffTime");
 		originZip = queryTuples.get("originZip");
 		destZip = queryTuples.get("destZip");
@@ -119,7 +118,7 @@ public class APOFPODPOSubroutine {
 	 * @return true if the zip code is inclusively between the lower and upper bounds
 	 * TODO make private once testing is not needed
 	 */
-	public boolean zipInRange(String zip) {
+	public boolean isZipInRange(String zip) {
 		int intZip = Integer.parseInt(zip);
 		boolean inRange = false;
 
@@ -131,7 +130,7 @@ public class APOFPODPOSubroutine {
 		return inRange;
 	}
 
-	private boolean originOrDestDPO() {
+	private boolean isOriginOrDestDPO() {
 		return DPOZips.contains(originZip) || DPOZips.contains(destZip);
 	}
 

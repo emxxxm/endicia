@@ -9,6 +9,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import MainPackage.QueryParser;
 import atfImplementation.CalculationNotPossibleException;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
 import dataHandler.DataMaster;
@@ -85,11 +86,11 @@ public class TestFileClasses{
 	/*****************Test APOFPODPOsubroutine******************************/
 	@Test
 	public void testTemporaryAPOFPODPOsubroutine() throws CalculationNotPossibleException {
-		LinkedHashMap<String, String> q = new LinkedHashMap<>();
+		LinkedHashMap<String, String> q = QueryParser.getFakeQueryTuples();
 		APOFPODPOSubroutine afdSub = new APOFPODPOSubroutine(q);
 		
 		for (String s: range) {
-			assertTrue(afdSub.zipInRange(s));
+			assertTrue(afdSub.isZipInRange(s));
 		}
 	}
 	

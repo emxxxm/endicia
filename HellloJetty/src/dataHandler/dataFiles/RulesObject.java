@@ -57,5 +57,10 @@ public class RulesObject implements IDataFile {
 	public HashMap<String, StatefulKnowledgeSession> getSessionList() {
 		return sessionList;
 	}
+
+	@Override
+	public String getFileName() {
+		return null;
+	}
 }
 
