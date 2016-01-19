@@ -19,7 +19,6 @@ public class Main {
 		
 		Server server = new Server(4651);
 		try {
-			System.out.println("Beginning of try");
 			server.setHandler(new JettyRequestHandler());
 			server.start();
 			server.join();

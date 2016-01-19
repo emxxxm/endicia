@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import org.apache.commons.csv.CSVRecord;
 
 import MainPackage.QueryParser;
+import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
@@ -41,7 +42,7 @@ public class APOFPODPOSubroutine {
 			if (records.size() == 1) {//If one record is found
 				initAPOFPODPOData(records.get(0));
 				retrogradeOffset = retrogradeOffsetFromRecord; 
-				queryTuples.put("originZip", retrogradeZip);
+				queryTuples.put(QueryStrings.ORIGIN_ZIP, retrogradeZip);
 				retrogradeZip = originZip;
 				return;
 			} else { //TODO figure out where to get retrograde arrival time in this branch -- TYPO IN CHART??
@@ -58,7 +59,7 @@ public class APOFPODPOSubroutine {
 						throw new CalculationNotPossibleException("Destination Type is either PO Box or HFPU. Calculation is not possible with the supplied data.");
 					} else {
 						progradeOffset = progradeOffsetFromRecord;
-						queryTuples.put("destZip", progradeZip);
+						queryTuples.put(QueryStrings.DEST_ZIP, progradeZip);
 						progradeZip = destZip;
 					}
 				}
@@ -81,11 +82,11 @@ public class APOFPODPOSubroutine {
 		DPOZips = refData.getDPOZips();
 
 		records = APOData.getRecords(mailClass, originZip);
-		dropOffTime = queryTuples.get("dropOffTime");
-		originZip = queryTuples.get("originZip");
-		destZip = queryTuples.get("destZip");
-		mailClass = queryTuples.get("mailClass");
-		destType = queryTuples.get("destType");
+		dropOffTime = queryTuples.get(QueryStrings.DROP_OFF_TIME);
+		originZip = queryTuples.get(QueryStrings.ORIGIN_ZIP);
+		destZip = queryTuples.get(QueryStrings.DEST_ZIP);
+		mailClass = queryTuples.get(QueryStrings.MAIL_CLASS);
+		destType = queryTuples.get(QueryStrings.DEST_TYPE);
 	}
 
 	//TODO test this method
