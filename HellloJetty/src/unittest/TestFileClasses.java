@@ -12,6 +12,7 @@ import org.junit.Test;
 import MainPackage.QueryParser;
 import atfImplementation.CalculationNotPossibleException;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
+import atfImplementation.nonPMECommitment.PRI_COT;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
 import dataHandler.dataFiles.APOFPODPO;
@@ -92,6 +93,15 @@ public class TestFileClasses{
 		for (String s: range) {
 			assertTrue(afdSub.isZipInRange(s));
 		}
+	}
+	
+	/*****************Test PRI_COTsubroutine******************************/
+	@Test
+	public void testTemporaryPRICOTsubroutine() throws CalculationNotPossibleException {
+		
+		PRI_COT cot = new PRI_COT("50222","2016-01-19");
+		
+		System.out.println(cot.getPRI_COT());
 	}
 	
 

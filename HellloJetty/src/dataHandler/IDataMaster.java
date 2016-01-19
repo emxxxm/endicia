@@ -2,6 +2,7 @@ package dataHandler;
 
 import dataHandler.dataFiles.APOFPODPO;
 import dataHandler.dataFiles.AddressClose;
+import dataHandler.dataFiles.COT_ALL;
 import dataHandler.dataFiles.PMEDestSchedule;
 import dataHandler.dataFiles.PMEDispSchedule;
 import dataHandler.dataFiles.RefValue;
@@ -15,5 +16,6 @@ public interface IDataMaster {
 	public PMEDispSchedule getPMEDisp();
 	public RefValue getRefValue();
 	public RulesObject getRulesObject();
+	public COT_ALL getCotAll();
 	
 }

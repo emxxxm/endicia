@@ -2,6 +2,7 @@ package dataHandler;
 
 import dataHandler.dataFiles.APOFPODPO;
 import dataHandler.dataFiles.AddressClose;
+import dataHandler.dataFiles.COT_ALL;
 import dataHandler.dataFiles.PMEDestSchedule;
 import dataHandler.dataFiles.PMEDispSchedule;
 import dataHandler.dataFiles.RefValue;
@@ -14,6 +15,7 @@ public abstract class AbsDataMaster implements IDataMaster {
 	PMEDispSchedule PMEDisp;
 	RefValue refVal;
 	RulesObject rules;
+	COT_ALL cot;
 	
 	public AbsDataMaster() {
 		APOFPODPO = new APOFPODPO();
@@ -22,6 +24,7 @@ public abstract class AbsDataMaster implements IDataMaster {
 		PMEDisp = new PMEDispSchedule();
 		refVal = new RefValue();
 		rules = new RulesObject();
+		cot = new COT_ALL();
 	}
 	
 	public RulesObject getRulesObject() {
@@ -46,6 +49,10 @@ public abstract class AbsDataMaster implements IDataMaster {
 	
 	public RefValue getRefValue() {
 		return refVal;
+	}
+	
+	public COT_ALL getCotAll(){
+		return cot;
 	}
 	
 }

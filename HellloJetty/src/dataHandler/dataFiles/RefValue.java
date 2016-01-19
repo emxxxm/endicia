@@ -9,6 +9,7 @@ public class RefValue extends AbsDataFile {
 	private static String MILITARY_RANGE_ID = "APOFPODPO_ZIP_RANGE";
 	private static String HOLIDAY_RANGE_ID = "HOLIDAY";
 	private static String DPO_ZIP_ID = "DPO_ZIPS";
+	private static String NON_PME_DEFAULT_COT_ID = "NON_PME_DEFAULT_COT";
 	
 	
 	public ArrayList<String> getMilitaryZipRanges() {
@@ -43,6 +44,17 @@ public class RefValue extends AbsDataFile {
 		}
 		
 		return DPOZips;
+	}
+	
+	public ArrayList<String> getDefaultPRICOT(int DOW){
+		ArrayList<String> defaultCot = new ArrayList<String>();
+		//TODO figure out what the 3_FRI_COT means in ATF_VAL
+		for(CSVRecord r: recordsList){
+			if(r.get(tupleID).equals(NON_PME_DEFAULT_COT_ID)){
+				defaultCot.add(r.get(rangeID));
+			}
+		}
+		return defaultCot;
 	}
 
 	@Override
