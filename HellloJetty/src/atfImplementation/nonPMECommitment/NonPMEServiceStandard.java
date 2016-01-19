@@ -1,7 +1,15 @@
 package atfImplementation.nonPMECommitment;
 
+import java.util.HashMap;
+
+import MainPackage.QueryStrings;
+
 public class NonPMEServiceStandard {
 	//Take in Origin ZIP Code, Destination ZIP Code
+	public NonPMEServiceStandard(HashMap<String, String> queryTuples){
+		String orignZIP = queryTuples.get(QueryStrings.ORIGIN_ZIP);
+		String destZIP = queryTuples.get(QueryStrings.DEST_ZIP);
+	}
 	//[DataAccess]Lookup 5-Digit Origin and 5-Digit Destination in [ATF_NON_PME_SVC_STD]
 	
 	//if a Service Standard NOT found for the desired Mail Class{
