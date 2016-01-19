@@ -29,7 +29,7 @@ public class JettyRequestHandler extends AbstractHandler
     	response.setContentType("application/xml;charset=utf-8"); //TODO have serializer to dispatch based on content-type in get request
         baseRequest.setHandled(true);
         
-        System.out.println("This is the queryString: " + request.getQueryString());
+      //  System.out.println("This is the queryString: " + request.getQueryString());
              
 		try {
 			queryTuples = QueryParser.parseStringForTuples(request.getQueryString());

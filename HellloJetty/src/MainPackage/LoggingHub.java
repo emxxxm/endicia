@@ -14,7 +14,7 @@ public class LoggingHub {
 
 	public static void initLogger(){
 		try {
-			fh=new FileHandler(DateTimeUtilities.getDateForLogger() + "log.txt", NO_APPEND);
+			fh=new FileHandler(DateTimeUtilities.getCurrentUTCDate() + "log.txt", NO_APPEND);
 		} catch (SecurityException | IOException e) {
 			e.printStackTrace();
 		}
