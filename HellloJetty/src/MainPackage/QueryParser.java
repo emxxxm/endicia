@@ -1,11 +1,10 @@
 package MainPackage;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-
-import com.sun.nio.zipfs.ZipDirectoryStream;
 
 public class QueryParser {
 	public static HashMap<String, String> parseStringForTuples(String queryString) throws UnsupportedEncodingException, InvalidQueryFormatException {
@@ -26,7 +25,11 @@ public class QueryParser {
 		}
 		
 		if (!queryTuples.containsKey(QueryStrings.DATE)) {
-			queryTuples.put(QueryStrings.DATE, DateTimeUtilities.getCurrentUTCDateTime());
+			queryTuples.put(QueryStrings.DATE, DateTimeUtilities.getCurrentUTCDate());
+		}
+			
+		for (String s: queryTuples.values()) {
+			System.out.println(s);
 		}
 		
 		validateQuery(queryTuples);
@@ -45,7 +48,7 @@ public class QueryParser {
 		boolean hasValidParameters = true;
 		
 		if (queryTuples.size() != 6) {
-			throw new InvalidQueryFormatException("The query string does not have enough Parameters. You gave " + queryTuples.size() + ". Six are required.");
+			throw new InvalidQueryFormatException("The query string does not have enough Parameters.");
 		}
 		
 		queryParameters = QueryStrings.getQueryParameters();
@@ -56,43 +59,72 @@ public class QueryParser {
 		}
 		
 		if (!hasValidParameters) {
-			throw new InvalidQueryFormatException("The query string has the correct amount of parameters, but some parameter names are incorrect. The following parameters are necessary: originzip, destzip, date, dropofftime, mailclass, desttype");
+			throw new InvalidQueryFormatException("The query string has the correct amount of parameters, but some parameter names are incorrect. The following parameters are necessary: originzip, destzip, dropofftime, mailclass, desttype, and an optional date.");
 		}
 		
 		validateZip(queryTuples.get(QueryStrings.DEST_ZIP));
 		validateZip(queryTuples.get(QueryStrings.ORIGIN_ZIP));
+		validateDropOffTime(queryTuples.get(QueryStrings.DROP_OFF_TIME));
+		validateDate(queryTuples.get(QueryStrings.DATE));
+		validateMailClass(queryTuples.get(QueryStrings.MAIL_CLASS));
+		validateDestType(queryTuples.get(QueryStrings.DEST_TYPE));
 		
-		
-		
-		
+		validateNoNullStrings(queryTuples);
 	}
 	
+	private static void validateNoNullStrings(HashMap<String, String> queryTuples) throws InvalidQueryFormatException {
+		
+		for (String s: queryTuples.values()) {
+			if (s.isEmpty()) {
+				throw new InvalidQueryFormatException("No parameters are allowed to be null");
+			}
+		}
+		
+	}
+
 	private static void validateZip(String zip) throws InvalidQueryFormatException {
 		try {
 			Integer.parseInt(zip);
 		} catch (NumberFormatException e) {
-			throw new InvalidQueryFormatException("Attempted to parse the zipcode " + zip + ", but it is in an invalid format");
+			throw new InvalidQueryFormatException("Attempted to parse the ZIP code " + zip + ", but it is in an invalid format");
 		}
 		
 		if ( !(zip.length() == 5 || zip.length() == 9) ) {
-			throw new InvalidQueryFormatException("Attempted to parse the zip code" + zip + ", but it is an improper length.");
+			throw new InvalidQueryFormatException("Attempted to parse the ZIP code" + zip + ", but it is an improper length.");
 		}
 	}
 	
-	private static void validateDropOffTime() {
-		//TODO
-	}
-	
-	private static void validateDate() {
-		//TODO make a datetime Utility function and update the get date and time function
-	}
-	
-	private static void validateMailClass() {
-		//TODO
-	}
-	
-	private static void validateDestType() {
+	private static void validateDropOffTime(String dropofftime) throws InvalidQueryFormatException {
+		int dropOffTimeInt = -1; 
+		try {
+			dropOffTimeInt = Integer.parseInt(dropofftime);
+		} catch (NumberFormatException e) {
+			throw new InvalidQueryFormatException("Attempted to parse the drop off time " + dropofftime + ", but it is in an invalid format.");
+		}
 		
+		if ( !(dropOffTimeInt >= 0 && dropOffTimeInt <= 2359) ) {
+			throw new InvalidQueryFormatException("Attempted to parse the drop off time " + dropofftime + ", but it is not within the correct range of values.");
+		}
+	}
+	
+	private static void validateDate(String date) throws InvalidQueryFormatException {
+		try {
+			DateTimeUtilities.isDateValid(date);
+		} catch (ParseException e) {
+			throw new InvalidQueryFormatException("Invalid date given. Date must be in the format" + DateTimeUtilities.DATE_FORMAT);
+		}
+	}
+	
+	private static void validateMailClass(String mailclass) throws InvalidQueryFormatException {
+		if ( !(QueryStrings.getMailClasses().contains(mailclass)) ) {
+			throw new InvalidQueryFormatException("Invalid Mail class given. Please use one of the appropriate mail classes: " + QueryStrings.getMailClasses());
+		}
+	}
+	
+	private static void validateDestType(String desttype) throws InvalidQueryFormatException {
+		if ( !(QueryStrings.getDestTypes().contains(desttype)) ) {
+			throw new InvalidQueryFormatException("Invalid destination type given. Please use one of the appropriate destination types: " + QueryStrings.getMailClasses());
+		}
 	}
 	
 	public static HashMap<String, String> getFakeQueryTuples() {
@@ -100,7 +132,7 @@ public class QueryParser {
 		
 		fakeQueryTuples.put(QueryStrings.ORIGIN_ZIP, "01609");
 		fakeQueryTuples.put(QueryStrings.DEST_ZIP, "90610");
-		fakeQueryTuples.put(QueryStrings.DATE, DateTimeUtilities.getCurrentUTCDateTime());
+		fakeQueryTuples.put(QueryStrings.DATE, DateTimeUtilities.getCurrentUTCDate());
 		fakeQueryTuples.put(QueryStrings.DROP_OFF_TIME, "1000");
 		fakeQueryTuples.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_PME);
 		fakeQueryTuples.put(QueryStrings.DEST_TYPE, QueryStrings.DESTTYPE_HFPU);

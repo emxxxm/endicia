@@ -1,34 +1,47 @@
 package MainPackage;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.Date;
 
 public class DateTimeUtilities {
+	
+	public static String DATE_FORMAT = "yyyy-MMM-dd";
 	/**
 	 * Utility function which computes the Date and Time in UTC with the following format:
-	 * "yyyy-mm-ddThh:mm:ssZ", where T and Z are literals within the String.
-	 * The T separates the date from the time and the Z indicates the time is UTC.
-	 * @return "yyyy-mm-ddThh:mm:ssZ"
+	 * "yyyy-mm-dd".
+	 * @return "yyyy-mm-dd" 
 	 */
-	public static String getCurrentUTCDateTime() {
+	public static String getCurrentUTCDate() {
 		String formattedDate;
+
 		TimeZone tz = TimeZone.getTimeZone("UTC");
-		Calendar utcCalendar = Calendar.getInstance(tz);
-		SimpleDateFormat formating = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+		Calendar utcCalendar = getCalendar();
+		SimpleDateFormat formating = new SimpleDateFormat(DATE_FORMAT);
 		
 		formating.setTimeZone(tz);
 		
 		formattedDate = formating.format(utcCalendar.getTime());
-				
-		//Strip the unwanted precision from the string
-		formattedDate = formattedDate.substring(0,formattedDate.indexOf(".")) + "Z"; 
 		
 		return formattedDate;
 	}
 	
-	public static String getDateForLogger() {
-		String d = getCurrentUTCDateTime();
-		d = d.replace(":", "-");
-		return d;
+	public static void isDateValid(String dateToValidate) throws ParseException {
+		isDateValid(dateToValidate, DATE_FORMAT);
+	}
+	
+	public static void isDateValid(String dateToValidate, String dateFormat) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+		sdf.setLenient(false);
+	
+		sdf.parse(dateToValidate);
+	}
+	
+	public static Calendar getCalendar() {
+		TimeZone tz = TimeZone.getTimeZone("UTC");
+		Calendar utcCalendar = Calendar.getInstance(tz);
+		
+		return utcCalendar;
 	}
 }
