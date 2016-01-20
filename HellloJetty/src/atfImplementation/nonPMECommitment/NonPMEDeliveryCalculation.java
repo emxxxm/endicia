@@ -4,7 +4,6 @@ package atfImplementation.nonPMECommitment;
 import java.text.ParseException;
 import java.util.HashMap;
 import MainPackage.DateTimeUtilities;
-import atfImplementation.CalculationNotPossibleException;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
 import dataHandler.dataFiles.AddressClose;
@@ -53,6 +52,10 @@ public class NonPMEDeliveryCalculation {
 	//TODO decide whether is PO or HFPU
 	public boolean isPO_HFPU(){
 		return true;
-	}	
+	}
+
+	
+		
+		
 
 }
