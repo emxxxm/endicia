@@ -19,7 +19,10 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 
 	public int lookUpClose(String originZip) {
 		return AddressClose.getCloseTimeOnDOWWrapper(DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.DATE)), originZip);
-		
+	}
+	
+	public void resolveHFPU() {
+		//TODO
 	}
 	
 }
