@@ -2,11 +2,8 @@ package atfImplementation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import MainPackage.QueryStrings;
-import atfImplementation.nonPMECommitment.NonPMECommitmentMainLogic;
 
 public class MainATFImplementation  {
 	
