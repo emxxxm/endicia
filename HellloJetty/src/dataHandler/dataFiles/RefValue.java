@@ -45,8 +45,10 @@ public class RefValue extends AbsDataFile {
 		
 		return DPOZips;
 	}
-	
-	public ArrayList<String> getDefaultPRICOT(int DOW){
+	public String getDefaultPMCOT(int DOW){
+		return "";
+	}
+	public String getDefaultNonPMCOT(int DOW, String maiClass){
 		ArrayList<String> defaultCot = new ArrayList<String>();
 		//TODO figure out what the 3_FRI_COT means in ATF_VAL
 		for(CSVRecord r: recordsList){
@@ -54,7 +56,7 @@ public class RefValue extends AbsDataFile {
 				defaultCot.add(r.get(rangeID));
 			}
 		}
-		return defaultCot;
+		return "";
 	}
 
 	@Override

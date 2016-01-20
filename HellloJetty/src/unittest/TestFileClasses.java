@@ -103,7 +103,7 @@ public class TestFileClasses{
 		PRI_COT cot = new PRI_COT(QueryParser.getFakeQueryTuples());
 		
 		System.out.println(cot.getPRI_COT());
-	}
+	} 
 	
 	/*****************Test NonPMEDeliveryCalculationsubroutine******************************/
 	@Test 

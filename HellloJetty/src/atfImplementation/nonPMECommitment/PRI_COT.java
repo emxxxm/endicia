@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
@@ -30,23 +31,16 @@ public class PRI_COT {
 			DOW = 8;
 		}
 		else{
-			DOW = getDayOfWeek(EAD);                  
+			DOW = DateTimeUtilities.getDayOfWeek(EAD);                  
 		}
-		//if(EAD is a USPS_HOL)
-			//DOW = 8
-		//else DOW=EAD_DOW
-		if(USPSHoliday.contains(EAD)){
-			DOW = 8;
-		}
-		else DOW = getDayOfWeek(EAD);
-		
+
 		//[DataAccess]Lookup PRI COT for DOW from ATF_COT
 		PRI_COT = get_PRI_COT(DOW, ZIP);
 		
 		if(PRI_COT.isEmpty()){
 			IDataMaster d = DataMaster.getInstance();
 			
-			PRI_COT.addAll(d.getRefValue().getDefaultPRICOT(DOW));
+			PRI_COT.add(d.getRefValue().getDefaultPMCOT(DOW));
 		}
 		
 		
@@ -71,21 +65,6 @@ public class PRI_COT {
 		IDataMaster d = DataMaster.getInstance();
 		RefValue ref = d.getRefValue();
 		return ref.getHolidays();
-	}
-	//TODO optimization. This function may also be used in other subroutine
-	public int getDayOfWeek(String date){
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date calendarDate = new Date();
-		try {
-			 calendarDate = format.parse(date);
-		} catch (ParseException e) {
-			
-			System.out.println(e.getMessage());
-		}
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(calendarDate);
-		return calendar.get(Calendar.DAY_OF_WEEK);
-		
 	}
 
 }
