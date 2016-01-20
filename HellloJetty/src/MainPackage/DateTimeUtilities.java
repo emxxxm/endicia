@@ -4,13 +4,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Date;
 
 public class DateTimeUtilities {
 	
 	public static String DATE_FORMAT = "dd-MMM-yyyy";
 	public static String TIME_ZONE = "UTC";
-	
+	private final static Logger logger = Logger.getLogger(LoggingHub.class.getName());
 	public static TimeZone getTimeZone() {
 		return TimeZone.getTimeZone("UTC");
 	}
@@ -85,8 +87,7 @@ public class DateTimeUtilities {
 		try {
 			 calendarDate = format.parse(date);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			logger.log(Level.SEVERE,e.getMessage(), e);
 		}
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(calendarDate);

@@ -1,18 +1,10 @@
 package atfImplementation.nonPMECommitment;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
-import dataHandler.dataFiles.COT_ALL;
 import dataHandler.dataFiles.RefValue;
 
 public class PRI_COT {
@@ -51,14 +43,6 @@ public class PRI_COT {
 			PRI_COT.add(d.getRefValue().getDefaultPMCOT(DOW));
 		}
 		
-		
-		
-		//if PRI_COT found, save PRI_COT
-		//else 
-			//[DataAccess]lookup DEFAULT_COT_PRI for DOW from ATF_REF_VALUE
-			//save PRI_COT
-		
-		//return PRI_COT;
 		
 	}
 	public ArrayList<String> getPRI_COT(){
