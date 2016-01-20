@@ -48,7 +48,7 @@ public class DateTimeUtilities {
 	
 	public static String incrementDate(String currentDate, int incrementAmount) throws ParseException {
 		SimpleDateFormat formating = new SimpleDateFormat(DateTimeUtilities.DATE_FORMAT);
-		Calendar utcCalendar = Calendar.getInstance(getTimeZone());
+		Calendar utcCalendar = getCalendar();
 		Date newDate = getDateFromString(currentDate);
 		utcCalendar.setTime(newDate);
 		utcCalendar.add(Calendar.DATE, incrementAmount);
