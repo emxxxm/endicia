@@ -3,13 +3,16 @@ package atfImplementation;
 import java.util.HashMap;
 
 import MainPackage.DateTimeUtilities;
+import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
 import dataHandler.dataFiles.AddressClose;
 
 public abstract class AbsATFImplementation implements IATFImplementation {
 	
-	String EAD;
+	String EAD, HFPUAddress;
 	HashMap<String, String> queryTuples;
+	HFPULocation HFPUloc =  new HFPULocation();
+	int originCloseTime;
 	
 	public AbsATFImplementation(HashMap<String, String> q) {
 		queryTuples = q;
@@ -17,12 +20,19 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		queryTuples.put(QueryStrings.EAD, EAD);
 	}
 
-	public int lookUpClose(String originZip) {
-		return AddressClose.getCloseTimeOnDOWWrapper(DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.DATE)), originZip);
+	private void lookUpClose(String originZip) {
+		originCloseTime = AddressClose.getCloseTimeOnDOWWrapper(DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.DATE)), originZip);
 	}
 	
-	public void resolveHFPU() {
-		//TODO
+	private void resolveHFPU() {
+		if (QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
+				HFPUAddress = HFPUloc.getHFPULocation();
+		}
+	}
+	
+	public void commonIsDestinationHFPUBranch() {
+		lookUpClose(queryTuples.get(QueryStrings.ORIGIN_ZIP));
+		resolveHFPU();
 	}
 	
 }

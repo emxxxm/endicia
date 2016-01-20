@@ -3,8 +3,10 @@ package atfImplementation;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
 import atfImplementation.nonPMECommitment.PRI_COT;
+import dataHandler.DataMaster;
 
 public class MainNonPMEImplementation extends AbsATFImplementation {
 
@@ -18,12 +20,16 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 	@Override
 	public void execute() {
 		ArrayList<String> PRIOutput; 
+		String cutoffTime;
 		
 		if (queryTuples.get(QueryStrings.MAIL_CLASS).equals(QueryStrings.MAIL_CLASS_PRI)) {
 			PRIOutput = pri.getPRI_COT();
 		} else {
-			
+			cutoffTime = DataMaster.getInstance().getRefValue().getDefaultNonPMCOT(DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.DATE)), 
+					queryTuples.get(QueryStrings.MAIL_CLASS));
 		}
+	
+		commonIsDestinationHFPUBranch();
 		
 	}
 	
