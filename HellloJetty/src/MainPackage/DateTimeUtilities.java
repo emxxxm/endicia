@@ -71,7 +71,6 @@ public class DateTimeUtilities {
 		
 		long milliDiff = utcCalendar2.getTimeInMillis() - utcCalendar1.getTimeInMillis();
 		int days = (int) (milliDiff / (1000*60*60*24));
-		System.out.println("Days: " + days);
 		return Math.abs(days);
 	}
 	

@@ -102,10 +102,9 @@ public class TestFileClasses{
 	@Test
 	public void testTemporaryAPOFPODPOsubroutine() throws CalculationNotPossibleException {
 		HashMap<String, String> q = QueryParser.getFakeQueryTuples();
-		APOFPODPOSubroutine afdSub = new APOFPODPOSubroutine(q);
 		
 		for (String s: range) {
-			assertTrue(afdSub.isZipInRange(s));
+			assertTrue(refVal.isZipInRange(s));
 		}
 	}
 	

@@ -39,7 +39,6 @@ public class PRI_COT {
 		
 		if(PRI_COT.isEmpty()){
 			IDataMaster d = DataMaster.getInstance();
-			
 			PRI_COT.add(d.getRefValue().getDefaultPMCOT(DOW));
 		}
 		

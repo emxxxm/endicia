@@ -84,6 +84,11 @@ public class QueryParser {
 		validateNoNullStrings(queryTuples);
 	}
 	
+	//TODO Include just PME or also incluse PRI
+	public static boolean isExpress(String mailClass) {
+		return mailClass.equals(QueryStrings.MAIL_CLASS_PME);
+	}
+	
 	private static void validateNoNullStrings(HashMap<String, String> queryTuples) throws InvalidQueryFormatException {
 		
 		for (String s: queryTuples.values()) {

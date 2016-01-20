@@ -26,12 +26,13 @@ public class APOFPODPOSubroutine {
 	String retrogradeZip, progradeZip, dropOffTime, retrogradeArrivalTime;
 
 	ArrayList<CSVRecord> records;
+	RefValue refVal;
 
 	public APOFPODPOSubroutine(HashMap<String, String> q) throws CalculationNotPossibleException {
 		initializeValuesFromDataFile(q);
 
-		if (isZipInRange(originZip)) {//Path if origin zip is within military range
-			if (isZipInRange(destZip)) {
+		if (refVal.isZipInRange(originZip)) {//Path if origin zip is within military range
+			if (refVal.isZipInRange(destZip)) {
 				if (isOriginOrDestDPO()) {
 					throw new CalculationNotPossibleException("Either the origin or destination ZIP is DPO. Calculation not possible with supplied data");
 				} else {				
@@ -52,7 +53,7 @@ public class APOFPODPOSubroutine {
 			}
 
 		} else {//Path if origin zip is not within military range
-			if (isZipInRange(destZip)) {
+			if (refVal.isZipInRange(destZip)) {
 				if (records.size() == 1) {//If one record is found
 					initAPOFPODPOData(records.get(0));
 					if (isHFPUOrPOBox()) {
@@ -76,11 +77,11 @@ public class APOFPODPOSubroutine {
 
 	private void initializeValuesFromDataFile(HashMap<String, String> q) {
 		IDataMaster dm = DataMaster.getInstance();
-		RefValue refData = dm.getRefValue();
+		refVal =  dm.getRefValue();
 		APOFPODPO APOData = dm.getAPOFPODPO(); 
 
-		initRanges(refData.getMilitaryZipRanges());
-		DPOZips = refData.getDPOZips();
+		refVal.initRanges(lowerbounds, upperbounds);
+		DPOZips = refVal.getDPOZips();
 
 		records = APOData.getRecords(mailClass, originZip);
 		dropOffTime = q.get(QueryStrings.DROP_OFF_TIME);
@@ -99,39 +100,9 @@ public class APOFPODPOSubroutine {
 		retrogradeArrivalTime = record.get(APOFPODPO.RETRO_ARRIVAL);		
 	}
 
-	/**
-	 * Initializes the variables lowerbounds and upperbounds to contain a list of the parsed values
-	 * @param militaryRanges a list of strings in the format "LOWERZIP-UPPERZIP" (i.e. "34000-34099") 
-	 * These strings are obtained from the ATF_REF_VALUE file; any tuples with the prefix "APOFPODPO_ZIP_RANGE" are taken to be bounds
-	 */
-	private void initRanges(ArrayList<String> militaryRanges) {
-		String[] bounds;
-		for (String s: militaryRanges) {
-			bounds = s.split("-");
-			lowerbounds.add(Integer.parseInt(bounds[0]));
-			upperbounds.add(Integer.parseInt(bounds[1]));
-		}
+	
 
-	}
-
-	/**
-	 * Calculates whether the given zip code string is numerically within the Military ZIP boundaries specified in ATF_REF_VALUE
-	 * @param zip The ZIP Code to be checked against the lower and upper bounds
-	 * @return true if the zip code is inclusively between the lower and upper bounds
-	 * TODO make private once testing is not needed
-	 */
-	public boolean isZipInRange(String zip) {
-		int intZip = Integer.parseInt(zip);
-		boolean inRange = false;
-
-		for (int i = 0; i < lowerbounds.size(); i++) {
-			inRange |= ((lowerbounds.get(i) <= intZip) && 
-					(upperbounds.get(i) >= intZip));
-		}
-
-		return inRange;
-	}
-
+	
 	private boolean isOriginOrDestDPO() {
 		return DPOZips.contains(originZip) || DPOZips.contains(destZip);
 	}
@@ -143,8 +114,6 @@ public class APOFPODPOSubroutine {
 	public int getRetrogradeOffset() {
 		return retrogradeOffset;
 	}
-
-
 
 
 }
