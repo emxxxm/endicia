@@ -89,10 +89,10 @@ public class TestFileClasses{
 	@Test
 	public void testTemporaryAPOFPODPOsubroutine() throws CalculationNotPossibleException {
 		HashMap<String, String> q = QueryParser.getFakeQueryTuples();
-		//APOFPODPOSubroutine afdSub = new APOFPODPOSubroutine(q);
+		APOFPODPOSubroutine afdSub = new APOFPODPOSubroutine(q);
 		
 		for (String s: range) {
-			//assertTrue(afdSub.isZipInRange(s));
+			assertTrue(afdSub.isZipInRange(s));
 		}
 	}
 	
@@ -100,7 +100,7 @@ public class TestFileClasses{
 	@Test
 	public void testTemporaryPRICOTsubroutine() throws CalculationNotPossibleException {
 		
-		PRI_COT cot = new PRI_COT("50222","2016-01-19");
+		PRI_COT cot = new PRI_COT(QueryParser.getFakeQueryTuples());
 		
 		System.out.println(cot.getPRI_COT());
 	}

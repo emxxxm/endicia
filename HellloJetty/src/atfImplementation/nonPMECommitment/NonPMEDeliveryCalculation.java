@@ -31,9 +31,11 @@ public class NonPMEDeliveryCalculation {
 			rules.getSessionList().get(RulesObject.DROOLS_DELIVERY).execute(droolsMsg);
 			
 			if(isPO_HFPU()){
+
 				int deliveryDOW = DateTimeUtilities.getDayOfWeek(droolsMsg.deliveryDate);
-				closeTime = getCloseTimeOnDOW(deliveryDOW, droolsMsg.destinationZip);
 				System.out.println("Close Time: " + closeTime);
+				closeTime = AddressClose.getCloseTimeOnDOWWrapper(deliveryDOW, droolsMsg.destinationZip);
+
 				if(closeTime!=0){
 					break;
 				}
@@ -70,20 +72,6 @@ public class NonPMEDeliveryCalculation {
 	//TODO decide whether is PO or HFPU
 	public boolean isPO_HFPU(){
 		return true;
-	}
-
-	//[DateAccess] get the closeTime on given DOW
-	public int getCloseTimeOnDOW(int DOW, String destZIP){
-		int closeTime = 0;
-		IDataMaster d = DataMaster.getInstance();
-		AddressClose ac = d.getAddressClose();
-		try {
-			closeTime = Integer.parseInt(ac.getCloseTimeOnDow(DOW, destZIP));
-		} catch (NumberFormatException | CalculationNotPossibleException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return closeTime;
-	}
+	}	
 
 }

@@ -27,8 +27,8 @@ public class APOFPODPOSubroutine {
 
 	ArrayList<CSVRecord> records;
 
-	public APOFPODPOSubroutine(LinkedHashMap<String,String> queryTuples) throws CalculationNotPossibleException {
-		initializeValuesFromDataFile(queryTuples);
+	public APOFPODPOSubroutine(HashMap<String, String> q) throws CalculationNotPossibleException {
+		initializeValuesFromDataFile(q);
 
 		if (isZipInRange(originZip)) {//Path if origin zip is within military range
 			if (isZipInRange(destZip)) {
@@ -42,7 +42,7 @@ public class APOFPODPOSubroutine {
 			if (records.size() == 1) {//If one record is found
 				initAPOFPODPOData(records.get(0));
 				retrogradeOffset = retrogradeOffsetFromRecord; 
-				queryTuples.put(QueryStrings.ORIGIN_ZIP, retrogradeZip);
+				q.put(QueryStrings.ORIGIN_ZIP, retrogradeZip);
 				retrogradeZip = originZip;
 				return;
 			} else { //TODO figure out where to get retrograde arrival time in this branch -- TYPO IN CHART??
@@ -59,7 +59,7 @@ public class APOFPODPOSubroutine {
 						throw new CalculationNotPossibleException("Destination Type is either PO Box or HFPU. Calculation is not possible with the supplied data.");
 					} else {
 						progradeOffset = progradeOffsetFromRecord;
-						queryTuples.put(QueryStrings.DEST_ZIP, progradeZip);
+						q.put(QueryStrings.DEST_ZIP, progradeZip);
 						progradeZip = destZip;
 						
 					}
@@ -74,7 +74,7 @@ public class APOFPODPOSubroutine {
 		return QueryParser.isHFPU(destType) || QueryParser.isPOBox(destType);
 	}
 
-	private void initializeValuesFromDataFile(LinkedHashMap<String, String> queryTuples) {
+	private void initializeValuesFromDataFile(HashMap<String, String> q) {
 		IDataMaster dm = DataMaster.getInstance();
 		RefValue refData = dm.getRefValue();
 		APOFPODPO APOData = dm.getAPOFPODPO(); 
@@ -83,11 +83,11 @@ public class APOFPODPOSubroutine {
 		DPOZips = refData.getDPOZips();
 
 		records = APOData.getRecords(mailClass, originZip);
-		dropOffTime = queryTuples.get(QueryStrings.DROP_OFF_TIME);
-		originZip = queryTuples.get(QueryStrings.ORIGIN_ZIP);
-		destZip = queryTuples.get(QueryStrings.DEST_ZIP);
-		mailClass = queryTuples.get(QueryStrings.MAIL_CLASS);
-		destType = queryTuples.get(QueryStrings.DEST_TYPE);
+		dropOffTime = q.get(QueryStrings.DROP_OFF_TIME);
+		originZip = q.get(QueryStrings.ORIGIN_ZIP);
+		destZip = q.get(QueryStrings.DEST_ZIP);
+		mailClass = q.get(QueryStrings.MAIL_CLASS);
+		destType = q.get(QueryStrings.DEST_TYPE);
 	}
 
 	//TODO test this method

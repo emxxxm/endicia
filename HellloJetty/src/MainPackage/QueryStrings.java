@@ -21,6 +21,7 @@ public class QueryStrings {
 	public static String DROP_OFF_TIME = "dropofftime";
 	public static String MAIL_CLASS = "mailclass";
 	public static String DEST_TYPE = "desttype";
+	public static String EAD = "ead";
 	
 	public static ArrayList<String> getQueryParameters() {
 		ArrayList<String> queryParameters = new ArrayList<String>();
