@@ -2,8 +2,8 @@ package atfImplementation;
 
 import java.util.HashMap;
 
+import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
-import dataHandler.DataMaster;
 import dataHandler.dataFiles.AddressClose;
 
 public abstract class AbsATFImplementation implements IATFImplementation {
@@ -17,9 +17,8 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		queryTuples.put(QueryStrings.EAD, EAD);
 	}
 
-	public String lookUpClose(String originZip) {
-		AddressClose closeLookup = DataMaster.getInstance().getAddressClose();
-		return closeLookup.getCloseTime(originZip, );
+	public int lookUpClose(String originZip) {
+		return AddressClose.getCloseTimeOnDOWWrapper(DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.DATE)), originZip);
 		
 	}
 	

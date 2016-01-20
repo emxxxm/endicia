@@ -23,8 +23,8 @@ public class AddressClose extends AbsDataFile {
 		}
 		throw new CalculationNotPossibleException("Did not find corresponding close time");
 	}
-	
-//[DateAccess] get the closeTime on given DOW
+
+	//[DateAccess] get the closeTime on given DOW
 	public static int getCloseTimeOnDOWWrapper(int DOW, String destZIP){
 		int closeTime = 0;
 		IDataMaster d = DataMaster.getInstance();
@@ -36,7 +36,7 @@ public class AddressClose extends AbsDataFile {
 			e.printStackTrace();
 		}
 		return closeTime;
-		
+
 	}
-	
+
 }

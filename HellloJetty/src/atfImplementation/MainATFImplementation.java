@@ -13,7 +13,7 @@ public class MainATFImplementation  {
 	ArrayList<String> output = new ArrayList<String>();
 	IATFImplementation mainLogic; 
 	
-	public MainATFImplementation(HashMap<String, String> queryTuples) {
+	public MainATFImplementation(HashMap<String, String> queryTuples) throws CalculationNotPossibleException {
 	
 	
 	if (queryTuples.get(QueryStrings.MAIL_CLASS).equals(QueryStrings.MAIL_CLASS_PME)) {
