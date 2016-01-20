@@ -148,6 +148,7 @@ public class QueryParser {
 		fakeQueryTuples.put(QueryStrings.DROP_OFF_TIME, "1000");
 		fakeQueryTuples.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_PME);
 		fakeQueryTuples.put(QueryStrings.DEST_TYPE, QueryStrings.DESTTYPE_HFPU);
+		fakeQueryTuples.put(QueryStrings.EAD, DateTimeUtilities.getCurrentUTCDate());
 		
 		return fakeQueryTuples;
 	}
