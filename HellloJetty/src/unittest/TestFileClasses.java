@@ -3,6 +3,7 @@ package unittest;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.apache.commons.csv.CSVRecord;
@@ -10,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import MainPackage.QueryParser;
+import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
 import atfImplementation.nonPMECommitment.NonPMEDeliveryCalculation;
@@ -73,6 +75,11 @@ public class TestFileClasses{
 		assertEquals(189, refVal.getDPOZips().size());
 	}
 	
+	@Test
+	public void testGetDefaultNonPMCOT() {
+		assertEquals("1700",refVal.getDefaultNonPMCOT(Calendar.MONDAY, QueryStrings.MAIL_CLASS_PKG));
+	}
+	
 
 	/*****************Test IDataFile APOFPODPO Class******************************/
 	@Test
@@ -101,7 +108,7 @@ public class TestFileClasses{
 		PRI_COT cot = new PRI_COT(QueryParser.getFakeQueryTuples());
 		
 		System.out.println(cot.getPRI_COT());
-	}
+	} 
 	
 	/*****************Test NonPMEDeliveryCalculationsubroutine******************************/
 	@Test 
