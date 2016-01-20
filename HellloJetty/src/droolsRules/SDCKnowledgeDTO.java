@@ -2,14 +2,18 @@ package droolsRules;
 
 import java.text.ParseException;
 import MainPackage.DateTimeUtilities;
+import MainPackage.QueryParser;
+import MainPackage.QueryStrings;
+import dataHandler.DataMaster;
 
 public class SDCKnowledgeDTO {
 	//TODO Change everything back to private
+	//TODO Check on the isNotGuarantee method
 	//Delivery Drools File
 	public String deliveryDate;
 	public String ead;
 	public String mailClass;
-	public int transitTime;
+	public int transitTime = 0;
 	public int deliveryDow;
 	public String originZipAs5Digit;
 	public String destinationZipAs5Digit;
@@ -17,11 +21,13 @@ public class SDCKnowledgeDTO {
 	public String destinationZip;
 	public boolean noExpressMail;
 	public String progradeZip;
+	public boolean isGuarantee = true;
 
 	//Post Processing Drools File
 	public int svcStd;
 	public String acceptDate;
 	public int deliveryTime;
+	public String svcStdMsg;
 	
 	//Transit File
 	public int eadDow;
@@ -34,14 +40,13 @@ public class SDCKnowledgeDTO {
 	
 	
 	public SDCKnowledgeDTO() {
-		
 	}
 	
 	public static SDCKnowledgeDTO getFakeDroolsMsg() {
 		SDCKnowledgeDTO message = new SDCKnowledgeDTO();
 		message.deliveryDate = "31-Jan-2020";
 		message.ead = "28-Feb-2020";
-		message.mailClass = "PME";
+		message.mailClass = QueryStrings.MAIL_CLASS_PRI;
 		message.transitTime = 3;
 		message.deliveryDow = 5;
 		message.originZipAs5Digit= "01609";
@@ -50,7 +55,13 @@ public class SDCKnowledgeDTO {
 		message.destinationZip = "94043";
 		message.noExpressMail = false;
 		message.progradeZip = "12345";
+		message.noExpressMail = message.isNotExpressMail();
+		message.acceptDate = "03-Feb-2020";
 		return message;
+	}
+	
+	public boolean isNotExpressMail() {
+		return !QueryParser.isExpress(mailClass);
 	}
 	
 	public void print() {
@@ -71,78 +82,71 @@ public class SDCKnowledgeDTO {
 	
 	//Acceptance File
 	public void incrementEad(int increment) throws ParseException {
-		System.out.println("Incremented EAD Date");
 		deliveryDate = DateTimeUtilities.incrementDate(ead,  increment);;
 		System.out.println(ead);
 	}
 	
 	//Transit File
 	public void addDaysToDate(String date, int numDays) throws ParseException {
-		System.out.println("Incremented Delivery Date");
 		String newDate = DateTimeUtilities.incrementDate(date,  numDays);;
 		System.out.println(newDate);
 	}
 	
 	public void incrementTransitTime(int number) {
-		
+		transitTime += number;
 	}
 	
 	public void decreaseServiceStandard(int number) {
-		
+		svcStd -= number;
 	}
 	
 	public void increaseNonPmeServiceStandard(int number) {
-		
+		svcStd += number;
 	}
 	
 	public void increasePmeServiceStandard(int number) {
-		
+		svcStd += number;
 	}
 	
 	public void increasePriServiceStandard(int number) {
-		
+		svcStd += number;
 	}
 	
 	//From Post Processing File
 	public boolean isDpo(String destinationZip) {
-		return true;
+		return DataMaster.getInstance().getRefValue().getDPOZips().contains(destinationZip);
 	}
 	
 	public boolean isPtfas(String originZip) {
-		return true;
+		return DataMaster.getInstance().getRefValue().getPTFASRanges().contains(originZip);
 	}
 	
 	//From Delivery Drools File
 	public boolean isUspsHoliday(String deliveryDate) {
-		return true;
+		return DataMaster.getInstance().getRefValue().getHolidays().contains(deliveryDate);
 	}
 	
 	public boolean isApoFpoDpo(String destinationZip) {
-		return true;
+		return DataMaster.getInstance().getRefValue().isZipInRange(destinationZip);	
 	}
 	
 	public boolean isOriginZipWithinRange(String lowerBound, String upperBound) {
-		return true;
+		int lower = Integer.parseInt(lowerBound), upper = Integer.parseInt(upperBound), origin = Integer.parseInt(originZipAs5Digit); 
+		return (origin >= lower && origin <= upper);
 	}
 	
 	public boolean isDestinationZipWithinRange(String lowerBound, String upperBound) {
-		return true;
+		int lower = Integer.parseInt(lowerBound), upper = Integer.parseInt(upperBound), dest = Integer.parseInt(destinationZipAs5Digit); 
+		return (dest >= lower && dest <= upper);
 	}
 	
 	public void incrementDeliveryDate(int increment) throws ParseException {
-		System.out.println("Incremented Delivery Date");
 		deliveryDate = DateTimeUtilities.incrementDate(deliveryDate,  increment);;
-		System.out.println(deliveryDate);
 	}
 	
 	public void isNotGuaranteed() {
-		
+		isGuarantee = false;
 	}
-	
-	
-	
-	
-	
 	
 	//Getters
 	
@@ -160,7 +164,6 @@ public class SDCKnowledgeDTO {
 	
 	public int getDaysBetweenDates(String ead, String deliverydate) throws ParseException {
 		int days = DateTimeUtilities.getDaysBetweenDates(deliverydate, ead);
-		System.out.println("Inside SDC Days: " + days);
 		return days;
 	}
 
@@ -175,11 +178,6 @@ public class SDCKnowledgeDTO {
 	public String getEad() {
 		return ead;
 	}
-	
-	
-	
-	
-	
 	
 	
 	//Setters
@@ -198,7 +196,7 @@ public class SDCKnowledgeDTO {
 	}
 	
 	public void setSvcStdMsg(String newMsg) {
-		//svcStd = newMsg;
+		svcStdMsg = newMsg;
 	}
 	
 	//From Delivery Drools File
@@ -209,8 +207,6 @@ public class SDCKnowledgeDTO {
 	public void setTransitTime(int newTime) {
 		transitTime = newTime;
 	}
-	
-	
 
 }
 
