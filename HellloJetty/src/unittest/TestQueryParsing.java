@@ -115,7 +115,7 @@ public class TestQueryParsing {
 			QueryParser.validateQuery(queryTuples);
 			fail("An exception should have been thrown for an invalid destination type");
 		} catch (InvalidQueryFormatException e) {
-			assertEquals("Invalid destination type given. Please use one of the appropriate destination types: " + QueryStrings.getMailClasses(), e.getMessage());
+			assertEquals("Invalid destination type given. Please use one of the appropriate destination types: " + QueryStrings.getDestTypes(), e.getMessage());
 		}		
 	}
 	
