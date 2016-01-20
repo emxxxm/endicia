@@ -34,6 +34,14 @@ public class PRI_COT {
 			DOW = DateTimeUtilities.getDayOfWeek(EAD);                  
 		}
 
+		//if(EAD is a USPS_HOL)
+			//DOW = 8
+		//else DOW=EAD_DOW
+		if(USPSHoliday.contains(EAD)){
+			DOW = 8;
+		}
+		else DOW = DateTimeUtilities.getDayOfWeek(EAD);
+		
 		//[DataAccess]Lookup PRI COT for DOW from ATF_COT
 		PRI_COT = get_PRI_COT(DOW, ZIP);
 		
