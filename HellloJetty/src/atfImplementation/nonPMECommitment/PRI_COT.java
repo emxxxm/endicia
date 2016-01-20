@@ -6,7 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
+import MainPackage.QueryStrings;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
 import dataHandler.dataFiles.COT_ALL;
@@ -14,9 +16,13 @@ import dataHandler.dataFiles.RefValue;
 
 public class PRI_COT {
 	ArrayList<String> PRI_COT;
-	//TODO format EAD in main logic 
+	HashMap<String, String> queryTuples;
+	String ZIP, EAD;
 	//TODO change the constructor later after format EAD
-	public PRI_COT(String ZIP, String EAD){
+	public PRI_COT(HashMap<String, String> queryTuples){
+		ZIP = queryTuples.get(QueryStrings.DEST_ZIP);
+		EAD = queryTuples.get(QueryStrings.EAD);
+		
 		int DOW = 0;
 		//[DataAccess] get USPS_HOL from ATF_REF_VALUE
 		ArrayList<String> USPSHoliday = getUSPSHolidays();

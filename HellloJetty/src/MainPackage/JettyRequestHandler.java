@@ -39,7 +39,7 @@ public class JettyRequestHandler extends AbstractHandler
 	        response.setStatus(HttpServletResponse.SC_OK);
 	        response.getWriter().println(xmlResp);
 	        
-		} catch (InvalidQueryFormatException e) {
+		} catch (Exception e) {//(InvalidQueryFormatException e) {
 		    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	        response.getWriter().println("<tag>" + e.getMessage() + "</tag>");
 		}
