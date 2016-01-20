@@ -1,15 +1,7 @@
 package droolsRules;
 
-//TODO get rid of java.util
-
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-
 import MainPackage.DateTimeUtilities;
-
 
 public class SDCKnowledgeDTO {
 	//TODO Change everything back to private
@@ -45,6 +37,22 @@ public class SDCKnowledgeDTO {
 		
 	}
 	
+	public static SDCKnowledgeDTO getFakeDroolsMsg() {
+		SDCKnowledgeDTO message = new SDCKnowledgeDTO();
+		message.deliveryDate = "31-Jan-2020";
+		message.ead = "28-Feb-2020";
+		message.mailClass = "PME";
+		message.transitTime = 3;
+		message.deliveryDow = 5;
+		message.originZipAs5Digit= "01609";
+		message.destinationZipAs5Digit = "94043";
+		message.originZip = "01609";
+		message.destinationZip = "94043";
+		message.noExpressMail = false;
+		message.progradeZip = "12345";
+		return message;
+	}
+	
 	public void print() {
 		System.out.println("DeliveryDate: " + deliveryDate);
 		System.out.println("ead: " + ead);
@@ -62,13 +70,17 @@ public class SDCKnowledgeDTO {
 	//Actual methods
 	
 	//Acceptance File
-	public void incrementEad(int number) {
-		
+	public void incrementEad(int increment) throws ParseException {
+		System.out.println("Incremented EAD Date");
+		deliveryDate = DateTimeUtilities.incrementDate(ead,  increment);;
+		System.out.println(ead);
 	}
 	
 	//Transit File
-	public void addDaysToDate(String date, int numDays) {
-		
+	public void addDaysToDate(String date, int numDays) throws ParseException {
+		System.out.println("Incremented Delivery Date");
+		String newDate = DateTimeUtilities.incrementDate(date,  numDays);;
+		System.out.println(newDate);
 	}
 	
 	public void incrementTransitTime(int number) {

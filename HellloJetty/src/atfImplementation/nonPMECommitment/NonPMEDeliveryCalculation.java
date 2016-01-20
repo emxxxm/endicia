@@ -1,14 +1,8 @@
 package atfImplementation.nonPMECommitment;
 
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-
 import MainPackage.DateTimeUtilities;
 import atfImplementation.CalculationNotPossibleException;
 import dataHandler.DataMaster;
@@ -37,8 +31,9 @@ public class NonPMEDeliveryCalculation {
 			rules.getSessionList().get(RulesObject.DROOLS_DELIVERY).execute(droolsMsg);
 			
 			if(isPO_HFPU()){
-				int deliveryDOW = getDayOfWeek(droolsMsg.deliveryDate);
+				int deliveryDOW = DateTimeUtilities.getDayOfWeek(droolsMsg.deliveryDate);
 				closeTime = getCloseTimeOnDOW(deliveryDOW, droolsMsg.destinationZip);
+				System.out.println("Close Time: " + closeTime);
 				if(closeTime!=0){
 					break;
 				}
@@ -76,38 +71,7 @@ public class NonPMEDeliveryCalculation {
 	public boolean isPO_HFPU(){
 		return true;
 	}
-	//TODO deliveryDate++
-	public String incrementDeliveryDate(String deliveryDate){
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date calendarDate = new Date();
-		try {
-			 calendarDate = format.parse(deliveryDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-		}
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(calendarDate);
-		calendar.add(Calendar.DATE, 1);
-		String updatedDeliveryDate = format.format(calendar.getTime());
-		return updatedDeliveryDate;
-	}
-	public int getDayOfWeek(String date){
-		int dow = 0;
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date calendarDate = new Date();
-		try {
-			 calendarDate = format.parse(date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-		}
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(calendarDate);
-		return calendar.get(Calendar.DAY_OF_WEEK);
 
-		
-	}
 	//[DateAccess] get the closeTime on given DOW
 	public int getCloseTimeOnDOW(int DOW, String destZIP){
 		int closeTime = 0;
@@ -120,10 +84,6 @@ public class NonPMEDeliveryCalculation {
 			e.printStackTrace();
 		}
 		return closeTime;
-		
 	}
-		
-		
-			
 
 }

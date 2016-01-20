@@ -1,4 +1,5 @@
 package MainPackage;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -76,5 +77,19 @@ public class DateTimeUtilities {
 		SimpleDateFormat formating = new SimpleDateFormat(DateTimeUtilities.DATE_FORMAT);
 		Date newDate = formating.parse(currentDate);
 		return newDate;
+	}
+	
+	public static int getDayOfWeek(String date){
+		DateFormat format = new SimpleDateFormat(DateTimeUtilities.DATE_FORMAT);
+		Date calendarDate = new Date();
+		try {
+			 calendarDate = format.parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(calendarDate);
+		return calendar.get(Calendar.DAY_OF_WEEK);
 	}
 }
