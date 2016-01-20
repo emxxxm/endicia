@@ -1,18 +1,30 @@
 package droolsRules;
 
+//TODO get rid of java.util
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
+import MainPackage.DateTimeUtilities;
+
+
 public class SDCKnowledgeDTO {
+	//TODO Change everything back to private
 	//Delivery Drools File
-	private String deliveryDate;
-	private String ead;
-	private int mailClass;
-	private int transitTime;
+	public String deliveryDate;
+	public String ead;
+	public String mailClass;
+	public int transitTime;
 	public int deliveryDow;
-	public int originZipAs5Digit;
-	public int destinationZipAs5Digit;
-	public int originZip;
-	public int destinationZip;
+	public String originZipAs5Digit;
+	public String destinationZipAs5Digit;
+	public String originZip;
+	public String destinationZip;
 	public boolean noExpressMail;
-	public int progradeZip;
+	public String progradeZip;
 
 	//Post Processing Drools File
 	public int svcStd;
@@ -33,6 +45,19 @@ public class SDCKnowledgeDTO {
 		
 	}
 	
+	public void print() {
+		System.out.println("DeliveryDate: " + deliveryDate);
+		System.out.println("ead: " + ead);
+		System.out.println("mailCalss: " + mailClass);
+		System.out.println("transitTime: " + transitTime);
+		System.out.println("deliveryDow: " + deliveryDow);
+		System.out.println("originZipAs5Digit: " + originZipAs5Digit);
+		System.out.println("destinationZipAs5Digit: " + destinationZipAs5Digit);
+		System.out.println("originZIp: " + originZip);
+		System.out.println("destinationZip: " + destinationZip);
+		System.out.println("noExpressMail: " + noExpressMail);
+		System.out.println("progradeZip: " + progradeZip);
+	}
 	
 	//Actual methods
 	
@@ -67,11 +92,11 @@ public class SDCKnowledgeDTO {
 	}
 	
 	//From Post Processing File
-	public boolean isDpo(int destinationZip) {
+	public boolean isDpo(String destinationZip) {
 		return true;
 	}
 	
-	public boolean isPtfas(int originZip) {
+	public boolean isPtfas(String originZip) {
 		return true;
 	}
 	
@@ -80,7 +105,7 @@ public class SDCKnowledgeDTO {
 		return true;
 	}
 	
-	public boolean isApoFpoDpo(int destinationZip) {
+	public boolean isApoFpoDpo(String destinationZip) {
 		return true;
 	}
 	
@@ -92,8 +117,10 @@ public class SDCKnowledgeDTO {
 		return true;
 	}
 	
-	public void incrementDeliveryDate(int increment) {
-		
+	public void incrementDeliveryDate(int increment) throws ParseException {
+		System.out.println("Incremented Delivery Date");
+		deliveryDate = DateTimeUtilities.incrementDate(deliveryDate,  increment);;
+		System.out.println(deliveryDate);
 	}
 	
 	public void isNotGuaranteed() {
@@ -119,11 +146,13 @@ public class SDCKnowledgeDTO {
 		return transitTime;
 	}
 	
-	public int getDaysBetweenDates(String ead, String deliverydate) {
-		return -1;
+	public int getDaysBetweenDates(String ead, String deliverydate) throws ParseException {
+		int days = DateTimeUtilities.getDaysBetweenDates(deliverydate, ead);
+		System.out.println("Inside SDC Days: " + days);
+		return days;
 	}
 
-	public int getMailClass() {
+	public String getMailClass() {
 		return mailClass;
 	}
 

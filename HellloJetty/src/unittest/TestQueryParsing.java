@@ -24,6 +24,11 @@ public class TestQueryParsing {
 	}
 	
 	@Test
+	public void testDateTimeFormat() {
+		System.out.println(DateTimeUtilities.getCurrentUTCDate());
+	}
+	
+	@Test
 	public void testValidNumberOfParametersAndValidNames() {
 		try {
 			QueryParser.validateQuery(queryTuples);

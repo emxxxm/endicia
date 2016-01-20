@@ -27,7 +27,7 @@ public class APOFPODPOSubroutine {
 
 	ArrayList<CSVRecord> records;
 
-	public APOFPODPOSubroutine(HashMap<String, String> queryTuples) throws CalculationNotPossibleException {
+	public APOFPODPOSubroutine(LinkedHashMap<String,String> queryTuples) throws CalculationNotPossibleException {
 		initializeValuesFromDataFile(queryTuples);
 
 		if (isZipInRange(originZip)) {//Path if origin zip is within military range
@@ -61,6 +61,7 @@ public class APOFPODPOSubroutine {
 						progradeOffset = progradeOffsetFromRecord;
 						queryTuples.put(QueryStrings.DEST_ZIP, progradeZip);
 						progradeZip = destZip;
+						
 					}
 				}
 			} else {
@@ -73,7 +74,7 @@ public class APOFPODPOSubroutine {
 		return QueryParser.isHFPU(destType) || QueryParser.isPOBox(destType);
 	}
 
-	private void initializeValuesFromDataFile(HashMap<String, String> queryTuples) {
+	private void initializeValuesFromDataFile(LinkedHashMap<String, String> queryTuples) {
 		IDataMaster dm = DataMaster.getInstance();
 		RefValue refData = dm.getRefValue();
 		APOFPODPO APOData = dm.getAPOFPODPO(); 

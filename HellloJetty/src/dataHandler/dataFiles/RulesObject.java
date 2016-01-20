@@ -12,6 +12,7 @@ import org.drools.builder.KnowledgeBuilderFactory;
 import org.drools.builder.ResourceType;
 import org.drools.io.ResourceFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
+import org.drools.runtime.StatelessKnowledgeSession;
 
 public class RulesObject implements IDataFile {
 	private static ArrayList<String> filenames = new ArrayList<String>();
@@ -19,7 +20,7 @@ public class RulesObject implements IDataFile {
 	public static String DROOLS_POSTPROCESSING = "ATF_DROOLS_POSTPROCESSING.drl";
 	public static String DROOLS_TRANSIT = "ATF_DROOLS_TRANSIT.drl";
 	public static String DROOLS_ACCEPTANCE = "ATF_DROOLS_ACCEPTANCE.drl";
-	private static HashMap<String, StatefulKnowledgeSession> sessionList = new HashMap<String, StatefulKnowledgeSession>();
+	private static HashMap<String, StatelessKnowledgeSession> sessionList = new HashMap<String, StatelessKnowledgeSession>();
 	
 	public RulesObject() {
 		addFilenames();
@@ -49,12 +50,12 @@ public class RulesObject implements IDataFile {
 			}
 			KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase();
     		kbase.addKnowledgePackages(kbuilder.getKnowledgePackages());
-    		getSessionList().put(filenames.get(i), kbase.newStatefulKnowledgeSession());
+    		getSessionList().put(filenames.get(i), kbase.newStatelessKnowledgeSession());
 		}
     	//StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
 	}
 
-	public HashMap<String, StatefulKnowledgeSession> getSessionList() {
+	public HashMap<String, StatelessKnowledgeSession> getSessionList() {
 		return sessionList;
 	}
 
