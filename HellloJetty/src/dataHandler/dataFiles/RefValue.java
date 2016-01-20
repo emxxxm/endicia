@@ -106,7 +106,7 @@ public class RefValue extends AbsDataFile {
 				dowInFile += "_THU_COT";
 				break;
 			case Calendar.FRIDAY:
-				dowInFile += "_FRICOT";
+				dowInFile += "_FRI_COT";
 				break;
 			case Calendar.SATURDAY:
 				dowInFile += "_SAT_COT";

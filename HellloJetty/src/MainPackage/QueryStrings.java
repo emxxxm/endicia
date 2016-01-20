@@ -15,6 +15,7 @@ public class QueryStrings {
 	public static final String MAIL_CLASS_PER = "PER";
 	public static final String MAIL_CLASS_PKG = "PKG";
 	
+	
 	public static String ORIGIN_ZIP = "originzip";
 	public static String DEST_ZIP = "destzip";
 	public static String DATE = "date";

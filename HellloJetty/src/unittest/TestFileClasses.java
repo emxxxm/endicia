@@ -15,6 +15,7 @@ import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
 import atfImplementation.nonPMECommitment.NonPMEDeliveryCalculation;
+import atfImplementation.nonPMECommitment.NonPMEServiceStandard;
 import atfImplementation.nonPMECommitment.PRI_COT;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
@@ -80,6 +81,11 @@ public class TestFileClasses{
 		assertEquals("1700",refVal.getDefaultNonPMCOT(Calendar.MONDAY, QueryStrings.MAIL_CLASS_PKG));
 	}
 	
+	@Test
+	public void testGetDefaultPMCOT() {
+		assertEquals("1700",refVal.getDefaultPMCOT(Calendar.MONDAY));
+	}
+	
 
 	/*****************Test IDataFile APOFPODPO Class******************************/
 	@Test
@@ -118,6 +124,13 @@ public class TestFileClasses{
 		NonPMEDeliveryCalculation nonPMEdelivery = new NonPMEDeliveryCalculation(q);
 		System.out.println(nonPMEdelivery.getDeliveryTime());
 	}
+	/*****************Test PRI_COTsubroutine******************************/
+	@Test
+	public void testGetNonPMEServiceStandard() throws CalculationNotPossibleException {
+		NonPMEServiceStandard ssd = new NonPMEServiceStandard(QueryParser.getFakeQueryPRITuples());
+		
+		System.out.println(ssd.getTransitTime());
+	} 
 	
 
 }
