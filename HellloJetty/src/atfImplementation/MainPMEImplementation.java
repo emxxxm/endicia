@@ -19,6 +19,7 @@ public class MainPMEImplementation extends AbsATFImplementation {
 		retrogradeOffset = afd.getRetrogradeOffset();
 		progradeOffset = afd.getProgradeOffset();
 		
+		commonIsDestinationHFPUBranch();
 	}
 	
 	//TODO create and run get APO/FPO/DPO data subroutine
