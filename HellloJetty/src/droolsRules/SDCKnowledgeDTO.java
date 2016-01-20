@@ -186,7 +186,7 @@ public class SDCKnowledgeDTO {
 	}
 	
 	public void setSvcStdMsg(String newMsg) {
-		
+		//svcStd = newMsg;
 	}
 	
 	//From Delivery Drools File
