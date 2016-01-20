@@ -19,7 +19,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 
 	public String lookUpClose(String originZip) {
 		AddressClose closeLookup = DataMaster.getInstance().getAddressClose();
-		return closeLookup.getCloseTime(originZip);
+		return closeLookup.getCloseTime(originZip, );
 		
 	}
 	

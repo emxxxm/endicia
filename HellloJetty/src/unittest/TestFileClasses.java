@@ -100,7 +100,7 @@ public class TestFileClasses{
 	@Test
 	public void testTemporaryPRICOTsubroutine() throws CalculationNotPossibleException {
 		
-		PRI_COT cot = new PRI_COT("50222","2016-01-19");
+		PRI_COT cot = new PRI_COT(QueryParser.getFakeQueryTuples());
 		
 		System.out.println(cot.getPRI_COT());
 	}

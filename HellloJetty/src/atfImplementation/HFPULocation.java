@@ -28,8 +28,6 @@ public class HFPULocation {
 		//else
 			//Exception; STOP-CALCULATION NOT POSSIBLE
 	
-	public getHFPULocation() 
-	
 		
 	
 }
