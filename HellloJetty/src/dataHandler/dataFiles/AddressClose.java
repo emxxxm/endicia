@@ -36,7 +36,7 @@ public class AddressClose extends AbsDataFile {
 			e.printStackTrace();
 		}
 		return closeTime;
-
+ 
 	}
 
 }

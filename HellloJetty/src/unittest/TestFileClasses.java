@@ -3,6 +3,7 @@ package unittest;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.apache.commons.csv.CSVRecord;
@@ -10,9 +11,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import MainPackage.QueryParser;
+import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
 import atfImplementation.nonPMECommitment.NonPMEDeliveryCalculation;
+import atfImplementation.nonPMECommitment.NonPMEServiceStandard;
 import atfImplementation.nonPMECommitment.PRI_COT;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
@@ -73,6 +76,16 @@ public class TestFileClasses{
 		assertEquals(189, refVal.getDPOZips().size());
 	}
 	
+	@Test
+	public void testGetDefaultNonPMCOT() {
+		assertEquals("1700",refVal.getDefaultNonPMCOT(Calendar.MONDAY, QueryStrings.MAIL_CLASS_PKG));
+	}
+	
+	@Test
+	public void testGetDefaultPMCOT() {
+		assertEquals("1700",refVal.getDefaultPMCOT(Calendar.MONDAY));
+	}
+	
 
 	/*****************Test IDataFile APOFPODPO Class******************************/
 	@Test
@@ -89,10 +102,9 @@ public class TestFileClasses{
 	@Test
 	public void testTemporaryAPOFPODPOsubroutine() throws CalculationNotPossibleException {
 		HashMap<String, String> q = QueryParser.getFakeQueryTuples();
-		APOFPODPOSubroutine afdSub = new APOFPODPOSubroutine(q);
 		
 		for (String s: range) {
-			assertTrue(afdSub.isZipInRange(s));
+			assertTrue(refVal.isZipInRange(s));
 		}
 	}
 	
@@ -111,6 +123,13 @@ public class TestFileClasses{
 		NonPMEDeliveryCalculation nonPMEdelivery = new NonPMEDeliveryCalculation(q);
 		System.out.println(nonPMEdelivery.getDeliveryTime());
 	}
+	/*****************Test PRI_COTsubroutine******************************/
+	@Test
+	public void testGetNonPMEServiceStandard() throws CalculationNotPossibleException {
+		NonPMEServiceStandard ssd = new NonPMEServiceStandard(QueryParser.getFakeQueryPRITuples());
+		
+		System.out.println(ssd.getTransitTime());
+	} 
 	
 
 }

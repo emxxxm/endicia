@@ -84,6 +84,11 @@ public class QueryParser {
 		validateNoNullStrings(queryTuples);
 	}
 	
+	//TODO Include just PME or also incluse PRI
+	public static boolean isExpress(String mailClass) {
+		return mailClass.equals(QueryStrings.MAIL_CLASS_PME);
+	}
+	
 	private static void validateNoNullStrings(HashMap<String, String> queryTuples) throws InvalidQueryFormatException {
 		
 		for (String s: queryTuples.values()) {
@@ -147,6 +152,19 @@ public class QueryParser {
 		fakeQueryTuples.put(QueryStrings.DATE, DateTimeUtilities.getCurrentUTCDate());
 		fakeQueryTuples.put(QueryStrings.DROP_OFF_TIME, "1000");
 		fakeQueryTuples.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_PME);
+		fakeQueryTuples.put(QueryStrings.DEST_TYPE, QueryStrings.DESTTYPE_HFPU);
+		fakeQueryTuples.put(QueryStrings.EAD, DateTimeUtilities.getCurrentUTCDate());
+		
+		return fakeQueryTuples;
+	}
+	public static HashMap<String, String> getFakeQueryPRITuples() {
+		HashMap<String, String> fakeQueryTuples = new HashMap<String,String>();
+		
+		fakeQueryTuples.put(QueryStrings.ORIGIN_ZIP, "32669");
+		fakeQueryTuples.put(QueryStrings.DEST_ZIP, "81654");
+		fakeQueryTuples.put(QueryStrings.DATE, DateTimeUtilities.getCurrentUTCDate());
+		fakeQueryTuples.put(QueryStrings.DROP_OFF_TIME, "1000");
+		fakeQueryTuples.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_PRI);
 		fakeQueryTuples.put(QueryStrings.DEST_TYPE, QueryStrings.DESTTYPE_HFPU);
 		fakeQueryTuples.put(QueryStrings.EAD, DateTimeUtilities.getCurrentUTCDate());
 		

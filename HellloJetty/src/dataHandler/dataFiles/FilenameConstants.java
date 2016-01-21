@@ -8,5 +8,6 @@ public class FilenameConstants {
 	public static String PME_DISP = "ATF_PME_DISP_SCHEDULE.txt";
 	public static String REF_VAL = "ATF_REF_VALUE.txt";
 	public static String COT_ALL = "ATF_COT_ALL.txt";
+	public static String SERVICE_STANDARD_ALL = "ATF_NON_PME_SVC_STD_ALL.txt";
 	
 }

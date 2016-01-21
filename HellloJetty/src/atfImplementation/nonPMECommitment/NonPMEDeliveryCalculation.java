@@ -18,6 +18,7 @@ public class NonPMEDeliveryCalculation {
 	//Take in Delivery Date which is initally set in Main Flow
 	public NonPMEDeliveryCalculation(HashMap<String, String> q){
 		int closeTime = 0;
+		droolsMsg = SDCKnowledgeDTO.getFakeDroolsMsg();
 		droolsMsg.destinationZip = "96850";
 		//TODO PUT DELIVERYDATE in queryTuples
 		droolsMsg.deliveryDate = "17-Jan-2016";

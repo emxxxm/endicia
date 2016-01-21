@@ -7,6 +7,7 @@ import dataHandler.dataFiles.PMEDestSchedule;
 import dataHandler.dataFiles.PMEDispSchedule;
 import dataHandler.dataFiles.RefValue;
 import dataHandler.dataFiles.RulesObject;
+import dataHandler.dataFiles.ServiceStandardAll;
 
 public interface IDataMaster {
 
@@ -17,5 +18,6 @@ public interface IDataMaster {
 	public RefValue getRefValue();
 	public RulesObject getRulesObject();
 	public COT_ALL getCotAll();
+	public ServiceStandardAll getServiceStandardAll();
 	
 }

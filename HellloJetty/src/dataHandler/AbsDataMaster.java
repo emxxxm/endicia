@@ -7,6 +7,7 @@ import dataHandler.dataFiles.PMEDestSchedule;
 import dataHandler.dataFiles.PMEDispSchedule;
 import dataHandler.dataFiles.RefValue;
 import dataHandler.dataFiles.RulesObject;
+import dataHandler.dataFiles.ServiceStandardAll;
 
 public abstract class AbsDataMaster implements IDataMaster {
 	APOFPODPO APOFPODPO;
@@ -16,6 +17,7 @@ public abstract class AbsDataMaster implements IDataMaster {
 	RefValue refVal;
 	RulesObject rules;
 	COT_ALL cot;
+	ServiceStandardAll ssd;
 	
 	public AbsDataMaster() {
 		APOFPODPO = new APOFPODPO();
@@ -25,8 +27,11 @@ public abstract class AbsDataMaster implements IDataMaster {
 		refVal = new RefValue();
 		rules = new RulesObject();
 		cot = new COT_ALL();
+		ssd = new ServiceStandardAll();
 	}
-	
+	public ServiceStandardAll getServiceStandardAll(){
+		return ssd;
+	}
 	public RulesObject getRulesObject() {
 		return rules;
 	}
