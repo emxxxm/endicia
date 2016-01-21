@@ -83,13 +83,11 @@ public class SDCKnowledgeDTO {
 	//Acceptance File
 	public void incrementEad(int increment) throws ParseException {
 		deliveryDate = DateTimeUtilities.incrementDate(ead,  increment);;
-		System.out.println(ead);
 	}
 	
 	//Transit File
 	public void addDaysToDate(String date, int numDays) throws ParseException {
 		String newDate = DateTimeUtilities.incrementDate(date,  numDays);;
-		System.out.println(newDate);
 	}
 	
 	public void incrementTransitTime(int number) {
@@ -141,6 +139,7 @@ public class SDCKnowledgeDTO {
 	}
 	
 	public void incrementDeliveryDate(int increment) throws ParseException {
+		System.out.println("Incrementing Delivery Date");
 		deliveryDate = DateTimeUtilities.incrementDate(deliveryDate,  increment);;
 	}
 	
@@ -157,13 +156,17 @@ public class SDCKnowledgeDTO {
 		return svcStd;
 	}
 	
+	public void printStatement() {
+		System.out.println("Firing Rule");
+	}
+	
 	//From Delivery Drools File
 	public int getTransitTime() {
 		return transitTime;
 	}
 	
 	public int getDaysBetweenDates(String ead, String deliverydate) throws ParseException {
-		int days = DateTimeUtilities.getDaysBetweenDates(deliverydate, ead);
+		int days = DateTimeUtilities.getDaysBetweenDates(ead, deliverydate);
 		return days;
 	}
 

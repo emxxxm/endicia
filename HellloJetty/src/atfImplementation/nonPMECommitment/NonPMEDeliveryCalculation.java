@@ -26,7 +26,10 @@ public class NonPMEDeliveryCalculation {
 		droolsMsg.ead = "15-Jan-2016";
 		while(closeTime == 0){
 			//[Drools] Execute Rules Engine for Delivery Date Rules 
-			rules.getSessionList().get(RulesObject.DROOLS_DELIVERY).execute(droolsMsg);
+			
+			rules.getSessionList().get(RulesObject.DROOLS_DELIVERY).insert(droolsMsg);
+			rules.getSessionList().get(RulesObject.DROOLS_DELIVERY).fireAllRules();
+			//rules.getSessionList().get(RulesObject.DROOLS_DELIVERY).execute(droolsMsg);
 			if(isPO_HFPU()) {
 				int deliveryDOW = DateTimeUtilities.getDayOfWeek(droolsMsg.deliveryDate);
 				System.out.println("Close Time: " + closeTime);
