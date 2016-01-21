@@ -2,10 +2,16 @@ package MainPackage;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import dataHandler.DataMaster;
+import dataHandler.IDataMaster;
+import dataHandler.dataFiles.RefValue;
+
 import java.util.Date;
 
 public class DateTimeUtilities {
@@ -91,5 +97,10 @@ public class DateTimeUtilities {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(calendarDate);
 		return calendar.get(Calendar.DAY_OF_WEEK);
+	}
+	public static ArrayList<String> getUSPSHolidays(){
+		IDataMaster d = DataMaster.getInstance();
+		RefValue ref = d.getRefValue();
+		return ref.getHolidays();
 	}
 }

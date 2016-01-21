@@ -18,7 +18,7 @@ public class PRI_COT {
 		
 		int DOW = 0;
 		//[DataAccess] get USPS_HOL from ATF_REF_VALUE
-		ArrayList<String> USPSHoliday = getUSPSHolidays();
+		ArrayList<String> USPSHoliday = DateTimeUtilities.getUSPSHolidays();
 		if(USPSHoliday.contains(EAD)){
 			DOW = 8;
 		}
@@ -52,10 +52,6 @@ public class PRI_COT {
 		ArrayList<String> PRI_COT = d.getCotAll().getCot(DOW, ZIP);
 		return PRI_COT;
 	}
-	public ArrayList<String> getUSPSHolidays(){
-		IDataMaster d = DataMaster.getInstance();
-		RefValue ref = d.getRefValue();
-		return ref.getHolidays();
-	}
+
 
 }

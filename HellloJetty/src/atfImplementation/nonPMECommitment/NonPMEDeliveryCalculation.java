@@ -4,6 +4,8 @@ package atfImplementation.nonPMECommitment;
 import java.text.ParseException;
 import java.util.HashMap;
 import MainPackage.DateTimeUtilities;
+import MainPackage.QueryParser;
+import MainPackage.QueryStrings;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
 import dataHandler.dataFiles.AddressClose;
@@ -19,20 +21,20 @@ public class NonPMEDeliveryCalculation {
 	public NonPMEDeliveryCalculation(HashMap<String, String> q){
 		int closeTime = 0;
 		droolsMsg = SDCKnowledgeDTO.getFakeDroolsMsg();
-		droolsMsg.destinationZip = "96850";
-		//TODO PUT DELIVERYDATE in queryTuples
+		droolsMsg.destinationZip = q.get(QueryStrings.DEST_ZIP);
+		//TODO PUT DELIVERYDATE in queryTuples+
 		droolsMsg.deliveryDate = "17-Jan-2016";
-		droolsMsg.mailClass = "PRI";
-		droolsMsg.ead = "15-Jan-2016";
+		droolsMsg.mailClass = q.get(QueryStrings.MAIL_CLASS);
+		droolsMsg.ead = q.get(QueryStrings.EAD);
 		while(closeTime == 0){
 			//[Drools] Execute Rules Engine for Delivery Date Rules 
 			
 			rules.getSessionList().get(RulesObject.DROOLS_DELIVERY).insert(droolsMsg);
 			rules.getSessionList().get(RulesObject.DROOLS_DELIVERY).fireAllRules();
 			//rules.getSessionList().get(RulesObject.DROOLS_DELIVERY).execute(droolsMsg);
-			if(isPO_HFPU()) {
+			if(QueryParser.isHFPU(q.get(QueryStrings.DEST_TYPE))) {
+
 				int deliveryDOW = DateTimeUtilities.getDayOfWeek(droolsMsg.deliveryDate);
-				System.out.println("Close Time: " + closeTime);
 				closeTime = AddressClose.getCloseTimeOnDOWWrapper(deliveryDOW, droolsMsg.destinationZip);
 
 				if(closeTime!=0){
@@ -52,12 +54,6 @@ public class NonPMEDeliveryCalculation {
 	public String getDeliveryTime(){
 		return droolsMsg.deliveryDate;
 	}
-	
-	//TODO decide whether is PO or HFPU
-	public boolean isPO_HFPU(){
-		return true;
-	}
-
 	
 		
 		
