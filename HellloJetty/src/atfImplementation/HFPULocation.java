@@ -28,7 +28,7 @@ public class HFPULocation {
 		//else
 			//Exception; STOP-CALCULATION NOT POSSIBLE
 	
-	//TODO	
+	//TODO, this is the output function
 	public String getHFPULocation() {
 		return "";
 	}
