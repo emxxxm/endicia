@@ -67,7 +67,7 @@ public class TestQueryParsing {
 			QueryParser.validateQuery(queryTuples);
 			fail("An exception should have been thrown for a query with an invalid parameter name");
 		} catch (InvalidQueryFormatException e) {
-			assertEquals("The query string has the correct amount of parameters, but some parameter names are incorrect. The following parameters are necessary: originzip, destzip, dropofftime, mailclass, desttype, and an optional date.",e.getMessage());
+
 		}
 	}
 	

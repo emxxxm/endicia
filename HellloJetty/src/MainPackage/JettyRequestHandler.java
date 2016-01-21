@@ -15,6 +15,7 @@ import atfImplementation.MainATFImplementation;
  
 public class JettyRequestHandler extends AbstractHandler
 {
+	MainATFImplementation results;
 	//This method is called in main when the server receives a request
     public void handle(String target,
                        Request baseRequest,
@@ -31,7 +32,6 @@ public class JettyRequestHandler extends AbstractHandler
              
 		try {
 			queryTuples = QueryParser.parseStringForTuples(request.getQueryString());
-			
 
 	        String xmlResp = "<ExpressMail><OriginZip>" + queryTuples.get(QueryStrings.ORIGIN_ZIP) +
 	        		"</OriginZip><Date>" + queryTuples.get(QueryStrings.DATE) + 
@@ -39,8 +39,8 @@ public class JettyRequestHandler extends AbstractHandler
 	        		"</destZip><mailClass>" + queryTuples.get(QueryStrings.MAIL_CLASS) +
 	        		"</mailClass><destType>" + queryTuples.get(QueryStrings.DEST_TYPE) +
 	        		"</destType></ExpressMail>";
-			
-	        MainATFImplementation results = new MainATFImplementation(queryTuples);
+	        
+	        results = new MainATFImplementation(queryTuples);
 	        
 	        response.setStatus(HttpServletResponse.SC_OK);
 	        response.getWriter().println(xmlResp);

@@ -13,6 +13,9 @@ import org.drools.builder.ResourceType;
 import org.drools.io.ResourceFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.StatelessKnowledgeSession;
+import org.drools.runtime.rule.FactHandle;
+
+import droolsRules.SDCKnowledgeDTO;
 
 public class RulesObject implements IDataFile {
 	private static ArrayList<String> filenames = new ArrayList<String>();
@@ -20,7 +23,7 @@ public class RulesObject implements IDataFile {
 	public static String DROOLS_POSTPROCESSING = "ATF_DROOLS_POSTPROCESSING.drl";
 	public static String DROOLS_TRANSIT = "ATF_DROOLS_TRANSIT.drl";
 	public static String DROOLS_ACCEPTANCE = "ATF_DROOLS_ACCEPTANCE.drl";
-	private static HashMap<String, StatelessKnowledgeSession> sessionList = new HashMap<String, StatelessKnowledgeSession>();
+	private static HashMap<String, StatefulKnowledgeSession> sessionList = new HashMap<String, StatefulKnowledgeSession>();
 	
 	public RulesObject() {
 		addFilenames();
@@ -40,7 +43,7 @@ public class RulesObject implements IDataFile {
 			String fileLocation;
 			fileLocation = "droolsRules/" + filenames.get(i);
 			//System.out.println(fileLocation);
-			kbuilder.add(ResourceFactory.newClassPathResource(fileLocation), ResourceType.DRL);
+			kbuilder.add(ResourceFactory.newClassPathResource(fileLocation),ResourceType.DRL);
 			KnowledgeBuilderErrors errors = kbuilder.getErrors();
 			if (errors.size() > 0) {
 				for (KnowledgeBuilderError error: errors) {
@@ -50,15 +53,21 @@ public class RulesObject implements IDataFile {
 			}
 			KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase();
     		kbase.addKnowledgePackages(kbuilder.getKnowledgePackages());
-    		getSessionList().put(filenames.get(i), kbase.newStatelessKnowledgeSession());
+    		getSessionList().put(filenames.get(i), kbase.newStatefulKnowledgeSession());
 		}
     	//StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
 	}
 
-	public HashMap<String, StatelessKnowledgeSession> getSessionList() {
+	public HashMap<String, StatefulKnowledgeSession> getSessionList() {
 		return sessionList;
 	}
 
+	public void insertAndFire(SDCKnowledgeDTO message, String filename) {
+		FactHandle handler = getSessionList().get(filename).insert(message);
+		getSessionList().get(filename).fireAllRules();
+		getSessionList().get(filename).retract(handler);
+	}
+	
 	@Override
 	public String getFileName() {
 		return null;

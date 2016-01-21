@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 
+import org.drools.core.command.runtime.rule.GetRuleRuntimeEventListenersCommand;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -27,42 +28,51 @@ public class TestRules {
 	
 	@Test 
 	public void testDroolsDeliveryRules() {
-		rules.getSessionList().get(RulesObject.DROOLS_DELIVERY).execute(message);
+		rules.insertAndFire(message, RulesObject.DROOLS_DELIVERY);
 	}
 	
 	@Test //This test rule #70104 in DROOLS_DELIVERY
 	public void testDroolsDeliveryIncrementDate() throws ParseException {
+		System.out.println("__________TEST testDroolDeliveryIncrementDate _____________________");
 		message.deliveryDate = "04-Jul-2011";
 		message.ead = "07-Jul-2011";
 		message.mailClass = QueryStrings.MAIL_CLASS_PRI;
 		message.noExpressMail = message.isNotExpressMail();
-		rules.getSessionList().get(RulesObject.DROOLS_DELIVERY).execute(message);
+		System.out.println("Delivery Date before " + message.deliveryDate);
+		System.out.println("Days Between " +  message.getDaysBetweenDates(message.ead, message.deliveryDate));
+		rules.insertAndFire(message, RulesObject.DROOLS_DELIVERY);
+		System.out.println("Days Between post fire " + message.getDaysBetweenDates(message.ead, message.deliveryDate));
+		System.out.println("Delivery Date after " + message.deliveryDate);
+		System.out.println("__________TEST END _____________________");
+
 		assertTrue(message.deliveryDate.equals("05-Jul-2011"));
 	}
 	
 	@Test 
-	public void testDroolsDeliveryIncrementDate2() {
+	public void testDroolsDeliveryIncrementDate2() throws ParseException {
 		message.deliveryDate = "04-Jul-2011";
 		message.ead = "05-Aug-2011";
 		message.mailClass = QueryStrings.MAIL_CLASS_PRI;
 		message.noExpressMail = message.isNotExpressMail();
-		rules.getSessionList().get(RulesObject.DROOLS_DELIVERY).execute(message);
+		System.out.println("Days Between " + message.getDaysBetweenDates(message.ead, message.deliveryDate));
+		rules.insertAndFire(message, RulesObject.DROOLS_DELIVERY);
+		System.out.println("DeliveryDate after rules Test2 " + message.deliveryDate );
 		assertTrue(message.deliveryDate.equals("04-Jul-2011"));
 	}
 	
 	@Test 
 	public void testDroolsTransitRules() {
-		rules.getSessionList().get(RulesObject.DROOLS_TRANSIT).execute(message);
+		rules.insertAndFire(message, RulesObject.DROOLS_TRANSIT);
 	}
 	
 	@Test 
 	public void testDroolsAcceptanceRules() {
-		rules.getSessionList().get(RulesObject.DROOLS_ACCEPTANCE).execute(message);
+		rules.insertAndFire(message, RulesObject.DROOLS_ACCEPTANCE);
 	}
 	
 	@Test
 	public void testDroolsPostProcessingRules() {
-		rules.getSessionList().get(RulesObject.DROOLS_POSTPROCESSING).execute(message);
+		rules.insertAndFire(message, RulesObject.DROOLS_POSTPROCESSING);
 	}
 	
 	@Test

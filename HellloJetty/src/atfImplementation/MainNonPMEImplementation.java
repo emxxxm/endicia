@@ -7,9 +7,12 @@ import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
 import atfImplementation.nonPMECommitment.PRI_COT;
 import dataHandler.DataMaster;
+import dataHandler.dataFiles.RulesObject;
+import droolsRules.SDCKnowledgeDTO;
 
 public class MainNonPMEImplementation extends AbsATFImplementation {
-
+	SDCKnowledgeDTO droolsMsg = new SDCKnowledgeDTO();
+	RulesObject rules = DataMaster.getInstance().getRulesObject();
 	PRI_COT pri;
 	
 	public MainNonPMEImplementation(HashMap<String, String> q){

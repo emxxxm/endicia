@@ -119,7 +119,8 @@ public class TestFileClasses{
 	/*****************Test NonPMEDeliveryCalculationsubroutine******************************/
 	@Test 
 	public void testNonPMEDeliveryCalculation() throws CalculationNotPossibleException{
-		HashMap<String, String> q = QueryParser.getFakeQueryTuples();
+		HashMap<String, String> q = QueryParser.getFakeQueryPRITuples();
+		System.out.println("Dest ZIP" + q.get(QueryStrings.DEST_ZIP));
 		NonPMEDeliveryCalculation nonPMEdelivery = new NonPMEDeliveryCalculation(q);
 		System.out.println(nonPMEdelivery.getDeliveryTime());
 	}
