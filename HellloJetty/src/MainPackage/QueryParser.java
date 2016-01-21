@@ -59,7 +59,7 @@ public class QueryParser {
 		ArrayList<String> queryParameters;
 		boolean hasValidParameters = true;
 		
-		if (queryTuples.size() != 6) {
+		if (queryTuples.size() != 7) {
 			throw new InvalidQueryFormatException("The query string does not have enough Parameters.");
 		}
 		
