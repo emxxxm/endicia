@@ -15,7 +15,7 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 	RulesObject rules = DataMaster.getInstance().getRulesObject();
 	PRI_COT pri;
 	
-	public MainNonPMEImplementation(HashMap<String, String> q){
+	public MainNonPMEImplementation(HashMap<String, String> q) throws CalculationNotPossibleException{
 		super(q);
 		pri = new PRI_COT(queryTuples);
 	}
