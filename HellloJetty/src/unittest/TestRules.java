@@ -45,7 +45,7 @@ public class TestRules {
 		System.out.println("Delivery Date after " + message.deliveryDate);
 		System.out.println("__________TEST END _____________________");
 
-		assertTrue(message.deliveryDate.equals("6-Aug-2011"));
+		assertTrue(message.deliveryDate.equals("05-Jul-2011"));
 	}
 	
 	@Test 
