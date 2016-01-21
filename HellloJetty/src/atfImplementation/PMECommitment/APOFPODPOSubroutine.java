@@ -2,7 +2,6 @@ package atfImplementation.PMECommitment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import org.apache.commons.csv.CSVRecord;
 
@@ -12,7 +11,6 @@ import atfImplementation.CalculationNotPossibleException;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
 import dataHandler.dataFiles.APOFPODPO;
-import dataHandler.dataFiles.AbsDataFile;
 import dataHandler.dataFiles.RefValue;
 
 public class APOFPODPOSubroutine {
@@ -22,7 +20,7 @@ public class APOFPODPOSubroutine {
 	//Variables Initialized 
 	ArrayList<Integer> lowerbounds = new ArrayList<Integer>(), upperbounds = new ArrayList<Integer>();
 	ArrayList<String> DPOZips;
-	String originZip="01609", destZip ="90610", mailClass="1", destType = "-1";
+	String originZip="01609", destZip ="90610", mailClass="-1", destType = "-1";
 	String retrogradeZip, progradeZip, dropOffTime, retrogradeArrivalTime;
 
 	ArrayList<CSVRecord> records;
@@ -40,6 +38,7 @@ public class APOFPODPOSubroutine {
 				}
 			}
 
+			initRecords(originZip);
 			if (records.size() == 1) {//If one record is found
 				initAPOFPODPOData(records.get(0));
 				retrogradeOffset = retrogradeOffsetFromRecord; 
@@ -54,6 +53,7 @@ public class APOFPODPOSubroutine {
 
 		} else {//Path if origin zip is not within military range
 			if (refVal.isZipInRange(destZip)) {
+				initRecords(destZip);
 				if (records.size() == 1) {//If one record is found
 					initAPOFPODPOData(records.get(0));
 					if (isHFPUOrPOBox()) {
@@ -62,7 +62,7 @@ public class APOFPODPOSubroutine {
 						progradeOffset = progradeOffsetFromRecord;
 						q.put(QueryStrings.DEST_ZIP, progradeZip);
 						progradeZip = destZip;
-						
+					
 					}
 				}
 			} else {
@@ -76,19 +76,22 @@ public class APOFPODPOSubroutine {
 	}
 
 	private void initializeValuesFromDataFile(HashMap<String, String> q) {
-		IDataMaster dm = DataMaster.getInstance();
-		refVal =  dm.getRefValue();
-		APOFPODPO APOData = dm.getAPOFPODPO(); 
-
-		refVal.initRanges(lowerbounds, upperbounds);
-		DPOZips = refVal.getDPOZips();
-
-		records = APOData.getRecords(mailClass, originZip);
 		dropOffTime = q.get(QueryStrings.DROP_OFF_TIME);
 		originZip = q.get(QueryStrings.ORIGIN_ZIP);
 		destZip = q.get(QueryStrings.DEST_ZIP);
 		mailClass = q.get(QueryStrings.MAIL_CLASS);
 		destType = q.get(QueryStrings.DEST_TYPE);
+		
+		IDataMaster dm = DataMaster.getInstance();
+		refVal =  dm.getRefValue();
+
+		refVal.initRanges(lowerbounds, upperbounds);
+		DPOZips = refVal.getDPOZips();
+	}
+	
+	private void initRecords(String zip) { //TODO possible optimization betwene this and initAPOFPODPOData
+		APOFPODPO APOData = DataMaster.getInstance().getAPOFPODPO(); 
+		records = APOData.getRecords(QueryStrings.mapMailClassToInt(mailClass), zip);
 	}
 
 	//TODO test this method
@@ -100,9 +103,6 @@ public class APOFPODPOSubroutine {
 		retrogradeArrivalTime = record.get(APOFPODPO.RETRO_ARRIVAL);		
 	}
 
-	
-
-	
 	private boolean isOriginOrDestDPO() {
 		return DPOZips.contains(originZip) || DPOZips.contains(destZip);
 	}

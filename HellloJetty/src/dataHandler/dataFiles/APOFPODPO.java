@@ -19,11 +19,11 @@ public class APOFPODPO extends AbsDataFile {
 		return FilenameConstants.APOFPODPO;
 	}
 	
-	public ArrayList<CSVRecord> getRecords(String mailClass, String zipCode) {
+	public ArrayList<CSVRecord> getRecords(String mailClassNumber, String zipCode) {
 		ArrayList<CSVRecord> records = new ArrayList<CSVRecord>();
 		for (CSVRecord r: recordsList) {
 			if (r.get(ZIP_ID).equals(zipCode) &&
-					r.get(MAIL_CLASS_ID).toString().equals(mailClass)) {
+					r.get(MAIL_CLASS_ID).toString().equals(mailClassNumber)) {
 				records.add(r);
 			}
 		}

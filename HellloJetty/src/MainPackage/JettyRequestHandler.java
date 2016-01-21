@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
  
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -24,7 +23,6 @@ public class JettyRequestHandler extends AbstractHandler
         throws IOException, ServletException
     {
     	HashMap<String, String> queryTuples = new LinkedHashMap<String,String>();
-        String xmlResp = "<ExpressMail><OriginZip>90201</OriginZip><Date></Date><Location><City>Mountains</City><State>CA</State></Location></ExpressMail>";
     	
     	response.setContentType("application/xml;charset=utf-8"); //TODO have serializer to dispatch based on content-type in get request
         baseRequest.setHandled(true);
@@ -33,6 +31,14 @@ public class JettyRequestHandler extends AbstractHandler
              
 		try {
 			queryTuples = QueryParser.parseStringForTuples(request.getQueryString());
+			
+
+	        String xmlResp = "<ExpressMail><OriginZip>" + queryTuples.get(QueryStrings.ORIGIN_ZIP) +
+	        		"</OriginZip><Date>" + queryTuples.get(QueryStrings.DATE) + 
+	        		"</Date><destZip>" + queryTuples.get(QueryStrings.DEST_TYPE) + 
+	        		"</destZip><mailClass>" + queryTuples.get(QueryStrings.MAIL_CLASS) +
+	        		"</mailClass><destType>" + queryTuples.get(QueryStrings.DEST_TYPE) +
+	        		"</destType></ExpressMail>";
 			
 	        MainATFImplementation results = new MainATFImplementation(queryTuples);
 	        
