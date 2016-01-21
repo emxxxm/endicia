@@ -19,9 +19,9 @@ public class NonPMEDeliveryCalculation {
 	//Take in Delivery Date which is initally set in Main Flow
 	public NonPMEDeliveryCalculation(HashMap<String, String> q){
 		int closeTime = 0;
+		droolsMsg = initializeDroolsMsg(q);
 		while(closeTime == 0){
 			//[Drools] Execute Rules Engine for Delivery Date Rules 
-			droolsMsg = initializeDroolsMsg(q);
 			rules.insertAndFire(droolsMsg, RulesObject.DROOLS_DELIVERY);
 			
 			if(QueryParser.isHFPU(q.get(QueryStrings.DEST_TYPE))) {
@@ -51,7 +51,6 @@ public class NonPMEDeliveryCalculation {
 		SDCKnowledgeDTO droolsMsg = new SDCKnowledgeDTO();
 		droolsMsg = SDCKnowledgeDTO.getFakeDroolsMsg();
 		droolsMsg.destinationZip = q.get(QueryStrings.DEST_ZIP);
-		droolsMsg.progradeZip = "01123";
 		//TODO PUT DELIVERYDATE in queryTuples+
 		droolsMsg.deliveryDate = "17-Jan-2016";
 		droolsMsg.mailClass = q.get(QueryStrings.MAIL_CLASS);
