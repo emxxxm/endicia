@@ -46,10 +46,13 @@ public class JettyRequestHandler extends AbstractHandler
 	        
 	        output = mainLogic.getOutput();
 	        
-	        xmlResp = "";
+	        xmlResp = "<ExpressMail>";
 	        for (String s: output.keySet()) {
 	        	xmlResp += "<" + s + ">" + output.get(s) + "</" + s + ">"; 
 	        }
+	        xmlResp += "</ExpressMail>";
+	        
+	        System.out.println(xmlResp);
 	        
 	        response.setStatus(HttpServletResponse.SC_OK);
 	        response.getWriter().println(xmlResp);
