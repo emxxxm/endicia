@@ -85,7 +85,10 @@ public class TestRules {
 	
 	@Test
 	public void testDroolsPostProcessingRules() {
+		message.mailClass = QueryStrings.MAIL_CLASS_FCM;
+		message.svcStd = 1;
 		rules.insertAndFire(message, RulesObject.DROOLS_POSTPROCESSING);
+		assertTrue(message.svcStdMsg == "1 Day");
 	}
 	
 	@Test
