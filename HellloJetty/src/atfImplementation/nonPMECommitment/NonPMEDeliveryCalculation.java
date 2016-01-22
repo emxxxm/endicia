@@ -52,7 +52,6 @@ public class NonPMEDeliveryCalculation {
 		SDCKnowledgeDTO droolsMsg = new SDCKnowledgeDTO();
 		droolsMsg = SDCKnowledgeDTO.getFakeDroolsMsg();
 		droolsMsg.destinationZip = q.get(QueryStrings.DEST_ZIP);
-		droolsMsg.progradeZip = "01123";
 		//TODO PUT DELIVERYDATE in queryTuples+
 		droolsMsg.deliveryDate = "17-Jan-2016";
 		droolsMsg.mailClass = q.get(QueryStrings.MAIL_CLASS);

@@ -44,7 +44,7 @@ public class AddressClose extends AbsDataFile {
 	public ArrayList<CSVRecord> getAddressRecords(String Zip){
 		ArrayList<CSVRecord> outputRecords = new ArrayList<CSVRecord>();
 		for(CSVRecord r: recordsList){
-			if(r.get(tupleID).contains(Zip)){
+			if(r.get(tupleID).startsWith(Zip)){
 				outputRecords.add(r);
 			}
 		}

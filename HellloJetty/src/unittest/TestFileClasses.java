@@ -13,6 +13,7 @@ import org.junit.Test;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
+import atfImplementation.HFPULocation;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
 import atfImplementation.nonPMECommitment.NonPMEDeliveryCalculation;
 import atfImplementation.nonPMECommitment.NonPMEServiceStandard;
@@ -124,12 +125,20 @@ public class TestFileClasses{
 		NonPMEDeliveryCalculation nonPMEdelivery = new NonPMEDeliveryCalculation(q);
 		System.out.println(nonPMEdelivery.getDeliveryTime());
 	}
-	/*****************Test PRI_COTsubroutine******************************/
+	/*****************Test Get Non PME Service Standard******************************/
 	@Test
 	public void testGetNonPMEServiceStandard() throws CalculationNotPossibleException {
 		NonPMEServiceStandard ssd = new NonPMEServiceStandard(QueryParser.getFakeQueryPRITuples());
 		
 		System.out.println(ssd.getTransitTime());
+	} 
+	
+	/*****************Test getHFPU subroutine******************************/
+	@Test
+	public void testGetHFPU() throws CalculationNotPossibleException {
+		HFPULocation loc = new HFPULocation(QueryParser.getFakeQueryPRITuples());
+		
+		assertEquals(loc.getHFPULocation(), "SNOWMASS,26900 HIGHWAY 82,SNOWMASS,CO");
 	} 
 	
 

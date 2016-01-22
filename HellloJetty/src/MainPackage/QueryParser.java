@@ -12,6 +12,7 @@ public class QueryParser {
 		
 		//count number of "=" in string
 
+		System.out.println(queryString);
 		URI decoder = null;
 		try {
 			decoder = new URI("/?" + queryString);
@@ -59,7 +60,7 @@ public class QueryParser {
 		ArrayList<String> queryParameters;
 		boolean hasValidParameters = true;
 		
-		if (queryTuples.size() != 7) {
+		if (!(queryTuples.size() == 7 || queryTuples.size() == 6)) {
 			throw new InvalidQueryFormatException("The query string does not have enough Parameters.");
 		}
 		

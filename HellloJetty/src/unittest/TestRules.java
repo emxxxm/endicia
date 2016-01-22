@@ -127,4 +127,65 @@ public class TestRules {
 		assertTrue(date.equals("01-Jan-2016"));
 	}
 
+	@Test
+	public void testPrintSDCObject() {
+		message.print();
+	}
+	
+	@Test
+	public void testGettersAndSetters() {
+		int newTime = 5;
+		String newMsg = "testMsg";
+		int svcStd = message.svcStd;
+		int decInterval = 1;
+		
+		message.setDeliveryTime(newTime);
+		assertEquals(message.deliveryTime, newTime);
+		
+		message.setTransitTime(newTime);
+		assertEquals(newTime, message.getTransitTime());
+		message.incrementTransitTime(decInterval);
+		assertEquals(newTime + decInterval, message.getTransitTime());
+		
+		message.setSvcStdMsg(newMsg);
+		assertEquals(newMsg, message.svcStdMsg);
+		
+		message.decreaseServiceStandard(decInterval);
+		assertEquals(svcStd - decInterval, message.getSvcStd());
+		
+
+		message.increaseNonPmeServiceStandard(decInterval);
+		assertEquals(svcStd, message.getSvcStd());
+		
+		message.increasePmeServiceStandard(decInterval);
+		assertEquals(svcStd + decInterval, message.getSvcStd());
+		
+		message.increasePriServiceStandard(decInterval);
+		assertEquals(svcStd + ( 2* decInterval), message.getSvcStd());
+	}
+	
+	@Test
+	public void testMethodsWithNoTestableEffect() {
+		message.setMissedCot(true);
+		message.setEadDow(3);
+		message.setNoExpressMail(true);
+
+		message.isNotGuaranteed();
+	}
+	
+	@Test
+	public void testDestInRange() {
+		String destString = message.destinationZipAs5Digit;
+		assertTrue(message.isDestinationZipWithinRange(destString, destString));
+	}
+	
+	@Test
+	public void testIncrementEad() throws ParseException {
+		String ead = message.ead;
+		int decInterval = 1;
+		
+		message.incrementEad(decInterval);
+		assertNotEquals(ead, message.ead);
+	}
+	
 }

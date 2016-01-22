@@ -121,24 +121,8 @@ public class RefValue extends AbsDataFile {
 		
 	}
 	public String getDefaultNonPMCOT(int DOW, String mailClass){
-		String dowInFile = mailClass;
-		switch(mailClass){
-			case QueryStrings.MAIL_CLASS_FCM:
-				dowInFile = "3";
-				break;
-			case QueryStrings.MAIL_CLASS_STD:
-				dowInFile = "4";
-				break;
-			case QueryStrings.MAIL_CLASS_PER:
-				dowInFile = "5";
-				break;
-			case QueryStrings.MAIL_CLASS_PKG:
-				dowInFile = "6";
-				break;
-			default:
-				
-				break;
-		}
+		String dowInFile = QueryStrings.mapMailClassToInt(mailClass);
+		
 		String cot = "";
 		switch(DOW){
 			case Calendar.MONDAY:

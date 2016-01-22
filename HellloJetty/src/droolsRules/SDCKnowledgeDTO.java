@@ -10,34 +10,21 @@ public class SDCKnowledgeDTO {
 	//TODO Change everything back to private
 	//TODO Check on the isNotGuarantee method
 	//Delivery Drools File
-	public String deliveryDate;
-	public String ead;
-	public String mailClass;
-	public int transitTime = 0;
-	public int deliveryDow;
-	public String originZipAs5Digit;
-	public String destinationZipAs5Digit;
-	public String originZip;
-	public String destinationZip;
+	public String deliveryDate, ead, mailClass, progradeZip, originZipAs5Digit, destinationZipAs5Digit, originZip, destinationZip;
+	public int transitTime = 0, deliveryDow;
 	public boolean noExpressMail;
-	public String progradeZip;
 	public boolean isGuarantee = true;
 
 	//Post Processing Drools File
-	public int svcStd;
-	public String acceptDate;
-	public int deliveryTime;
-	public String svcStdMsg;
+	public int svcStd, deliveryTime;;
+	public String acceptDate, svcStdMsg;
 	
 	//Transit File
-	public int eadDow;
+	public int eadDow, destType;
 	public boolean missedCot;
-	public int destType;
 	
 	//Acceptance file
-	public String acceptTime;
-	public String cutOffTime;
-	
+	public String acceptTime, cutOffTime;
 	
 	public SDCKnowledgeDTO() {
 	}
@@ -82,12 +69,12 @@ public class SDCKnowledgeDTO {
 	
 	//Acceptance File
 	public void incrementEad(int increment) throws ParseException {
-		deliveryDate = DateTimeUtilities.incrementDate(ead,  increment);;
+		ead = DateTimeUtilities.incrementDate(ead,  increment);
 	}
 	
 	//Transit File
-	public void addDaysToDate(String date, int numDays) throws ParseException {
-		String newDate = DateTimeUtilities.incrementDate(date,  numDays);;
+	public String addDaysToDate(String date, int numDays) throws ParseException {
+		return DateTimeUtilities.incrementDate(date,  numDays);
 	}
 	
 	public void incrementTransitTime(int number) {

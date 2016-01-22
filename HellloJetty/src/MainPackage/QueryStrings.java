@@ -37,6 +37,34 @@ public class QueryStrings {
 		return queryParameters;
 	}
 	
+	public static String mapMailClassToInt(String mailClass) {
+		String mailClassNum;
+		switch(mailClass) {
+		case MAIL_CLASS_PME:
+			mailClassNum = "1";
+			break;
+		case MAIL_CLASS_PRI:
+			mailClassNum = "2";
+			break;
+		case MAIL_CLASS_FCM:
+			mailClassNum = "3";
+			break;
+		case MAIL_CLASS_STD:
+			mailClassNum = "4";
+			break;
+		case QueryStrings.MAIL_CLASS_PER:
+			mailClassNum = "5";
+			break;
+		case QueryStrings.MAIL_CLASS_PKG:
+			mailClassNum = "6";
+			break;
+		default:
+			mailClassNum = "-1";
+			break;
+		}
+		return mailClassNum;
+	}
+	
 	public static ArrayList<String> getMailClasses() {
 		ArrayList<String> mailClasses = new ArrayList<String>();
 		

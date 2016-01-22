@@ -74,6 +74,6 @@ public class HFPULocation {
 	
 	//TODO, this is the output function
 	public String getHFPULocation() {
-		return "";
+		return this.HFPULocation;
 	}
 }
