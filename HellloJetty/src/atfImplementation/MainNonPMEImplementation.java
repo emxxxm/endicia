@@ -23,7 +23,7 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 	int transitTime;
 	String deliveryDate;
 	
-	public MainNonPMEImplementation(HashMap<String, String> q){
+	public MainNonPMEImplementation(HashMap<String, String> q) throws CalculationNotPossibleException{
 		super(q);
 	}
 

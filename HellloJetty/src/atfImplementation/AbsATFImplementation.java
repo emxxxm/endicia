@@ -11,10 +11,11 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	
 	String EAD, HFPUAddress;
 	HashMap<String, String> queryTuples;
-	HFPULocation HFPUloc =  new HFPULocation();
+	HFPULocation HFPUloc ;
 	int originCloseTime;
 	
-	public AbsATFImplementation(HashMap<String, String> q) {
+	public AbsATFImplementation(HashMap<String, String> q) throws CalculationNotPossibleException {
+		HFPUloc = new HFPULocation(queryTuples);
 		queryTuples = q;
 		EAD = queryTuples.get(QueryStrings.DATE);
 		queryTuples.put(QueryStrings.EAD, EAD);
@@ -48,3 +49,4 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	}
 	
 }
+ 

@@ -14,6 +14,7 @@ import org.junit.Test;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
+import atfImplementation.HFPULocation;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
 import atfImplementation.nonPMECommitment.NonPMEDeliveryCalculation;
 import atfImplementation.nonPMECommitment.NonPMEServiceStandard;
@@ -113,8 +114,9 @@ public class TestFileClasses{
 	@Test
 	public void testTemporaryPRICOTsubroutine() throws CalculationNotPossibleException {
 		PRI_COT cot = new PRI_COT(QueryParser.getFakeQueryTuples());
-		
-		System.out.println(cot.getPRI_COT());
+		ArrayList<String> cotList = new ArrayList<String>();
+		cotList.add("1700");
+		assertEquals(cotList, cot.getPRI_COT());
 	} 
 	
 	/*****************Test NonPMEDeliveryCalculationsubroutine
@@ -124,14 +126,22 @@ public class TestFileClasses{
 		HashMap<String, String> q = QueryParser.getFakeQueryPRITuples();
 		System.out.println("Dest ZIP" + q.get(QueryStrings.DEST_ZIP));
 		NonPMEDeliveryCalculation nonPMEdelivery = new NonPMEDeliveryCalculation(q);
-		System.out.println(nonPMEdelivery.getDeliveryTime());
+		assertEquals("19-Jan-2016", nonPMEdelivery.getDeliveryTime());
 	}
-	/*****************Test PRI_COTsubroutine******************************/
+	/*****************Test Get Non PME Service Standard******************************/
 	@Test
 	public void testGetNonPMEServiceStandard() throws CalculationNotPossibleException {
 		NonPMEServiceStandard ssd = new NonPMEServiceStandard(QueryParser.getFakeQueryPRITuples());
 		
-		System.out.println(ssd.getTransitTime());
+		assertEquals(3, ssd.getTransitTime());
+	} 
+	
+	/*****************Test getHFPU subroutine******************************/
+	@Test
+	public void testGetHFPU() throws CalculationNotPossibleException {
+		HFPULocation loc = new HFPULocation(QueryParser.getFakeQueryPRITuples());
+		
+		assertEquals(loc.getHFPULocation(), "SNOWMASS,26900 HIGHWAY 82,SNOWMASS,CO");
 	} 
 	
 

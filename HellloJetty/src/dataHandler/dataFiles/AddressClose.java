@@ -1,5 +1,7 @@
 package dataHandler.dataFiles;
 
+import java.util.ArrayList;
+
 import org.apache.commons.csv.CSVRecord;
 
 import atfImplementation.CalculationNotPossibleException;
@@ -37,6 +39,16 @@ public class AddressClose extends AbsDataFile {
 		}
 		return closeTime;
  
+	}
+	
+	public ArrayList<CSVRecord> getAddressRecords(String Zip){
+		ArrayList<CSVRecord> outputRecords = new ArrayList<CSVRecord>();
+		for(CSVRecord r: recordsList){
+			if(r.get(tupleID).startsWith(Zip)){
+				outputRecords.add(r);
+			}
+		}
+		return outputRecords;
 	}
 
 }
