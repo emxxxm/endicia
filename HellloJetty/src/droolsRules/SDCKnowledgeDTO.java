@@ -27,6 +27,7 @@ public class SDCKnowledgeDTO {
 	public boolean missedCot;
 	
 	//Acceptance file
+	//Accept time is drop off time
 	public String acceptTime, cutOffTime;
 	
 	public SDCKnowledgeDTO() {

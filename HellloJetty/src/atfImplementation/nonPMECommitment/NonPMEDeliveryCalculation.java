@@ -6,6 +6,7 @@ import java.util.HashMap;
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
+import atfImplementation.CalculationNotPossibleException;
 import dataHandler.DataMaster;
 import dataHandler.dataFiles.AddressClose;
 import dataHandler.dataFiles.RulesObject;
@@ -17,7 +18,7 @@ public class NonPMEDeliveryCalculation {
 	RulesObject rules = DataMaster.getInstance().getRulesObject();
 	
 	//Take in Delivery Date which is initally set in Main Flow
-	public NonPMEDeliveryCalculation(HashMap<String, String> q) throws ParseException{
+	public NonPMEDeliveryCalculation(HashMap<String, String> q) throws ParseException, NumberFormatException, CalculationNotPossibleException{
 		int closeTime = 0;
 		droolsMsg = initializeDroolsMsg(q); 
 		while(closeTime == 0){

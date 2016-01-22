@@ -59,28 +59,28 @@ public class ServiceStandardAll extends AbsDataFile{
 		String service = "";
 		//TODO input origin and dest zip can be 5 or 9 digits
 		for(CSVRecord r: ori5Dest5){
-			if(orginZIP.contains(r.get(tupleID)) &&
-					destZIP.contains(r.get(tupleID+1)))
+			if(orginZIP.startsWith(r.get(tupleID)) &&
+					destZIP.startsWith(r.get(tupleID+1)))
 				service = r.get(valueID);
 		}
 		if(service.equals("")){
 			for(CSVRecord r: ori3Dest5){
-				if(orginZIP.contains(r.get(tupleID)) &&
-						destZIP.contains(r.get(tupleID+1)))
+				if(orginZIP.startsWith(r.get(tupleID)) &&
+						destZIP.startsWith(r.get(tupleID+1)))
 					service = r.get(valueID);
 			}
 		}
 		if(service.equals("")){
 			for(CSVRecord r: ori5Dest3){
-				if(orginZIP.contains(r.get(tupleID)) &&
-						destZIP.contains(r.get(tupleID+1)))
+				if(orginZIP.startsWith(r.get(tupleID)) &&
+						destZIP.startsWith(r.get(tupleID+1)))
 					service = r.get(valueID);
 			}
 		}
 		if(service.equals("")){
 			for(CSVRecord r: ori3Dest3){
-				if(orginZIP.contains(r.get(tupleID)) &&
-						destZIP.contains(r.get(tupleID+1)))
+				if(orginZIP.startsWith(r.get(tupleID)) &&
+						destZIP.startsWith(r.get(tupleID+1)))
 					service = r.get(valueID);
 			}
 		}

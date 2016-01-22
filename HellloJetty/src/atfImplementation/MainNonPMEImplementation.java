@@ -41,6 +41,8 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 					queryTuples.get(QueryStrings.MAIL_CLASS));
 		}
 	
+		queryTuples.put()
+		
 		commonIsDestinationHFPUBranch();
 		
 		executeAcceptanceRules();

@@ -5,7 +5,9 @@ import java.util.HashMap;
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
+import dataHandler.DataMaster;
 import dataHandler.dataFiles.AddressClose;
+import dataHandler.dataFiles.RulesObject;
 import droolsRules.SDCKnowledgeDTO;
 
 public abstract class AbsATFImplementation implements IATFImplementation {
@@ -22,7 +24,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		queryTuples.put(QueryStrings.EAD, EAD);
 	}
 
-	private void lookUpClose(String originZip) {
+	private void lookUpClose(String originZip) throws NumberFormatException, CalculationNotPossibleException {
 		originCloseTime = AddressClose.getCloseTimeOnDOWWrapper(DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.DATE)), originZip);
 	}
 	
@@ -39,15 +41,18 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	}
 	
     protected void executeAcceptanceRules() {
-		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples); 
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples); //TODO test
+		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_ACCEPTANCE);
     }
     
     protected void executeTransitRules() {
-    	//TODO
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples); //TODO test
+		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_TRANSIT);
     }
     
 	protected void executeServiceStandardRules() {
-		//TODO
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples); //TODO test
+		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_POSTPROCESSING);
 	}
 	
 }

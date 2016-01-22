@@ -8,7 +8,7 @@ import dataHandler.IDataMaster;
 import dataHandler.dataFiles.RefValue;
 
 public class PRI_COT {
-	ArrayList<String> PRI_COT;
+	String PRI_COT;
 	HashMap<String, String> queryTuples;
 	String ZIP, EAD;
 	//TODO change the constructor later after format EAD
@@ -29,27 +29,23 @@ public class PRI_COT {
 		//if(EAD is a USPS_HOL)
 			//DOW = 8
 		//else DOW=EAD_DOW
-		if(USPSHoliday.contains(EAD)){
-			DOW = 8;
-		}
-		else DOW = DateTimeUtilities.getDayOfWeek(EAD);
 		
 		//[DataAccess]Lookup PRI COT for DOW from ATF_COT
 		PRI_COT = get_PRI_COT(DOW, ZIP);
 		
 		if(PRI_COT.isEmpty()){
 			IDataMaster d = DataMaster.getInstance();
-			PRI_COT.add(d.getRefValue().getDefaultPMCOT(DOW));
+			PRI_COT=d.getRefValue().getDefaultPMCOT(DOW);
 		}
 		
 		
 	}
-	public ArrayList<String> getPRI_COT(){
+	public String getPRI_COT(){
 		return this.PRI_COT;
 	}
-	private ArrayList<String> get_PRI_COT(int DOW, String ZIP){
+	private String get_PRI_COT(int DOW, String ZIP){
 		IDataMaster d = DataMaster.getInstance();
-		ArrayList<String> PRI_COT = d.getCotAll().getCot(DOW, ZIP);
+		String PRI_COT = d.getCotAll().getCot(DOW, ZIP);
 		return PRI_COT;
 	}
 

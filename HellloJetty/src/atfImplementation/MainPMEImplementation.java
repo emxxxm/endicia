@@ -21,7 +21,7 @@ public class MainPMEImplementation extends AbsATFImplementation {
 	int transitTime;
 	String deliveryDate;
 	
-	public MainPMEImplementation(HashMap<String, String> q) {
+	public MainPMEImplementation(HashMap<String, String> q) throws CalculationNotPossibleException {
 		super(q);
 	}
 
