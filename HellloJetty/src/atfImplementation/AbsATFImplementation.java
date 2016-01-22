@@ -5,17 +5,20 @@ import java.util.HashMap;
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
+import dataHandler.DataMaster;
 import dataHandler.dataFiles.AddressClose;
+import dataHandler.dataFiles.RulesObject;
+import droolsRules.SDCKnowledgeDTO;
 
 public abstract class AbsATFImplementation implements IATFImplementation {
 	
 	String EAD, HFPUAddress;
 	HashMap<String, String> queryTuples;
-	HFPULocation HFPUloc ;
-	int originCloseTime;
+	HFPULocation HFPUloc; //TODO what does this do
+	int originCloseTime; //TODO what does this do
+	SDCKnowledgeDTO droolsMsg;
 	
-	public AbsATFImplementation(HashMap<String, String> q) throws CalculationNotPossibleException {
-		HFPUloc = new HFPULocation(queryTuples);
+	public AbsATFImplementation(HashMap<String, String> q) {
 		queryTuples = q;
 		EAD = queryTuples.get(QueryStrings.DATE);
 		queryTuples.put(QueryStrings.EAD, EAD);
@@ -25,27 +28,31 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		originCloseTime = AddressClose.getCloseTimeOnDOWWrapper(DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.DATE)), originZip);
 	}
 	
-	private void resolveHFPU() {
+	private void resolveHFPU() throws CalculationNotPossibleException {
 		if (QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
+				HFPUloc = new HFPULocation(queryTuples); 
 				HFPUAddress = HFPUloc.getHFPULocation();
 		}
 	}
 	
-	public void commonIsDestinationHFPUBranch() throws NumberFormatException, CalculationNotPossibleException {
-		lookUpClose(queryTuples.get(QueryStrings.ORIGIN_ZIP));
+	public void commonIsDestinationHFPUBranch() throws CalculationNotPossibleException {
 		resolveHFPU();
+		lookUpClose(queryTuples.get(QueryStrings.ORIGIN_ZIP));
 	}
 	
     protected void executeAcceptanceRules() {
-    	//TODO
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples); //TODO test
+		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_ACCEPTANCE);
     }
     
     protected void executeTransitRules() {
-    	//TODO
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples); //TODO test
+		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_TRANSIT);
     }
     
 	protected void executeServiceStandardRules() {
-		//TODO
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples); //TODO test
+		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_POSTPROCESSING);
 	}
 	
 }
