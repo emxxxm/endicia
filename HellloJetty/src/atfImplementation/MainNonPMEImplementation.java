@@ -29,19 +29,20 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 
 	@Override
 	public void execute() throws NumberFormatException, CalculationNotPossibleException, ParseException {
-		ArrayList<String> PRIOutput; 
+		String PRIOutput; 
 		String cutoffTime;
 		
 		pri = new PRI_COT(queryTuples);
 		
 		if (queryTuples.get(QueryStrings.MAIL_CLASS).equals(QueryStrings.MAIL_CLASS_PRI)) {
 			PRIOutput = pri.getPRI_COT();
+			cutoffTime = PRIOutput; //superfluous but improves readability to user
 		} else {
 			cutoffTime = DataMaster.getInstance().getRefValue().getDefaultNonPMCOT(DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.DATE)), 
 					queryTuples.get(QueryStrings.MAIL_CLASS));
 		}
 	
-		queryTuples.put()
+		queryTuples.put(QueryStrings.CUTOFF_TIME, cutoffTime);
 		
 		commonIsDestinationHFPUBranch();
 		
