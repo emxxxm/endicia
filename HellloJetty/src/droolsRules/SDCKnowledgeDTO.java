@@ -221,11 +221,7 @@ public class SDCKnowledgeDTO {
 		
 		//TODO badline
 		droolsMsg.svcStd = 1;		
-		
-				
-		
-		
-		
+		droolsMsg.mailClass = QueryStrings.MAIL_CLASS_FCM;
 		
 		return droolsMsg;
 	}

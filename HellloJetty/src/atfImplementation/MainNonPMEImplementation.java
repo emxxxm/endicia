@@ -14,7 +14,6 @@ import dataHandler.dataFiles.RulesObject;
 import droolsRules.SDCKnowledgeDTO;
 
 public class MainNonPMEImplementation extends AbsATFImplementation {
-	SDCKnowledgeDTO droolsMsg = new SDCKnowledgeDTO();
 	RulesObject rules = DataMaster.getInstance().getRulesObject();
 	PRI_COT pri;
 	NonPMEServiceStandard serviceStd;
