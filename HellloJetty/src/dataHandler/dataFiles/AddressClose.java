@@ -27,16 +27,13 @@ public class AddressClose extends AbsDataFile {
 	}
 
 	//[DateAccess] get the closeTime on given DOW
-	public static int getCloseTimeOnDOWWrapper(int DOW, String destZIP){
+	public static int getCloseTimeOnDOWWrapper(int DOW, String destZIP) throws NumberFormatException, CalculationNotPossibleException{
 		int closeTime = 0;
 		IDataMaster d = DataMaster.getInstance();
 		AddressClose ac = d.getAddressClose();
-		try {
-			closeTime = Integer.parseInt(ac.getCloseTimeOnDow(DOW, destZIP));
-		} catch (NumberFormatException | CalculationNotPossibleException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		closeTime = Integer.parseInt(ac.getCloseTimeOnDow(DOW, destZIP));
+		
 		return closeTime;
  
 	}

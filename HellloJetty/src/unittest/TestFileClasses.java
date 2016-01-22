@@ -113,10 +113,9 @@ public class TestFileClasses{
 	/*****************Test PRI_COTsubroutine******************************/
 	@Test
 	public void testTemporaryPRICOTsubroutine() throws CalculationNotPossibleException {
-		PRI_COT cot = new PRI_COT(QueryParser.getFakeQueryTuples());
-		ArrayList<String> cotList = new ArrayList<String>();
-		cotList.add("1700");
-		assertEquals(cotList, cot.getPRI_COT());
+		PRI_COT cot = new PRI_COT(QueryParser.getFakeQueryPRITuples());
+
+		assertEquals("1630", cot.getPRI_COT());
 	} 
 	
 	/*****************Test NonPMEDeliveryCalculationsubroutine

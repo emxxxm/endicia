@@ -29,7 +29,7 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 
 	@Override
 	public void execute() throws NumberFormatException, CalculationNotPossibleException, ParseException {
-		ArrayList<String> PRIOutput; 
+		String PRIOutput; 
 		String cutoffTime;
 		
 		pri = new PRI_COT(queryTuples);

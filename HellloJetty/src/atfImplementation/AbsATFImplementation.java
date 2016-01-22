@@ -21,7 +21,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		queryTuples.put(QueryStrings.EAD, EAD);
 	}
 
-	private void lookUpClose(String originZip) {
+	private void lookUpClose(String originZip) throws NumberFormatException, CalculationNotPossibleException {
 		originCloseTime = AddressClose.getCloseTimeOnDOWWrapper(DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.DATE)), originZip);
 	}
 	
@@ -31,7 +31,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		}
 	}
 	
-	public void commonIsDestinationHFPUBranch() {
+	public void commonIsDestinationHFPUBranch() throws NumberFormatException, CalculationNotPossibleException {
 		lookUpClose(queryTuples.get(QueryStrings.ORIGIN_ZIP));
 		resolveHFPU();
 	}
