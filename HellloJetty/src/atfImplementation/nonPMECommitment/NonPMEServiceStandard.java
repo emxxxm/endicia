@@ -9,18 +9,14 @@ import dataHandler.dataFiles.ServiceStandardAll;
 
 
 public class NonPMEServiceStandard {
+	//Number of days
 	int transitTime;
 	//Take in Origin ZIP Code, Destination ZIP Code
-	public NonPMEServiceStandard(HashMap<String, String> queryTuples){
+	public NonPMEServiceStandard(HashMap<String, String> queryTuples) throws NumberFormatException, CalculationNotPossibleException{
 		String originZIP = queryTuples.get(QueryStrings.ORIGIN_ZIP);
 		String destZIP = queryTuples.get(QueryStrings.DEST_ZIP);
 		String mailClass = queryTuples.get(QueryStrings.MAIL_CLASS);
-		try {
-			transitTime = Integer.parseInt(getServiceStandard(originZIP, destZIP, mailClass));
-		} catch (NumberFormatException | CalculationNotPossibleException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		transitTime = Integer.parseInt(getServiceStandard(originZIP, destZIP, mailClass));
 		//TODO [Optimization] Index 3-Digit	
 	}
 	

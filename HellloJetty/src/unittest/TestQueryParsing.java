@@ -49,6 +49,7 @@ public class TestQueryParsing {
 	public void testInvalidNumberOfParameters() {
 		queryTuples.remove(QueryStrings.DEST_ZIP);
 		queryTuples.remove(QueryStrings.DATE);
+		queryTuples.remove(QueryStrings.DELIVERY_DATE);
 		
 		try {
 			QueryParser.validateQuery(queryTuples);

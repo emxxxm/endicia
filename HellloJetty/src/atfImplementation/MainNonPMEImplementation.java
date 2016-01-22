@@ -1,10 +1,13 @@
 package atfImplementation;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
+import atfImplementation.nonPMECommitment.NonPMEDeliveryCalculation;
+import atfImplementation.nonPMECommitment.NonPMEServiceStandard;
 import atfImplementation.nonPMECommitment.PRI_COT;
 import dataHandler.DataMaster;
 import dataHandler.dataFiles.RulesObject;
@@ -14,16 +17,22 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 	SDCKnowledgeDTO droolsMsg = new SDCKnowledgeDTO();
 	RulesObject rules = DataMaster.getInstance().getRulesObject();
 	PRI_COT pri;
+	NonPMEServiceStandard serviceStd;
+	NonPMEDeliveryCalculation deliveryCalc;
+	//Number of days
+	int transitTime;
+	String deliveryDate;
 	
 	public MainNonPMEImplementation(HashMap<String, String> q){
 		super(q);
-		pri = new PRI_COT(queryTuples);
 	}
 
 	@Override
-	public void execute() {
+	public void execute() throws NumberFormatException, CalculationNotPossibleException, ParseException {
 		ArrayList<String> PRIOutput; 
 		String cutoffTime;
+		
+		pri = new PRI_COT(queryTuples);
 		
 		if (queryTuples.get(QueryStrings.MAIL_CLASS).equals(QueryStrings.MAIL_CLASS_PRI)) {
 			PRIOutput = pri.getPRI_COT();
@@ -34,6 +43,20 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 	
 		commonIsDestinationHFPUBranch();
 		
+		executeAcceptanceRules();
+		
+		serviceStd = new NonPMEServiceStandard(queryTuples);
+		transitTime = serviceStd.getTransitTime();
+		
+		executeTransitRules();
+		
+		deliveryDate = DateTimeUtilities.incrementDate(queryTuples.get(QueryStrings.EAD), transitTime);
+		queryTuples.put(QueryStrings.DELIVERY_DATE, deliveryDate);
+		
+		deliveryDate = deliveryCalc.getDeliveryTime();
+		queryTuples.put(QueryStrings.DELIVERY_DATE, deliveryDate);
+		
+		executeServiceStandardRules();	
 	}
 	
 	//TODO determine the class type 

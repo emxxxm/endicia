@@ -35,4 +35,16 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		resolveHFPU();
 	}
 	
+    protected void executeAcceptanceRules() {
+    	//TODO
+    }
+    
+    protected void executeTransitRules() {
+    	//TODO
+    }
+    
+	protected void executeServiceStandardRules() {
+		//TODO
+	}
+	
 }

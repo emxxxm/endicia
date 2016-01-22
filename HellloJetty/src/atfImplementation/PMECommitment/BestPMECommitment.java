@@ -1,6 +1,12 @@
 package atfImplementation.PMECommitment;
 
+import java.util.ArrayList;
+
+import atfImplementation.Commitment;
+
 public class BestPMECommitment {
+
+	public BestPMECommitment(ArrayList<Commitment> commitments) {
 	
 	//Get commitments from the PMECommitmentSubroutine
 	
@@ -17,5 +23,10 @@ public class BestPMECommitment {
 	
 	//transitTime = serviceStandard
 	//EAD = commitmentDate
+	}
+
+	public int getTransitTime() {
+		return 1;
+	}
 	
 }

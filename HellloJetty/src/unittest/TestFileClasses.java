@@ -2,6 +2,7 @@ package unittest;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -116,9 +117,10 @@ public class TestFileClasses{
 		System.out.println(cot.getPRI_COT());
 	} 
 	
-	/*****************Test NonPMEDeliveryCalculationsubroutine******************************/
+	/*****************Test NonPMEDeliveryCalculationsubroutine
+	 * @throws ParseException ******************************/
 	@Test 
-	public void testNonPMEDeliveryCalculation() throws CalculationNotPossibleException{
+	public void testNonPMEDeliveryCalculation() throws CalculationNotPossibleException, ParseException{
 		HashMap<String, String> q = QueryParser.getFakeQueryPRITuples();
 		System.out.println("Dest ZIP" + q.get(QueryStrings.DEST_ZIP));
 		NonPMEDeliveryCalculation nonPMEdelivery = new NonPMEDeliveryCalculation(q);

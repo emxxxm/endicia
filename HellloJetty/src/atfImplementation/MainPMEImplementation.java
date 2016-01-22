@@ -1,25 +1,52 @@
 package atfImplementation;
 
+import java.text.ParseException;
 import java.util.HashMap;
 
+import MainPackage.DateTimeUtilities;
+import MainPackage.QueryStrings;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
+import atfImplementation.PMECommitment.BestPMECommitment;
+import atfImplementation.PMECommitment.PMECommitmentSubroutine;
+import atfImplementation.PMECommitment.PMEDeliveryDate;
 
 public class MainPMEImplementation extends AbsATFImplementation {
 	APOFPODPOSubroutine afd;
+	PMECommitmentSubroutine PMECommitment;
+	BestPMECommitment bestCommitmentCalc;
+	PMEDeliveryDate deliveryCalc;
 	int retrogradeOffset;
 	int progradeOffset;
+	//Number of days
+	int transitTime;
+	String deliveryDate;
 	
-	public MainPMEImplementation(HashMap<String, String> q) throws CalculationNotPossibleException {
+	public MainPMEImplementation(HashMap<String, String> q) {
 		super(q);
-		afd = new APOFPODPOSubroutine(queryTuples);
 	}
 
 	@Override
-	public void execute() {
+	public void execute() throws CalculationNotPossibleException, ParseException {
+		afd = new APOFPODPOSubroutine(queryTuples);
 		retrogradeOffset = afd.getRetrogradeOffset();
 		progradeOffset = afd.getProgradeOffset();
 		
 		commonIsDestinationHFPUBranch();
+
+		PMECommitment = new PMECommitmentSubroutine(queryTuples);
+	    bestCommitmentCalc = new BestPMECommitment(PMECommitment.getCommitments());
+	    
+	    transitTime = bestCommitmentCalc.getTransitTime();
+	    
+	    executeAcceptanceRules();
+	    executeTransitRules();
+	    
+	    deliveryDate = DateTimeUtilities.incrementDate(queryTuples.get(QueryStrings.EAD), transitTime + retrogradeOffset + progradeOffset);
+		queryTuples.put(QueryStrings.DELIVERY_DATE, deliveryDate);
+		
+		deliveryCalc = new PMEDeliveryDate(queryTuples);
+		
+		executeServiceStandardRules();
 	}
 	
 	//TODO create and run get APO/FPO/DPO data subroutine

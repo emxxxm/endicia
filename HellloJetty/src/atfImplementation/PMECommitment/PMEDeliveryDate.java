@@ -1,10 +1,12 @@
 package atfImplementation.PMECommitment;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
+
+import MainPackage.DateTimeUtilities;
 
 public class PMEDeliveryDate {
 	//take in initially set in Main Flow, return update Delivery Date
-	public PMEDeliveryDate(LinkedHashMap<String,String> queryTuples){
+	public PMEDeliveryDate(HashMap<String, String> queryTuples){
 		while(true){
 			//[Drools] Execute Rules Engine for Delivery Date Rules
 			
@@ -69,9 +71,14 @@ public class PMEDeliveryDate {
 					//}
 				//}
 			//}
-		}
+		}	
 		
-		
+	}
+	
+
+	public String getDeliveryDate() {
+		//TODO
+		return DateTimeUtilities.getCurrentUTCDate();
 	}
 	
 	

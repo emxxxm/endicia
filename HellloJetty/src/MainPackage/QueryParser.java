@@ -60,7 +60,7 @@ public class QueryParser {
 		ArrayList<String> queryParameters;
 		boolean hasValidParameters = true;
 		
-		if (!(queryTuples.size() == 7 || queryTuples.size() == 6)) {
+		if (!(queryTuples.size() == 7 || queryTuples.size() == 6 || queryTuples.size() == 8)) {
 			throw new InvalidQueryFormatException("The query string does not have enough Parameters.");
 		}
 		
@@ -155,6 +155,7 @@ public class QueryParser {
 		fakeQueryTuples.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_PME);
 		fakeQueryTuples.put(QueryStrings.DEST_TYPE, QueryStrings.DESTTYPE_HFPU);
 		fakeQueryTuples.put(QueryStrings.EAD, DateTimeUtilities.getCurrentUTCDate());
+		fakeQueryTuples.put(QueryStrings.DELIVERY_DATE, DateTimeUtilities.getCurrentUTCDate());
 		
 		return fakeQueryTuples;
 	}
@@ -168,6 +169,7 @@ public class QueryParser {
 		fakeQueryTuples.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_PRI);
 		fakeQueryTuples.put(QueryStrings.DEST_TYPE, QueryStrings.DESTTYPE_HFPU);
 		fakeQueryTuples.put(QueryStrings.EAD, "15-Jan-2016");
+		fakeQueryTuples.put(QueryStrings.DELIVERY_DATE, "17-Jan-2016");
 		
 		return fakeQueryTuples;
 	}
