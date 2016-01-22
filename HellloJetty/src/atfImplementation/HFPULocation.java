@@ -12,6 +12,7 @@ public class HFPULocation {
 	//Input Destination ZIP Code, Mail Class
 	String HFPUIndicator;
 	String HFPULocation;
+	
 	public HFPULocation(HashMap<String, String> queryTuples) throws CalculationNotPossibleException{
 		String mailClass = queryTuples.get(QueryStrings.MAIL_CLASS);
 		String destZIP = queryTuples.get(QueryStrings.DEST_ZIP);
@@ -72,7 +73,6 @@ public class HFPULocation {
 		//else
 			//Exception; STOP-CALCULATION NOT POSSIBLE
 	
-	//TODO, this is the output function
 	public String getHFPULocation() {
 		return this.HFPULocation;
 	}

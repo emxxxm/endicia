@@ -13,7 +13,7 @@ public class PRI_COT {
 	String ZIP, EAD;
 	//TODO change the constructor later after format EAD
 	public PRI_COT(HashMap<String, String> queryTuples){
-		ZIP = queryTuples.get(QueryStrings.DEST_ZIP);
+		ZIP = queryTuples.get(QueryStrings.ORIGIN_ZIP);
 		EAD = queryTuples.get(QueryStrings.EAD);
 		
 		int DOW = 0;

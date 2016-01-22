@@ -24,6 +24,7 @@ public class QueryStrings {
 	public static String DEST_TYPE = "desttype";
 	public static String EAD = "ead";
 	public static String DELIVERY_DATE = "deliveryDate";
+	public static String CUTOFF_TIME = "cutofftime";
 	
 	public static ArrayList<String> getQueryParameters() {
 		ArrayList<String> queryParameters = new ArrayList<String>();

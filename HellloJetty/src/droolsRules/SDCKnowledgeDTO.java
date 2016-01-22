@@ -1,6 +1,8 @@
 package droolsRules;
 
 import java.text.ParseException;
+import java.util.HashMap;
+
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
@@ -9,6 +11,7 @@ import dataHandler.DataMaster;
 public class SDCKnowledgeDTO {
 	//TODO Change everything back to private
 	//TODO Check on the isNotGuarantee method
+	//TODO refactor into four classes
 	//Delivery Drools File
 	public String deliveryDate, ead, mailClass, progradeZip, originZipAs5Digit, destinationZipAs5Digit, originZip, destinationZip;
 	public int transitTime = 0, deliveryDow;
@@ -196,6 +199,19 @@ public class SDCKnowledgeDTO {
 	
 	public void setTransitTime(int newTime) {
 		transitTime = newTime;
+	}
+	
+	public static SDCKnowledgeDTO initializeDroolsMsg(HashMap<String, String> q) {
+		//TODO actually set these values
+		SDCKnowledgeDTO droolsMsg = new SDCKnowledgeDTO();
+		droolsMsg = SDCKnowledgeDTO.getFakeDroolsMsg();
+		droolsMsg.destinationZip = q.get(QueryStrings.DEST_ZIP);
+		//TODO PUT DELIVERYDATE in queryTuples+
+		droolsMsg.deliveryDate = q.get(QueryStrings.DELIVERY_DATE);
+		droolsMsg.mailClass = q.get(QueryStrings.MAIL_CLASS);
+		droolsMsg.noExpressMail = droolsMsg.isNotExpressMail();
+		droolsMsg.ead = q.get(QueryStrings.EAD);
+		return droolsMsg;
 	}
 
 }
