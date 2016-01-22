@@ -212,6 +212,7 @@ public class SDCKnowledgeDTO {
 		droolsMsg.mailClass = q.get(QueryStrings.MAIL_CLASS);
 		droolsMsg.noExpressMail = droolsMsg.isNotExpressMail();
 		droolsMsg.ead = q.get(QueryStrings.EAD);
+		droolsMsg.cutOffTime = q.get(QueryStrings.CUTOFF_TIME);
 		return droolsMsg;
 	}
 

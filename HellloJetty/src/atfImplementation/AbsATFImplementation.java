@@ -1,5 +1,6 @@
 package atfImplementation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import MainPackage.DateTimeUtilities;
@@ -17,6 +18,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	HFPULocation HFPUloc; //TODO what does this do
 	int originCloseTime; //TODO what does this do
 	SDCKnowledgeDTO droolsMsg;
+	HashMap<String, String> output = new HashMap<String, String>();
 	
 	public AbsATFImplementation(HashMap<String, String> q) {
 		queryTuples = q;
@@ -53,6 +55,10 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	protected void executeServiceStandardRules() {
 		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples); //TODO test
 		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_POSTPROCESSING);
+	}
+	
+	public HashMap<String, String> getOutput() {
+		return output;
 	}
 	
 }

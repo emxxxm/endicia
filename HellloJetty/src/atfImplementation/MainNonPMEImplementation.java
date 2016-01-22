@@ -56,29 +56,19 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 		deliveryDate = DateTimeUtilities.incrementDate(queryTuples.get(QueryStrings.EAD), transitTime);
 		queryTuples.put(QueryStrings.DELIVERY_DATE, deliveryDate);
 		
+		deliveryCalc = new NonPMEDeliveryCalculation(queryTuples);
+		
 		deliveryDate = deliveryCalc.getDeliveryTime();
 		queryTuples.put(QueryStrings.DELIVERY_DATE, deliveryDate);
 		
 		executeServiceStandardRules();	
+		
+		String svcStdMsg = droolsMsg.svcStdMsg;
+		String guarantee = String.valueOf(droolsMsg.isGuarantee);
+		
+		output.put(QueryStrings.DELIVERY_DATE, deliveryDate);
+		output.put(RulesObject.SERVICE_STD_MSG, svcStdMsg);
+		output.put(RulesObject.GUARANTEE, guarantee);
 	}
 	
-	//TODO determine the class type 
-	//if type is is PRI, getPRICOT()
-	//else get_EAD_DOW_COT()
-
-//if isDestHFPU, 
-	//Get HFPULocation
-
-//Lookup Origin Close Times from ATF_ADDRESS_CLOSE
-
-//[DROOLS] Execute Rules Engine for Acceptance Rules
-
-//Get NonPMEServiceStandard
-
-//[DROOLS]Execute Rules Engine for Transit Time Rules
-
-//DeliveryDate = EAD + Transit Time
-
-//create subroutine calculateNonPMEDeliveryDate
-
 }

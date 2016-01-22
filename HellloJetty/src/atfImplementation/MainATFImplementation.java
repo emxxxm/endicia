@@ -4,15 +4,21 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.maven.artifact.resolver.filter.IncludesArtifactFilter;
+
 import MainPackage.QueryStrings;
 
-public class MainATFImplementation  {
+public class MainATFImplementation implements IATFImplementation {
 
 	ArrayList<String> output = new ArrayList<String>();
 	IATFImplementation mainLogic; 
+	HashMap<String, String> queryTuples;
 
-	public MainATFImplementation(HashMap<String, String> queryTuples) throws CalculationNotPossibleException, NumberFormatException, ParseException {
-
+	public MainATFImplementation(HashMap<String, String> queryTuples) {
+		this.queryTuples = queryTuples;
+	}
+	
+	public void execute() throws CalculationNotPossibleException, NumberFormatException, ParseException {
 		if (queryTuples.get(QueryStrings.MAIL_CLASS).equals(QueryStrings.MAIL_CLASS_PME)) {
 			mainLogic = new MainPMEImplementation(queryTuples);
 		} else {
@@ -20,5 +26,10 @@ public class MainATFImplementation  {
 		}
 
 		mainLogic.execute();
+	}
+
+	@Override
+	public HashMap<String, String> getOutput() {
+		return mainLogic.getOutput();
 	}
 }

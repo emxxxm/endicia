@@ -47,7 +47,12 @@ public class QueryParser {
 		
 		validateQuery(queryTuples);
 		
-		return getFakeQueryTuples();
+		return getQueryTuplesForNonPME();
+	}
+	
+	public static HashMap<String, String> getQueryTuplesForNonPME() {
+		HashMap<String, String> tuples = getFakeQueryPRITuples();
+		return tuples;
 	}
 
 	/**

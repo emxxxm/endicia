@@ -18,6 +18,8 @@ import org.drools.runtime.rule.FactHandle;
 import droolsRules.SDCKnowledgeDTO;
 
 public class RulesObject implements IDataFile {
+	public static final String SERVICE_STD_MSG = "svcstdmsg";
+	public static final String GUARANTEE = "guarantee";
 	private static ArrayList<String> filenames = new ArrayList<String>();
 	public static String DROOLS_DELIVERY = "ATF_DROOLS_DELIVERY.drl";
 	public static String DROOLS_POSTPROCESSING = "ATF_DROOLS_POSTPROCESSING.drl";
