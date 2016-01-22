@@ -3,13 +3,17 @@ package unittest;
 import static org.junit.Assert.*;
 
 import java.text.ParseException;
+import java.util.HashMap;
 
 import org.drools.core.command.runtime.rule.GetRuleRuntimeEventListenersCommand;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import MainPackage.DateTimeUtilities;
+import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
+import atfImplementation.CalculationNotPossibleException;
+import atfImplementation.MainATFImplementation;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
 import dataHandler.dataFiles.RulesObject;
@@ -24,6 +28,12 @@ public class TestRules {
 		IDataMaster m = DataMaster.getInstance();
 	 	message = SDCKnowledgeDTO.getFakeDroolsMsg();
 		rules = m.getRulesObject();
+	}
+	
+	@Test //Run through the main logic, if no error is thrown then it passes
+	public void testMainLogic() throws NumberFormatException, CalculationNotPossibleException, ParseException {
+		HashMap<String, String> q = QueryParser.getFakeQueryTuples();
+		MainATFImplementation mainLogic = new MainATFImplementation(q);
 	}
 	
 	@Test 
