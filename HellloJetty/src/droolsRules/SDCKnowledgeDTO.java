@@ -20,7 +20,7 @@ public class SDCKnowledgeDTO {
 
 	//Post Processing Drools File
 	public int svcStd, deliveryTime;;
-	public String acceptDate, svcStdMsg;
+	public String acceptDate, svcStdMsg ="";
 	
 	//Transit File
 	public int eadDow, destType;
@@ -213,6 +213,20 @@ public class SDCKnowledgeDTO {
 		droolsMsg.noExpressMail = droolsMsg.isNotExpressMail();
 		droolsMsg.ead = q.get(QueryStrings.EAD);
 		droolsMsg.cutOffTime = q.get(QueryStrings.CUTOFF_TIME);
+		
+		
+		
+		
+		
+		
+		//TODO badline
+		droolsMsg.svcStd = 1;		
+		
+				
+		
+		
+		
+		
 		return droolsMsg;
 	}
 

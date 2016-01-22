@@ -30,15 +30,6 @@ public class TestRules {
 		rules = m.getRulesObject();
 	}
 	
-	@Test //Run through the main logic, if no error is thrown then it passes
-	public void testMainLogic() throws NumberFormatException, CalculationNotPossibleException, ParseException {
-		HashMap<String, String> q = QueryParser.getFakeQueryTuples();
-		q.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_PRI);
-		q.put(QueryStrings.ORIGIN_ZIP, "32611");
-		q.put(QueryStrings.DEST_ZIP, "64748");
-		MainATFImplementation mainLogic = new MainATFImplementation(q);
-	}
-	
 	@Test 
 	public void testDroolsDeliveryRules() {
 		rules.insertAndFire(message, RulesObject.DROOLS_DELIVERY);
