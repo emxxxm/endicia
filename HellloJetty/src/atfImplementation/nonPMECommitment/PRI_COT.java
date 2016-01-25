@@ -9,7 +9,6 @@ import dataHandler.dataFiles.RefValue;
 
 public class PRI_COT {
 	String PRI_COT;
-	HashMap<String, String> queryTuples;
 	String ZIP, EAD;
 	//TODO change the constructor later after format EAD
 	public PRI_COT(HashMap<String, String> queryTuples){

@@ -76,7 +76,7 @@ public class APOFPODPOSubroutine {
 	}
 
 	private void initializeValuesFromDataFile(HashMap<String, String> q) {
-		dropOffTime = q.get(QueryStrings.DROP_OFF_TIME);
+		dropOffTime = q.get(QueryStrings.SHIP_TIME);
 		originZip = q.get(QueryStrings.ORIGIN_ZIP);
 		destZip = q.get(QueryStrings.DEST_ZIP);
 		mailClass = q.get(QueryStrings.MAIL_CLASS);

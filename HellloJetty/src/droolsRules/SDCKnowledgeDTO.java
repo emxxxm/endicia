@@ -14,12 +14,13 @@ public class SDCKnowledgeDTO {
 	//TODO refactor into four classes
 	//Delivery Drools File
 	public String deliveryDate, ead, mailClass, progradeZip, originZipAs5Digit, destinationZipAs5Digit, originZip, destinationZip;
-	public int transitTime = 0, deliveryDow;
+	public int transitTime, deliveryDow;
 	public boolean noExpressMail;
 	public boolean isGuarantee = true;
 
 	//Post Processing Drools File
-	public int svcStd, deliveryTime;;
+	public int svcStd, deliveryTime;
+	//Accept date 
 	public String acceptDate, svcStdMsg ="";
 	
 	//Transit File
@@ -131,7 +132,7 @@ public class SDCKnowledgeDTO {
 	
 	public void incrementDeliveryDate(int increment) throws ParseException {
 		System.out.println("Incrementing Delivery Date");
-		deliveryDate = DateTimeUtilities.incrementDate(deliveryDate,  increment);;
+		deliveryDate = DateTimeUtilities.incrementDate(deliveryDate,  increment);
 	}
 	
 	public void isNotGuaranteed() {
@@ -202,27 +203,36 @@ public class SDCKnowledgeDTO {
 		transitTime = newTime;
 	}
 	
-	public static SDCKnowledgeDTO initializeDroolsMsg(HashMap<String, String> q) {
-		//TODO actually set these values
+	public static SDCKnowledgeDTO initializeDroolsMsgForTransit(HashMap<String, String> q) {
 		SDCKnowledgeDTO droolsMsg = new SDCKnowledgeDTO();
-		droolsMsg = SDCKnowledgeDTO.getFakeDroolsMsg();
+		droolsMsg.svcStd = Integer.parseInt(q.get(QueryStrings.TRANSIT_TIME));
+		droolsMsg.transitTime = Integer.parseInt(q.get(QueryStrings.TRANSIT_TIME));
+		//droolsMsg.deliveryDow = DateTimeUtilities.getDayOfWeek(droolsMsg.deliveryDate);
+		return initializeDroolsMsg(q, droolsMsg);
+	}
+	
+	public static SDCKnowledgeDTO initializeDroolsMsgForPost(HashMap<String, String> q) {
+		SDCKnowledgeDTO droolsMsg = new SDCKnowledgeDTO();
+		droolsMsg.svcStd = Integer.parseInt(q.get(QueryStrings.TRANSIT_TIME));
+		droolsMsg.transitTime = Integer.parseInt(q.get(QueryStrings.TRANSIT_TIME));
+		//droolsMsg.deliveryDow = DateTimeUtilities.getDayOfWeek(droolsMsg.deliveryDate);
+		return initializeDroolsMsg(q, droolsMsg);
+	}
+	
+	public static SDCKnowledgeDTO initializeDroolsMsg(HashMap<String, String> q, SDCKnowledgeDTO droolsMsg) {
+		droolsMsg.originZipAs5Digit = q.get(QueryStrings.ORIGIN_ZIP);
+		droolsMsg.destinationZipAs5Digit = q.get(QueryStrings.DEST_ZIP);
+		droolsMsg.originZip = q.get(QueryStrings.ORIGIN_ZIP);
 		droolsMsg.destinationZip = q.get(QueryStrings.DEST_ZIP);
-		//TODO PUT DELIVERYDATE in queryTuples+
 		droolsMsg.deliveryDate = q.get(QueryStrings.DELIVERY_DATE);
 		droolsMsg.mailClass = q.get(QueryStrings.MAIL_CLASS);
 		droolsMsg.noExpressMail = droolsMsg.isNotExpressMail();
 		droolsMsg.ead = q.get(QueryStrings.EAD);
 		droolsMsg.cutOffTime = q.get(QueryStrings.CUTOFF_TIME);
+		droolsMsg.acceptDate = q.get(QueryStrings.SHIP_DATE);
 		
-		
-		
-		
-		
-		
-		//TODO badline
-		droolsMsg.svcStd = 1;		
-		droolsMsg.mailClass = QueryStrings.MAIL_CLASS_FCM;
-		
+		//TODO Add in prograde zip
+		droolsMsg.progradeZip = "00000";
 		return droolsMsg;
 	}
 

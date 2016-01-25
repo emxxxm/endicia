@@ -19,7 +19,6 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 	NonPMEServiceStandard serviceStd;
 	NonPMEDeliveryCalculation deliveryCalc;
 	//Number of days
-	int transitTime;
 	String deliveryDate;
 	
 	public MainNonPMEImplementation(HashMap<String, String> q) throws CalculationNotPossibleException{
@@ -37,7 +36,7 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 			PRIOutput = pri.getPRI_COT();
 			cutoffTime = PRIOutput; //superfluous but improves readability to user
 		} else {
-			cutoffTime = DataMaster.getInstance().getRefValue().getDefaultNonPMCOT(DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.DATE)), 
+			cutoffTime = DataMaster.getInstance().getRefValue().getDefaultNonPMCOT(DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.SHIP_DATE)), 
 					queryTuples.get(QueryStrings.MAIL_CLASS));
 		}
 	
@@ -48,11 +47,11 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 		executeAcceptanceRules();
 		
 		serviceStd = new NonPMEServiceStandard(queryTuples);
-		transitTime = serviceStd.getTransitTime();
+		queryTuples.put(QueryStrings.TRANSIT_TIME, Integer.toString(serviceStd.getTransitTime()));
 		
 		executeTransitRules();
 		
-		deliveryDate = DateTimeUtilities.incrementDate(queryTuples.get(QueryStrings.EAD), transitTime);
+		deliveryDate = DateTimeUtilities.incrementDate(queryTuples.get(QueryStrings.EAD), Integer.parseInt(queryTuples.get(QueryStrings.TRANSIT_TIME)));
 		queryTuples.put(QueryStrings.DELIVERY_DATE, deliveryDate);
 		
 		deliveryCalc = new NonPMEDeliveryCalculation(queryTuples);
@@ -68,6 +67,10 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 		output.put(QueryStrings.DELIVERY_DATE, deliveryDate);
 		output.put(RulesObject.SERVICE_STD_MSG, svcStdMsg);
 		output.put(RulesObject.GUARANTEE, guarantee);
+		output.put(QueryStrings.CUTOFF_TIME, queryTuples.get(QueryStrings.CUTOFF_TIME));
+		System.out.println("Transit " + queryTuples.get(QueryStrings.TRANSIT_TIME));
+		System.out.println("DELIVERY DATE: " + deliveryDate);
+		System.out.println("SVCMSG: " + svcStdMsg);
 	}
 	
 }

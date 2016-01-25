@@ -41,13 +41,13 @@ public class QueryParser {
 			}
 		}
 		
-		if (!queryTuples.containsKey(QueryStrings.DATE)) {
-			queryTuples.put(QueryStrings.DATE, DateTimeUtilities.getCurrentUTCDate());
+		if (!queryTuples.containsKey(QueryStrings.SHIP_DATE)) {
+			queryTuples.put(QueryStrings.SHIP_DATE, DateTimeUtilities.getCurrentUTCDate());
 		}
 		
 		validateQuery(queryTuples);
 		
-		return getQueryTuplesForNonPME();
+		return queryTuples;//getQueryTuplesForNonPME();
 	}
 	
 	public static HashMap<String, String> getQueryTuplesForNonPME() {
@@ -82,8 +82,8 @@ public class QueryParser {
 		
 		validateZip(queryTuples.get(QueryStrings.DEST_ZIP));
 		validateZip(queryTuples.get(QueryStrings.ORIGIN_ZIP));
-		validateDropOffTime(queryTuples.get(QueryStrings.DROP_OFF_TIME));
-		validateDate(queryTuples.get(QueryStrings.DATE));
+		validateDropOffTime(queryTuples.get(QueryStrings.SHIP_TIME));
+		validateDate(queryTuples.get(QueryStrings.SHIP_DATE));
 		validateMailClass(queryTuples.get(QueryStrings.MAIL_CLASS));
 		validateDestType(queryTuples.get(QueryStrings.DEST_TYPE));
 		
@@ -155,8 +155,8 @@ public class QueryParser {
 		
 		fakeQueryTuples.put(QueryStrings.ORIGIN_ZIP, "01609");
 		fakeQueryTuples.put(QueryStrings.DEST_ZIP, "90610");
-		fakeQueryTuples.put(QueryStrings.DATE, DateTimeUtilities.getCurrentUTCDate());
-		fakeQueryTuples.put(QueryStrings.DROP_OFF_TIME, "1000");
+		fakeQueryTuples.put(QueryStrings.SHIP_DATE, DateTimeUtilities.getCurrentUTCDate());
+		fakeQueryTuples.put(QueryStrings.SHIP_TIME, "1000");
 		fakeQueryTuples.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_PME);
 		fakeQueryTuples.put(QueryStrings.DEST_TYPE, QueryStrings.DESTTYPE_HFPU);
 		fakeQueryTuples.put(QueryStrings.EAD, DateTimeUtilities.getCurrentUTCDate());
@@ -169,8 +169,8 @@ public class QueryParser {
 		
 		fakeQueryTuples.put(QueryStrings.ORIGIN_ZIP, "32669");
 		fakeQueryTuples.put(QueryStrings.DEST_ZIP, "81654");
-		fakeQueryTuples.put(QueryStrings.DATE, DateTimeUtilities.getCurrentUTCDate());
-		fakeQueryTuples.put(QueryStrings.DROP_OFF_TIME, "1000");
+		fakeQueryTuples.put(QueryStrings.SHIP_DATE, "15-Jan-2016");
+		fakeQueryTuples.put(QueryStrings.SHIP_TIME, "1000");
 		fakeQueryTuples.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_PRI);
 		fakeQueryTuples.put(QueryStrings.DEST_TYPE, QueryStrings.DESTTYPE_HFPU);
 		fakeQueryTuples.put(QueryStrings.EAD, "15-Jan-2016");

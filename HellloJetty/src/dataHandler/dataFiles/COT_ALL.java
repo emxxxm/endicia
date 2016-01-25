@@ -15,11 +15,6 @@ public class COT_ALL extends AbsDataFile {
 
 	// TODO [optimization] add index
 	public String getCot(int dow, String ZIP) {
-		if (dow == 1) {
-			dow = 7;
-		} else {
-			dow -= 1;
-		}
 		int cot = Integer.MAX_VALUE;
 		for (CSVRecord r : recordsList) {
 			// TODO return earliest or latest

@@ -18,9 +18,7 @@ public class AddressClose extends AbsDataFile {
 	private String getCloseTimeOnDow(int DOW, String ZIP) throws CalculationNotPossibleException {
 		for(CSVRecord r: recordsList){
 			if(r.get(tupleID).equals(ZIP)){
-				if(DOW == 1)
-					return r.get(rangeID + 7);
-				else return r.get(rangeID + DOW - 1);
+				return r.get(rangeID + DOW);
 			}
 		}
 		throw new CalculationNotPossibleException("Did not find corresponding close time");

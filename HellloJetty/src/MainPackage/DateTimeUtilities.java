@@ -96,7 +96,12 @@ public class DateTimeUtilities {
 		}
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(calendarDate);
-		return calendar.get(Calendar.DAY_OF_WEEK);
+		int dow =  calendar.get(Calendar.DAY_OF_WEEK);
+		if(dow == Calendar.SUNDAY) {
+			return 7;
+		}
+		else
+			return dow-1;
 	}
 	public static ArrayList<String> getUSPSHolidays(){
 		IDataMaster d = DataMaster.getInstance();

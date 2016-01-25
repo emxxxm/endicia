@@ -22,7 +22,6 @@ public class TestMainLogic {
 		mainLogic.execute();
 		HashMap<String, String> output = mainLogic.getOutput();
 
-		
 		String xmlResp = "<ExpressMail>";
 		for (String s: output.keySet()) {
 			xmlResp += "<" + s + ">" + output.get(s) + "</" + s + ">"; 
