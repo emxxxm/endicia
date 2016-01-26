@@ -2,6 +2,7 @@ package atfImplementation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.apache.commons.csv.CSVRecord;
 
@@ -20,7 +21,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	HFPULocation HFPUloc; //TODO what does this do
 	int originCloseTime; //TODO what does this do
 	SDCKnowledgeDTO droolsMsg;
-	HashMap<String, String> output = new HashMap<String, String>();
+	LinkedHashMap<String, String> output = new LinkedHashMap<String, String>();
 	HashMap<String, ArrayList<CSVRecord>> locationRecords;
 	
 	
@@ -93,7 +94,6 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		output.put(QueryStrings.DELIVERY_DATE, queryTuples.get(QueryStrings.DELIVERY_DATE)); //SDD
 		output.put(QueryStrings.SHIP_TIME, queryTuples.get(QueryStrings.SHIP_TIME)); //Accept Time and Ship Time
 		output.put(RulesObject.SERVICE_STD_MSG, svcStdMsg);
-		output.put(QueryStrings.CUTOFF_TIME, queryTuples.get(QueryStrings.CUTOFF_TIME));
 		output.put(RulesObject.GUARANTEE, guarantee);
 		
 	}

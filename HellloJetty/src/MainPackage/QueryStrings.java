@@ -15,7 +15,6 @@ public class QueryStrings {
 	public static final String MAIL_CLASS_PER = "PER";
 	public static final String MAIL_CLASS_PKG = "PKG";
 	
-	
 	public static String ORIGIN_ZIP = "originzip";
 	public static String DEST_ZIP = "destzip";
 	public static String SHIP_DATE = "date";
@@ -31,6 +30,7 @@ public class QueryStrings {
 	public static String DEST_STATE = "deststate";
 	public static String ORIGIN_CITY = "origincity";
 	public static String ORIGIN_STATE = "originstate";
+	public static final String LOCATION = "locationlist";
 	
 	public static ArrayList<String> getQueryParameters() {
 		ArrayList<String> queryParameters = new ArrayList<String>();

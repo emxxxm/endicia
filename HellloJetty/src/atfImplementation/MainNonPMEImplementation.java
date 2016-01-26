@@ -20,6 +20,7 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 	NonPMEDeliveryCalculation deliveryCalc;
 	//Number of days
 	String deliveryDate;
+	ArrayList<Location> locationList;
 	
 	public MainNonPMEImplementation(HashMap<String, String> q) throws CalculationNotPossibleException{
 		super(q);
@@ -31,6 +32,7 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 		String cutoffTime;
 		
 		pri = new PRI_COT(queryTuples);
+		locationList = pri.getLocationList();
 		
 		if (queryTuples.get(QueryStrings.MAIL_CLASS).equals(QueryStrings.MAIL_CLASS_PRI)) {
 			PRIOutput = pri.getPRI_COT();
@@ -61,5 +63,15 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 		
 		executeServiceStandardRules();	
 	}
+	
+	@Override 
+	public void formatOutput() {
+		super.formatOutput();
+		if(queryTuples.get(QueryStrings.MAIL_CLASS).equals(QueryStrings.MAIL_CLASS_PRI)) {
+			output.put(QueryStrings.LOCATION, Location.printLocationList(locationList));
+		}
+	}
+	
+	
 	
 }

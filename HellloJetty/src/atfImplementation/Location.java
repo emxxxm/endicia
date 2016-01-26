@@ -1,26 +1,41 @@
 package atfImplementation;
 
-public class Location {
-	public String zipCode;
-	public String facName;
-	public String facAddress;
-	public String facState;
-	public String cutOffTime;
+import java.util.ArrayList;
 
-	public Location(String ZIP) {
-		zipCode = ZIP;
+public class Location {
+	private String zipCode;
+	private String facName;
+	private String facAddress;
+	private String facState;
+	private String cutOffTime;
+
+	public Location(String zip, String facName, String facAddress, String facCity, String facState, String cutOffTime) {
+		zipCode = zip;
+		this.facName = facName;
+		this.facAddress = facAddress;
+		this.facState = facState;
+		this.cutOffTime = cutOffTime;
 	}
 
 	public String toXMLString() {
 		String locString = new String();
-		locString += "<Location> " + "\n";
-		locString += "<Zip_Code> " + zipCode + " </Zip_Code>" + "\n";
-		locString += "<FAC_Name> " + facName + " </FAC_NAME" + "\n";
-		locString += "<FAC_State> " + facState + " </FAC_State>" + "\n";
-		locString += "<COT> " + cutOffTime + " </COT>" + "\n";
-		locString += "</Location>" + "\n";
+		locString += "<location> ";
+		locString += "<Zip_Code> " + zipCode + " </Zip_Code>";
+		locString += "<FAC_Name> " + facName + " </FAC_Name>";
+		locString += "<FAC_Address> " + facAddress + " </FAC_Address>";
+		locString += "<FAC_State> " + facState + " </FAC_State>";
+		locString += "<COT> " + cutOffTime + " </COT>";
+		locString += "</location>";
 		
 		return locString;
+	}
+	
+	public static String printLocationList(ArrayList<Location> locationList) {
+		String output = "";
+		for(Location r : locationList) {
+			output += r.toXMLString();
+		}
+		return output;
 	}
 
 }

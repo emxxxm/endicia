@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
+import atfImplementation.Location;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
 import dataHandler.dataFiles.RefValue;
@@ -10,6 +11,7 @@ import dataHandler.dataFiles.RefValue;
 public class PRI_COT {
 	String PRI_COT;
 	String ZIP, EAD;
+	ArrayList<Location> locationList;
 	//TODO change the constructor later after format EAD
 	public PRI_COT(HashMap<String, String> queryTuples){
 		ZIP = queryTuples.get(QueryStrings.ORIGIN_ZIP);
@@ -45,8 +47,12 @@ public class PRI_COT {
 	private String get_PRI_COT(int DOW, String ZIP){
 		IDataMaster d = DataMaster.getInstance();
 		String PRI_COT = d.getCotAll().getCot(DOW, ZIP); //TODO return all
+		locationList = d.getCotAll().getLocationList();
 		return PRI_COT;
 	}
-
+	
+	public ArrayList<Location> getLocationList() {
+		return locationList;
+	}
 
 }
