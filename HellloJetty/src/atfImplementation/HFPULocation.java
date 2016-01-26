@@ -12,15 +12,17 @@ public class HFPULocation {
 	//Input Destination ZIP Code, Mail Class
 	String HFPUIndicator;
 	String HFPULocation;
+	ArrayList<CSVRecord> records;
 	
-	public HFPULocation(HashMap<String, String> queryTuples) throws CalculationNotPossibleException{
+	public HFPULocation(HashMap<String, String> queryTuples, ArrayList<CSVRecord> cachedRecords) throws CalculationNotPossibleException{
+		records = cachedRecords;
 		String mailClass = queryTuples.get(QueryStrings.MAIL_CLASS);
 		String destZIP = queryTuples.get(QueryStrings.DEST_ZIP);
 		if(mailClass.equals(QueryStrings.MAIL_CLASS_PER)|| mailClass.equals(QueryStrings.MAIL_CLASS_STD)){
 			throw new CalculationNotPossibleException("The input mailclass does not supoort HFPU");
 		}
 		else{
-			ArrayList<CSVRecord> records = DataMaster.getInstance().getAddressClose().getAddressRecords(destZIP);;
+		//	ArrayList<CSVRecord> records = DataMaster.getInstance().getAddressClose().getAddressRecords(destZIP); //TODO OPtimize
 			CSVRecord record = records.get(0);
 			if(destZIP.length() == 9){
 				if(records.isEmpty()){

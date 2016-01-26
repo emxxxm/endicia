@@ -30,7 +30,7 @@ public class PRI_COT {
 		//else DOW=EAD_DOW
 		
 		//[DataAccess]Lookup PRI COT for DOW from ATF_COT
-		PRI_COT = get_PRI_COT(DOW, ZIP);
+		PRI_COT = get_PRI_COT(DOW, ZIP); 
 		
 		if(PRI_COT.isEmpty()){
 			IDataMaster d = DataMaster.getInstance();
@@ -44,7 +44,7 @@ public class PRI_COT {
 	}
 	private String get_PRI_COT(int DOW, String ZIP){
 		IDataMaster d = DataMaster.getInstance();
-		String PRI_COT = d.getCotAll().getCot(DOW, ZIP);
+		String PRI_COT = d.getCotAll().getCot(DOW, ZIP); //TODO return all
 		return PRI_COT;
 	}
 

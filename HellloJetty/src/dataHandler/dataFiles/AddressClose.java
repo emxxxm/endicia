@@ -2,15 +2,17 @@ package dataHandler.dataFiles;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import org.apache.commons.csv.CSVRecord;
 
+import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
 
 public class AddressClose extends AbsDataFile {
-	int tupleID = 0, rangeID = 5;
+	int tupleID = 0, rangeID = 5, cityID= 3, stateID = 4;
 	@Override
 	public String getFileName() {
 		return FilenameConstants.ADDRESS_CLOSE;
@@ -48,5 +50,29 @@ public class AddressClose extends AbsDataFile {
 		}
 		return outputRecords;
 	}
+	
+	public HashMap<String,ArrayList<CSVRecord>> getAddressRecords(String originZip, String destZip) {
+		HashMap<String, ArrayList<CSVRecord>> outputRecords = new HashMap<String, ArrayList<CSVRecord>>();
+		ArrayList<CSVRecord> destOutputRecords = new ArrayList<CSVRecord>();
+		ArrayList<CSVRecord> originOutputRecords = new ArrayList<CSVRecord>();
+		for(CSVRecord r: recordsList){
+			if(r.get(tupleID).startsWith(originZip)){
+				originOutputRecords.add(r);
+			} else if (r.get(tupleID).startsWith(destZip)) {
+				destOutputRecords.add(r);
+			}
+		}
+		outputRecords.put(QueryStrings.ORIGIN_ZIP, originOutputRecords);
+		outputRecords.put(QueryStrings.DEST_ZIP, destOutputRecords);
+		return outputRecords;
+	}
+	
+	/*public String getCityFromZip(CSVRecord r) {
+		
+	}
+	
+	public String getStateFromZip(CSVRecord r) {
+		
+	}*/
 
 }

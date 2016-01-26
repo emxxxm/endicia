@@ -138,7 +138,7 @@ public class TestFileClasses{
 	/*****************Test getHFPU subroutine******************************/
 	@Test
 	public void testGetHFPU() throws CalculationNotPossibleException {
-		HFPULocation loc = new HFPULocation(QueryParser.getFakeQueryPRITuples());
+		HFPULocation loc = new HFPULocation(QueryParser.getFakeQueryPRITuples(), null);
 		
 		assertEquals(loc.getHFPULocation(), "SNOWMASS,26900 HIGHWAY 82,SNOWMASS,CO");
 	} 

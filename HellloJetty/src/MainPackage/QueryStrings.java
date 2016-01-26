@@ -27,6 +27,11 @@ public class QueryStrings {
 	public static String CUTOFF_TIME = "cutofftime";
 	public static String TRANSIT_TIME = "transitTime";
 	
+	public static String DEST_CITY = "destcity";
+	public static String DEST_STATE = "deststate";
+	public static String ORIGIN_CITY = "origincity";
+	public static String ORIGIN_STATE = "originstate";
+	
 	public static ArrayList<String> getQueryParameters() {
 		ArrayList<String> queryParameters = new ArrayList<String>();
 		
