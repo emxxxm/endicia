@@ -8,7 +8,6 @@ public class PMEDeliveryDate {
 	//take in initially set in Main Flow, return update Delivery Date
 	public PMEDeliveryDate(HashMap<String, String> queryTuples){
 		while(true){
-			break;
 			//[Drools] Execute Rules Engine for Delivery Date Rules
 			
 			//if(Delivery Date > 7 Days after the EAD){
@@ -54,7 +53,7 @@ public class PMEDeliveryDate {
 						//else DOW = 8;
 					//}
 			
-					//if(Destination is PO Box){
+					//if(Destination is PO Box){ 	
 						//Lookup DOW Close Time from ATF_ADDRESS_CLOSE
 						//if(Close Time = 0){
 							//Set Delivery Date = Delivery Date + 1

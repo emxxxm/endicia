@@ -19,7 +19,7 @@ public class NonPMEDeliveryCalculation {
 	//Take in Delivery Date which is initally set in Main Flow
 	public NonPMEDeliveryCalculation(HashMap<String, String> q) throws ParseException, NumberFormatException, CalculationNotPossibleException{
 		int closeTime = 0;
-		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(q); 
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(q, new SDCKnowledgeDTO()); 
 		while(closeTime == 0){
 			//[Drools] Execute Rules Engine for Delivery Date Rules 
 			
@@ -35,6 +35,8 @@ public class NonPMEDeliveryCalculation {
 				else{
 					droolsMsg.deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
 				}	
+			} else {
+				break;
 			}
 		}
 	}

@@ -18,21 +18,22 @@ public class QueryStrings {
 	
 	public static String ORIGIN_ZIP = "originzip";
 	public static String DEST_ZIP = "destzip";
-	public static String DATE = "date";
-	public static String DROP_OFF_TIME = "dropofftime"; //Accept Time and Ship Time
+	public static String SHIP_DATE = "date";
+	public static String SHIP_TIME = "dropofftime";
 	public static String MAIL_CLASS = "mailclass";
 	public static String DEST_TYPE = "desttype";
 	public static String EAD = "ead";
 	public static String DELIVERY_DATE = "deliveryDate"; //SDD
 	public static String CUTOFF_TIME = "cutofftime";
+	public static String TRANSIT_TIME = "transitTime";
 	
 	public static ArrayList<String> getQueryParameters() {
 		ArrayList<String> queryParameters = new ArrayList<String>();
 		
 		queryParameters.add(ORIGIN_ZIP);
 		queryParameters.add(DEST_ZIP);
-		queryParameters.add(DATE);
-		queryParameters.add(DROP_OFF_TIME);
+		queryParameters.add(SHIP_DATE);
+		queryParameters.add(SHIP_TIME);
 		queryParameters.add(MAIL_CLASS);
 		queryParameters.add(DEST_TYPE);
 		
@@ -74,8 +75,8 @@ public class QueryStrings {
 		mailClasses.add(MAIL_CLASS_PME);
 		mailClasses.add(MAIL_CLASS_FCM);
 		mailClasses.add(MAIL_CLASS_STD);
-		mailClasses.add(MAIL_CLASS_PER);
 		mailClasses.add(MAIL_CLASS_PKG);
+		mailClasses.add(MAIL_CLASS_PRI);
 		
 		return mailClasses;
 	}

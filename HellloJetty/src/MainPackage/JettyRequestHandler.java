@@ -33,9 +33,9 @@ public class JettyRequestHandler extends AbstractHandler
              
 		try {
 			queryTuples = QueryParser.parseStringForTuples(request.getQueryString());
-
+			
 	        String xmlResp = "<ExpressMail><OriginZip>" + queryTuples.get(QueryStrings.ORIGIN_ZIP) +
-	        		"</OriginZip><Date>" + queryTuples.get(QueryStrings.DATE) + 
+	        		"</OriginZip><Date>" + queryTuples.get(QueryStrings.SHIP_DATE) + 
 	        		"</Date><destZip>" + queryTuples.get(QueryStrings.DEST_TYPE) + 
 	        		"</destZip><mailClass>" + queryTuples.get(QueryStrings.MAIL_CLASS) +
 	        		"</mailClass><destType>" + queryTuples.get(QueryStrings.DEST_TYPE) +

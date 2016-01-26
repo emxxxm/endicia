@@ -47,7 +47,7 @@ public class TestQueryParsing {
 	@Test
 	public void testInvalidNumberOfParameters() {
 		queryTuples.remove(QueryStrings.DEST_ZIP);
-		queryTuples.remove(QueryStrings.DATE);
+		queryTuples.remove(QueryStrings.SHIP_DATE);
 		queryTuples.remove(QueryStrings.DELIVERY_DATE);
 		
 		try {
@@ -132,7 +132,7 @@ public class TestQueryParsing {
 	public void testDropOffTimeValidation() {
 		String lowTime = "-1", highTime = "2400", invalidFormat = "z204";
 		
-		queryTuples.put(QueryStrings.DROP_OFF_TIME, invalidFormat);
+		queryTuples.put(QueryStrings.SHIP_TIME, invalidFormat);
 		
 		try {
 			QueryParser.validateQuery(queryTuples);
@@ -141,7 +141,7 @@ public class TestQueryParsing {
 			assertEquals("Attempted to parse the drop off time " + invalidFormat + ", but it is in an invalid format." , e.getMessage());
 		}
 		
-		queryTuples.put(QueryStrings.DROP_OFF_TIME, lowTime);
+		queryTuples.put(QueryStrings.SHIP_TIME, lowTime);
 		
 		try {
 			QueryParser.validateQuery(queryTuples);
@@ -150,7 +150,7 @@ public class TestQueryParsing {
 			assertEquals("Attempted to parse the drop off time " + lowTime + ", but it is not within the correct range of values.", e.getMessage());
 		}
 		
-		queryTuples.put(QueryStrings.DROP_OFF_TIME, highTime);
+		queryTuples.put(QueryStrings.SHIP_TIME, highTime);
 		
 		try {
 			QueryParser.validateQuery(queryTuples);
@@ -162,7 +162,7 @@ public class TestQueryParsing {
 	
 	@Test
 	public void testInvalidDate() {
-		queryTuples.put(QueryStrings.DATE, DateTimeUtilities.DATE_FORMAT);
+		queryTuples.put(QueryStrings.SHIP_DATE, DateTimeUtilities.DATE_FORMAT);
 		
 		try {
 			QueryParser.validateQuery(queryTuples);

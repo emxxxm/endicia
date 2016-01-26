@@ -5,9 +5,6 @@ import java.util.Calendar;
 
 import org.apache.commons.csv.CSVRecord;
 import MainPackage.QueryStrings;
-import atfImplementation.CalculationNotPossibleException;
-
-import dataHandler.DataMaster;
 
 public class RefValue extends AbsDataFile {
 	int tupleID = 0, valueID = 2;
@@ -101,16 +98,15 @@ public class RefValue extends AbsDataFile {
 	public String getDefaultPMCOT(int DOW){
 		String dowInFile = "";
 		String cot = "";
-		if(DOW <= Calendar.FRIDAY && DOW >= Calendar.MONDAY){
-			dowInFile = "M_F";
-		}
-		else if(DOW == Calendar.SATURDAY){
+		if(DOW == Calendar.SATURDAY){
 			dowInFile = "SAT";
 		}
-		else{
+		else if(DOW == Calendar.SUNDAY){
 			dowInFile = "SUN";
 		}
-		
+		else{
+			dowInFile = "M_F";
+		}
 		for(CSVRecord r: recordsList){
 			if(r.get(tupleID).equals(PM_DEFAULT_COT_ID)&& 
 					r.get(tupleID +1).equals(dowInFile)){
