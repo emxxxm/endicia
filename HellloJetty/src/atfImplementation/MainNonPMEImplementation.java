@@ -61,13 +61,6 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 		queryTuples.put(QueryStrings.DELIVERY_DATE, deliveryDate);
 		
 		executeServiceStandardRules();	
-		
-		String svcStdMsg = droolsMsg.svcStdMsg;
-		String guarantee = String.valueOf(droolsMsg.isGuarantee);
-		
-		output.put(QueryStrings.DELIVERY_DATE, deliveryDate);
-		output.put(RulesObject.SERVICE_STD_MSG, svcStdMsg);
-		output.put(RulesObject.GUARANTEE, guarantee);
 	}
 	
 }
