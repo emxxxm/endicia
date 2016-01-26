@@ -35,6 +35,8 @@ public class NonPMEDeliveryCalculation {
 				else{
 					droolsMsg.deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
 				}	
+			} else {
+				break;
 			}
 		}
 	}
