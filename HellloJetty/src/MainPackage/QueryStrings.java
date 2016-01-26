@@ -23,7 +23,7 @@ public class QueryStrings {
 	public static String MAIL_CLASS = "mailclass";
 	public static String DEST_TYPE = "desttype";
 	public static String EAD = "ead";
-	public static String DELIVERY_DATE = "deliveryDate";
+	public static String DELIVERY_DATE = "deliveryDate"; //SDD
 	public static String CUTOFF_TIME = "cutofftime";
 	public static String TRANSIT_TIME = "transitTime";
 	

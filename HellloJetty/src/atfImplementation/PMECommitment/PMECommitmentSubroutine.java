@@ -4,11 +4,59 @@ import java.util.ArrayList;
 
 import java.util.HashMap;
 
+import org.apache.commons.csv.CSVRecord;
+
+import MainPackage.QueryStrings;
 import atfImplementation.Commitment;
+import dataHandler.DataMaster;
+import dataHandler.IDataMaster;
 
 public class PMECommitmentSubroutine {
 	
 	public PMECommitmentSubroutine(HashMap<String, String> queryTuples) {
+		int originFACID = 5, destFACID = 1;
+		String originZIP = queryTuples.get(QueryStrings.ORIGIN_ZIP);
+		String destZIP = queryTuples.get(QueryStrings.DEST_ZIP);
+		String destType = queryTuples.get(QueryStrings.getDestTypes());
+		ArrayList<CSVRecord> originList = DataMaster.getInstance().getOriginScheduleAll().getOriginList(originZIP);
+		ArrayList<CSVRecord> destList = DataMaster.getInstance().getPMEDest().getDestList(destType, destZIP);
+		ArrayList<CSVRecord> dispList;
+		ArrayList<Commitment> commitmentList = new ArrayList<Commitment>();
+		for(int i = 0; i < originList.size(); i ++){
+			CSVRecord originRecord = originList.get(i);
+			for(int j = 0; j < destList.size(); j ++){
+				CSVRecord destRecord = destList.get(j);
+				if(originRecord.get(originFACID).equals(destRecord.get(destFACID))){
+					new IntraFacilityCommitment();//TODO finish intrafacility 
+					continue;
+				}
+				else{
+					dispList = DataMaster.getInstance().getPMEDisp().getDispList(originRecord.get(originFACID), destRecord.get(destFACID));
+				
+					for(int k = 0; i < dispList.size(); k ++){
+						CSVRecord dispRecord = dispList.get(k);
+						new ExtraFacilityCommitment(); //TODO finish extrafacility;
+					}
+				}
+			}
+		}
+		if(commitmentList.isEmpty()){
+			Commitment commitment = new Commitment();
+			if(Integer.parseInt(queryTuples.get(QueryStrings.SHIP_TIME)) < Integer.parseInt(queryTuples.get(QueryStrings.CUTOFF_TIME))){
+				//TODO decide where to put these values;
+				// Service Standard = 2;
+				// Delivery Time = 1500;
+				// Commitment Date = EAD;
+				// Commitment Rank = 1;
+				// Preferred Indicator = 0;}
+			//else{
+				//Service Standard = 2;
+				//Delivery Time = 1500;
+				//Commitment Date = EAD + 1;
+				//cOMMITMENT rANK = 1;
+				//Preferred Indicator = 0}}}
+			}
+		}
 		//[DataAccess] Lookup Origin ZIP in [ATF_PME_ORIGIN_SCHEDULE]
 		//save all Records
 		

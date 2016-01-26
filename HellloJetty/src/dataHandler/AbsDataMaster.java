@@ -3,6 +3,7 @@ package dataHandler;
 import dataHandler.dataFiles.APOFPODPO;
 import dataHandler.dataFiles.AddressClose;
 import dataHandler.dataFiles.COT_ALL;
+import dataHandler.dataFiles.OriginScheduleAll;
 import dataHandler.dataFiles.PMEDestSchedule;
 import dataHandler.dataFiles.PMEDispSchedule;
 import dataHandler.dataFiles.RefValue;
@@ -18,6 +19,7 @@ public abstract class AbsDataMaster implements IDataMaster {
 	RulesObject rules;
 	COT_ALL cot;
 	ServiceStandardAll ssd;
+	OriginScheduleAll orgScheduleAll = new OriginScheduleAll();
 	
 	public AbsDataMaster() {
 		APOFPODPO = new APOFPODPO();
@@ -28,6 +30,7 @@ public abstract class AbsDataMaster implements IDataMaster {
 		rules = new RulesObject();
 		cot = new COT_ALL();
 		ssd = new ServiceStandardAll();
+		
 	}
 	public ServiceStandardAll getServiceStandardAll(){
 		return ssd;
@@ -58,6 +61,10 @@ public abstract class AbsDataMaster implements IDataMaster {
 	
 	public COT_ALL getCotAll(){
 		return cot;
+	}
+	
+	public OriginScheduleAll getOriginScheduleAll(){
+		return orgScheduleAll;
 	}
 	
 }

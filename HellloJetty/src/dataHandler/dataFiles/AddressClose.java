@@ -1,6 +1,7 @@
 package dataHandler.dataFiles;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.apache.commons.csv.CSVRecord;
 
@@ -18,7 +19,9 @@ public class AddressClose extends AbsDataFile {
 	private String getCloseTimeOnDow(int DOW, String ZIP) throws CalculationNotPossibleException {
 		for(CSVRecord r: recordsList){
 			if(r.get(tupleID).equals(ZIP)){
+
 				return r.get(rangeID + DOW);
+
 			}
 		}
 		throw new CalculationNotPossibleException("Did not find corresponding close time");

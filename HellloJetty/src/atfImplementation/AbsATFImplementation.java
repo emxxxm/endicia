@@ -60,7 +60,24 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	}
 	
 	public HashMap<String, String> getOutput() {
+		formatOutput();
 		return output;
+	}
+	
+	public void formatOutput() {
+		String svcStdMsg = droolsMsg.svcStdMsg;
+		String guarantee = String.valueOf(droolsMsg.isGuarantee);
+		
+		output.put(QueryStrings.ORIGIN_ZIP, queryTuples.get(QueryStrings.ORIGIN_ZIP));
+		output.put(QueryStrings.DEST_ZIP, queryTuples.get(QueryStrings.DEST_ZIP));
+		output.put(QueryStrings.MAIL_CLASS, queryTuples.get(QueryStrings.MAIL_CLASS));
+		output.put(QueryStrings.EAD, queryTuples.get(QueryStrings.EAD));
+		output.put(QueryStrings.DELIVERY_DATE, queryTuples.get(QueryStrings.DELIVERY_DATE)); //SDD
+		output.put(QueryStrings.SHIP_TIME, queryTuples.get(QueryStrings.SHIP_TIME)); //Accept Time and Ship Time
+		output.put(RulesObject.SERVICE_STD_MSG, svcStdMsg);
+		output.put(QueryStrings.CUTOFF_TIME, queryTuples.get(QueryStrings.CUTOFF_TIME));
+		output.put(RulesObject.GUARANTEE, guarantee);
+		
 	}
 	
 }

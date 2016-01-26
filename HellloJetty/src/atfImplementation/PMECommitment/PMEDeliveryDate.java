@@ -16,11 +16,11 @@ public class PMEDeliveryDate {
 	//take in initially set in Main Flow, return update Delivery Date
 	
 	SDCKnowledgeDTO droolsMsg;
-
+	int dow;
+	int closeTime=0;
+	
 	public PMEDeliveryDate(HashMap<String, String> queryTuples) throws ParseException, NumberFormatException, CalculationNotPossibleException{
 		while(true){
-			int dow;
-			int closeTime=0;
 			
 			//[Drools] Execute Rules Engine for Delivery Date Rules
 			droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples, new SDCKnowledgeDTO()); 
@@ -126,7 +126,7 @@ public class PMEDeliveryDate {
 						//else DOW = 8;
 					//}
 			
-					//if(Destination is PO Box){
+					//if(Destination is PO Box){ 	
 						//Lookup DOW Close Time from ATF_ADDRESS_CLOSE
 						//if(Close Time = 0){
 							//Set Delivery Date = Delivery Date + 1
