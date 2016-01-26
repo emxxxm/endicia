@@ -78,6 +78,13 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		String svcStdMsg = droolsMsg.svcStdMsg;
 		String guarantee = String.valueOf(droolsMsg.isGuarantee);
 		
+		CSVRecord destRecord = locationRecords.get(QueryStrings.DEST_ZIP).get(0), originRecord = locationRecords.get(QueryStrings.ORIGIN_ZIP).get(0);
+		
+		output.put(QueryStrings.DEST_CITY, AddressClose.getCity(destRecord));
+		output.put(QueryStrings.DEST_STATE, AddressClose.getState(destRecord));
+		output.put(QueryStrings.ORIGIN_CITY, AddressClose.getCity(originRecord));
+		output.put(QueryStrings.ORIGIN_STATE, AddressClose.getState(originRecord));
+		
 		
 		output.put(QueryStrings.ORIGIN_ZIP, queryTuples.get(QueryStrings.ORIGIN_ZIP));
 		output.put(QueryStrings.DEST_ZIP, queryTuples.get(QueryStrings.DEST_ZIP));

@@ -12,7 +12,9 @@ import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
 
 public class AddressClose extends AbsDataFile {
-	int tupleID = 0, rangeID = 5, cityID= 3, stateID = 4;
+	int tupleID = 0, rangeID = 5;
+	public static int CITY_ID = 3;
+	public static int STATE_ID = 4;
 	@Override
 	public String getFileName() {
 		return FilenameConstants.ADDRESS_CLOSE;
@@ -67,12 +69,12 @@ public class AddressClose extends AbsDataFile {
 		return outputRecords;
 	}
 	
-	/*public String getCityFromZip(CSVRecord r) {
-		
+	public static String getCity(CSVRecord r) {
+		return r.get(CITY_ID);
 	}
 	
-	public String getStateFromZip(CSVRecord r) {
-		
-	}*/
+	public static String getState(CSVRecord r) {
+		return r.get(STATE_ID);
+	}
 
 }
