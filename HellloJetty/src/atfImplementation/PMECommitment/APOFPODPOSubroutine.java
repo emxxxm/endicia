@@ -21,7 +21,7 @@ public class APOFPODPOSubroutine {
 	ArrayList<Integer> lowerbounds = new ArrayList<Integer>(), upperbounds = new ArrayList<Integer>();
 	ArrayList<String> DPOZips;
 	String originZip="01609", destZip ="90610", mailClass="-1", destType = "-1";
-	String retrogradeZip, progradeZip, dropOffTime, retrogradeArrivalTime;
+	String retrogradeZip= null, progradeZip= null, dropOffTime, retrogradeArrivalTime;
 
 	ArrayList<CSVRecord> records;
 	RefValue refVal;
