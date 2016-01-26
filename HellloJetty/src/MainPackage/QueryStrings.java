@@ -26,6 +26,9 @@ public class QueryStrings {
 	public static String CUTOFF_TIME = "cutofftime";
 	public static String TRANSIT_TIME = "transitTime";
 	
+	public static final String RETROGRADE_ZIP = "retrogradezip";
+	public static final String PROGRADE_ZIP = "progradezip";
+	
 	public static String DEST_CITY = "destcity";
 	public static String DEST_STATE = "deststate";
 	public static String ORIGIN_CITY = "origincity";

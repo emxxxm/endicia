@@ -29,6 +29,9 @@ public class APOFPODPOSubroutine {
 	public APOFPODPOSubroutine(HashMap<String, String> q) throws CalculationNotPossibleException {
 		initializeValuesFromDataFile(q);
 
+		q.put(QueryStrings.PROGRADE_ZIP, null);
+		q.put(QueryStrings.RETROGRADE_ZIP, null);
+		
 		if (refVal.isZipInRange(originZip)) {//Path if origin zip is within military range
 			if (refVal.isZipInRange(destZip)) {
 				if (isOriginOrDestDPO()) {
@@ -44,6 +47,8 @@ public class APOFPODPOSubroutine {
 				retrogradeOffset = retrogradeOffsetFromRecord; 
 				q.put(QueryStrings.ORIGIN_ZIP, retrogradeZip);
 				retrogradeZip = originZip;
+				q.put(QueryStrings.RETROGRADE_ZIP, retrogradeZip);
+				
 				return;
 			} else { //TODO figure out where to get retrograde arrival time in this branch -- TYPO IN CHART??
 				//TODO THIS LINE IS REQUIRED FOR PROGRAM ACCORDING TO FLOWCHART BUT YOU CANNOT HAVE A RETROGRADE_ARRIVAL_TIME WITHOUT A RECORD FOUND -- TYPO IN CHART??
@@ -62,6 +67,7 @@ public class APOFPODPOSubroutine {
 						progradeOffset = progradeOffsetFromRecord;
 						q.put(QueryStrings.DEST_ZIP, progradeZip);
 						progradeZip = destZip;
+						q.put(QueryStrings.PROGRADE_ZIP, progradeZip);
 					
 					}
 				}
