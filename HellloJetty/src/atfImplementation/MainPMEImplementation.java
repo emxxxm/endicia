@@ -43,8 +43,11 @@ public class MainPMEImplementation extends AbsATFImplementation {
 	    
 	    deliveryDate = DateTimeUtilities.incrementDate(queryTuples.get(QueryStrings.EAD), transitTime + retrogradeOffset + progradeOffset);
 		queryTuples.put(QueryStrings.DELIVERY_DATE, deliveryDate);
+		//droolsMsg.deliveryDate = deliveryDate;
 		
 		deliveryCalc = new PMEDeliveryDate(queryTuples);
+		deliveryDate = deliveryCalc.getDeliveryDate();
+		queryTuples.put(QueryStrings.DELIVERY_DATE, deliveryDate);
 		
 		executeServiceStandardRules();
 	}

@@ -108,4 +108,14 @@ public class DateTimeUtilities {
 		RefValue ref = d.getRefValue();
 		return ref.getHolidays();
 	}
+	
+	public static boolean isDate1BeforeDate2(String dateString1, String dateString2) throws ParseException {
+		Date date1 = getDateFromString(dateString1);
+		Date date2 = getDateFromString(dateString2);
+		
+		if(date1.before(date2))
+			return true;
+		else
+			return false;
+	}
 }
