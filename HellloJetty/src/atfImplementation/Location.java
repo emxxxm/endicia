@@ -7,8 +7,8 @@ public class Location {
 	public String facState;
 	public String cutOffTime;
 
-	public Location() {
-		
+	public Location(String ZIP) {
+		zipCode = ZIP;
 	}
 
 	public String toXMLString() {

@@ -3,6 +3,8 @@ package atfImplementation;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.commons.csv.CSVRecord;
+
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
@@ -19,6 +21,8 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	int originCloseTime; //TODO what does this do
 	SDCKnowledgeDTO droolsMsg;
 	HashMap<String, String> output = new HashMap<String, String>();
+	HashMap<String, ArrayList<CSVRecord>> locationRecords;
+	
 	
 	public AbsATFImplementation(HashMap<String, String> q) {
 		queryTuples = q;
@@ -30,9 +34,15 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		originCloseTime = AddressClose.getCloseTimeOnDOWWrapper(DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.SHIP_DATE)), originZip);
 	}
 	
+	private void initLocationRecords() {
+		locationRecords = DataMaster.getInstance().getAddressClose().getAddressRecords(queryTuples.get(QueryStrings.ORIGIN_ZIP),queryTuples.get(QueryStrings.DEST_ZIP));
+	}
+	
 	private void resolveHFPU() throws CalculationNotPossibleException {
+		initLocationRecords();
+		ArrayList<CSVRecord> destRecords = locationRecords.get(QueryStrings.DEST_ZIP);
 		if (QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
-				HFPUloc = new HFPULocation(queryTuples); 
+				HFPUloc = new HFPULocation(queryTuples, destRecords); 
 				HFPUAddress = HFPUloc.getHFPULocation();
 		}
 	}
@@ -67,6 +77,14 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	public void formatOutput() {
 		String svcStdMsg = droolsMsg.svcStdMsg;
 		String guarantee = String.valueOf(droolsMsg.isGuarantee);
+		
+		CSVRecord destRecord = locationRecords.get(QueryStrings.DEST_ZIP).get(0), originRecord = locationRecords.get(QueryStrings.ORIGIN_ZIP).get(0);
+		
+		output.put(QueryStrings.DEST_CITY, AddressClose.getCity(destRecord));
+		output.put(QueryStrings.DEST_STATE, AddressClose.getState(destRecord));
+		output.put(QueryStrings.ORIGIN_CITY, AddressClose.getCity(originRecord));
+		output.put(QueryStrings.ORIGIN_STATE, AddressClose.getState(originRecord));
+		
 		
 		output.put(QueryStrings.ORIGIN_ZIP, queryTuples.get(QueryStrings.ORIGIN_ZIP));
 		output.put(QueryStrings.DEST_ZIP, queryTuples.get(QueryStrings.DEST_ZIP));

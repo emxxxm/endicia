@@ -19,13 +19,12 @@ public class COT_ALL extends AbsDataFile {
 	// TODO [optimization] add index
 	// TODO return all records
 	public String getCot(int dow, String ZIP) {
+		Location newLoc;
 		int cot = Integer.MAX_VALUE;
 		for (CSVRecord r : recordsList) {
 			// TODO return earliest or latest
 			if (r.get(tupleID).startsWith(ZIP)) {
-				Location newLoc = new Location();
-				newLoc.zipCode = ZIP;
-				//locationList.add(r);
+				newLoc = new Location(ZIP);
 				locationList.add(newLoc);
 				if (Integer.parseInt(r.get(dow + rangeID)) < cot)
 					cot = Integer.parseInt(r.get(dow + rangeID));
