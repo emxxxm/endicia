@@ -95,7 +95,7 @@ public class APOFPODPOSubroutine {
 		DPOZips = refVal.getDPOZips();
 	}
 	
-	private void initRecords(String zip) { //TODO possible optimization betwene this and initAPOFPODPOData
+	private void initRecords(String zip) throws CalculationNotPossibleException { //TODO possible optimization betwene this and initAPOFPODPOData
 		APOFPODPO APOData = DataMaster.getInstance().getAPOFPODPO(); 
 		records = APOData.getRecords(QueryStrings.mapMailClassToInt(mailClass), zip);
 	}

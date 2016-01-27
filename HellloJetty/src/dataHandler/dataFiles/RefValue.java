@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import org.apache.commons.csv.CSVRecord;
 import MainPackage.QueryStrings;
+import atfImplementation.CalculationNotPossibleException;
 
 public class RefValue extends AbsDataFile {
 	int tupleID = 0, valueID = 2;
@@ -116,7 +117,7 @@ public class RefValue extends AbsDataFile {
 		return cot;
 		
 	}
-	public String getDefaultNonPMCOT(int DOW, String mailClass){
+	public String getDefaultNonPMCOT(int DOW, String mailClass) throws CalculationNotPossibleException{
 		String dowInFile = QueryStrings.mapMailClassToInt(mailClass);
 		
 		String cot = "";

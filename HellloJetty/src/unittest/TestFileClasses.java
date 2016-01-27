@@ -79,7 +79,7 @@ public class TestFileClasses{
 	}
 	
 	@Test
-	public void testGetDefaultNonPMCOT() {
+	public void testGetDefaultNonPMCOT() throws CalculationNotPossibleException {
 		assertEquals("1700",refVal.getDefaultNonPMCOT(Calendar.MONDAY, QueryStrings.MAIL_CLASS_PKG));
 	}
 	

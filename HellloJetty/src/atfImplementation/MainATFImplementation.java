@@ -29,7 +29,7 @@ public class MainATFImplementation implements IATFImplementation {
 	}
 
 	@Override
-	public HashMap<String, String> getOutput() {
+	public HashMap<String, String> getOutput() throws CalculationNotPossibleException {
 		return mainLogic.getOutput();
 	}
 }

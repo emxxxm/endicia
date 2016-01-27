@@ -70,12 +70,12 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_POSTPROCESSING);
 	}
 	
-	public HashMap<String, String> getOutput() {
+	public HashMap<String, String> getOutput() throws CalculationNotPossibleException {
 		formatOutput();
 		return output;
 	}
 	
-	public void formatOutput() {
+	public void formatOutput() throws CalculationNotPossibleException {
 		String svcStdMsg = droolsMsg.svcStdMsg;
 		String guarantee = String.valueOf(droolsMsg.isGuarantee);
 		
@@ -88,7 +88,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		
 		output.put(QueryStrings.DEST_TYPE, queryTuples.get(QueryStrings.DEST_TYPE));
 		if (QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
-			output.put(QueryStrings.DESTTYPE_HFPU, HFPUAddress);
+			output.put(QueryStrings.destTypeToString(QueryStrings.DESTTYPE_HFPU), HFPUAddress);
 		}
 		
 		
