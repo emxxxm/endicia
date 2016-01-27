@@ -20,6 +20,7 @@ public class PMEDeliveryDate {
 	int closeTime=0;
 	String retroZip;
 	String proZip;
+	String deliveryDate;
 	
 	public PMEDeliveryDate(HashMap<String, String> queryTuples) throws ParseException, NumberFormatException, CalculationNotPossibleException{
 		while(true){
@@ -29,7 +30,7 @@ public class PMEDeliveryDate {
 			DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_DELIVERY);
 			
 			if(DateTimeUtilities.getDaysBetweenDates(droolsMsg.deliveryDate, droolsMsg.ead) > 7) {
-				droolsMsg.deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.ead, 7);
+				deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.ead, 7);
 				return;
 			}
 			else {
@@ -40,7 +41,7 @@ public class PMEDeliveryDate {
 					}
 					closeTime = AddressClose.getCloseTimeOnDOWWrapper(dow, droolsMsg.destinationZip);
 					if(closeTime == 0) {
-						droolsMsg.deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
+						deliveryDate =  DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
 						continue;
 					}
 					retroZip = queryTuples.get(QueryStrings.RETROGRADE_ZIP);
@@ -56,13 +57,13 @@ public class PMEDeliveryDate {
 				else {
 					if(dow == 6 || dow == 7) {
 						if(isNoDeliverySelected(dow)){
-							droolsMsg.deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
+							deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
 							continue;
 						}
 					}
 					else if(DateTimeUtilities.getUSPSHolidays().contains(droolsMsg.deliveryDate)) {
 						if(isNoDeliverySelected(dow)) {
-							droolsMsg.deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
+							deliveryDate =  DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
 							continue;
 						}
 						else {
@@ -73,7 +74,7 @@ public class PMEDeliveryDate {
 						DataMaster.getInstance().getAddressClose();
 						closeTime = AddressClose.getCloseTimeOnDOWWrapper(dow, queryTuples.get(QueryStrings.DEST_ZIP));
 						if(closeTime == 0){
-							droolsMsg.deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
+							deliveryDate =  DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
 							continue;
 						}
 						if(retroZip != null) {
@@ -148,14 +149,14 @@ public class PMEDeliveryDate {
 				//}
 			//}
 	
+	//TODO Actually need to change to queryTuples.deliveryDate
 	public String getDeliveryDate() {
-		return droolsMsg.deliveryDate;
+		return deliveryDate;
 	}
 	
 	//TODO actually implement
 	public boolean isNoDeliverySelected(int dow) {
 		return false;
 	}
-	
 			
 }

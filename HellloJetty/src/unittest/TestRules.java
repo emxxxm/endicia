@@ -37,18 +37,12 @@ public class TestRules {
 	
 	@Test //This test rule #70104 in DROOLS_DELIVERY
 	public void testDroolsDeliveryIncrementDate() throws ParseException {
-		System.out.println("__________TEST testDroolDeliveryIncrementDate _____________________");
 		message.deliveryDate = "04-Jul-2011";
 		message.ead = "07-Jul-2011";
 		message.mailClass = QueryStrings.MAIL_CLASS_PRI;
 		message.noExpressMail = message.isNotExpressMail();
-		System.out.println("Delivery Date before " + message.deliveryDate);
 		System.out.println("Days Between " +  message.getDaysBetweenDates(message.ead, message.deliveryDate));
 		rules.insertAndFire(message, RulesObject.DROOLS_DELIVERY);
-		System.out.println("Days Between post fire " + message.getDaysBetweenDates(message.ead, message.deliveryDate));
-		System.out.println("Delivery Date after " + message.deliveryDate);
-		System.out.println("__________TEST END _____________________");
-
 		assertTrue(message.deliveryDate.equals("05-Jul-2011"));
 	}
 	
@@ -72,6 +66,23 @@ public class TestRules {
 	@Test 
 	public void testDroolsAcceptanceRules() {
 		rules.insertAndFire(message, RulesObject.DROOLS_ACCEPTANCE);
+	}
+	
+	@Test //Rule # 70112 in Drools_Acceptance
+//	when
+//	$dto : SDCKnowledgeDTO (
+//		mailClass != "PME",
+//		ead == "31-Dec-2013",
+//		ead == acceptDate || (ead == addDaysToDate(acceptDate,1) && missedCot))
+//then
+//	$dto.incrementTransitTime(1);
+	public void testDroolsTransit70112() {
+		message.mailClass = QueryStrings.MAIL_CLASS_FCM;
+		message.ead = "31-Dec-2013";
+		message.acceptDate = "31-Dec-2013";
+		int oldTransitTime = message.transitTime;
+		rules.insertAndFire(message, RulesObject.DROOLS_TRANSIT);
+		assertTrue(message.transitTime == (oldTransitTime+1));
 	}
 	
 	@Test

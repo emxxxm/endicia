@@ -2,15 +2,18 @@ package unittest;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
 import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
+import atfImplementation.PMECommitment.PMEDeliveryDate;
 
 public class TestSubroutines {
 
@@ -87,5 +90,18 @@ public class TestSubroutines {
 		
 		APOFPODPOSubroutine AFDsub = new APOFPODPOSubroutine(queryTuples);
 	}
-
+	
+	@Test //PMEDeliveryDate First IF
+	public void testPMEDeliveryDate() throws NumberFormatException, ParseException, CalculationNotPossibleException {
+		queryTuples.put(QueryStrings.DELIVERY_DATE, "01-Jan-2016");
+		queryTuples.put(QueryStrings.EAD, "09-Jan-2016");
+		PMEDeliveryDate pmeDeliv = new PMEDeliveryDate(queryTuples);
+		String delivDate = pmeDeliv.getDeliveryDate();
+		assertEquals(delivDate, (DateTimeUtilities.incrementDate(queryTuples.get(QueryStrings.EAD), 7)));
+	}
+	
+	@Test //PMEDELIV Else
+	public void testPMEDelivDateElse() {
+		
+	}
 }
