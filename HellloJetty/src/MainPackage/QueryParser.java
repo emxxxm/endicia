@@ -90,7 +90,6 @@ public class QueryParser {
 		validateNoNullStrings(queryTuples);
 	}
 	
-	//TODO Include just PME or also incluse PRI
 	public static boolean isExpress(String mailClass) {
 		return mailClass.equals(QueryStrings.MAIL_CLASS_PME);
 	}

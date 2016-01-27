@@ -18,6 +18,8 @@ public class PMEDeliveryDate {
 	SDCKnowledgeDTO droolsMsg;
 	int dow;
 	int closeTime=0;
+	String retroZip;
+	String proZip;
 	
 	public PMEDeliveryDate(HashMap<String, String> queryTuples) throws ParseException, NumberFormatException, CalculationNotPossibleException{
 		while(true){
@@ -41,11 +43,14 @@ public class PMEDeliveryDate {
 						droolsMsg.deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
 						continue;
 					}
-					//if Retrograde ZIP is set 
-					//Origin ZIP = Retrograde ZIP
-				
-					//else if(Prograde ZIP set)
-					//Destination ZIP = Prograde ZIP
+					retroZip = queryTuples.get(QueryStrings.RETROGRADE_ZIP);
+					
+					if(retroZip != null) {
+						queryTuples.put(QueryStrings.ORIGIN_ZIP, retroZip);
+					}
+					else if(proZip != null) {
+						queryTuples.put(QueryStrings.DEST_ZIP, proZip);
+					}
 					return;
 				}
 				else {
@@ -65,18 +70,18 @@ public class PMEDeliveryDate {
 						}
 					}
 					if(queryTuples.get(QueryStrings.DEST_TYPE) == QueryStrings.DESTTYPE_PO_BOX) {
-						//Lookup DOW Close Time from ATF_ADDRESS_CLOSE
+						DataMaster.getInstance().getAddressClose();
+						closeTime = AddressClose.getCloseTimeOnDOWWrapper(dow, queryTuples.get(QueryStrings.DEST_ZIP));
 						if(closeTime == 0){
 							droolsMsg.deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
 							continue;
 						}
-
-						//if Retrograde ZIP is set 
-							//Origin ZIP = Retrograde ZIP
-						
-						//else if(Prograde ZIP set)
-							//Destination ZIP = Prograde ZIP
-						
+						if(retroZip != null) {
+							queryTuples.put(QueryStrings.ORIGIN_ZIP, retroZip);
+						}
+						else if(proZip != null) {
+							queryTuples.put(QueryStrings.DEST_ZIP, proZip);
+						}	
 						return;
 					}
 				}
@@ -151,12 +156,6 @@ public class PMEDeliveryDate {
 	public boolean isNoDeliverySelected(int dow) {
 		return false;
 	}
-	
-	
-	
-	
-
-	
 	
 			
 }

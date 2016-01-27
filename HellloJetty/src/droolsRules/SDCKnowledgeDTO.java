@@ -45,7 +45,6 @@ public class SDCKnowledgeDTO {
 		message.destinationZipAs5Digit = "94043";
 		message.originZip = "01609";
 		message.destinationZip = "94043";
-		message.noExpressMail = false;
 		message.progradeZip = "12345";
 		message.noExpressMail = message.isNotExpressMail();
 		message.acceptDate = "03-Feb-2020";
