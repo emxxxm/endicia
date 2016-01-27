@@ -37,6 +37,7 @@ public class QueryStrings {
 	public static final String DEST_STATE = "deststate";
 	public static final String ORIGIN_CITY = "origincity";
 	public static final String ORIGIN_STATE = "originstate";
+	public static final String LOCATION = "location";
 	
 	public static ArrayList<String> getQueryParameters() {
 		ArrayList<String> queryParameters = new ArrayList<String>();

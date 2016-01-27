@@ -65,7 +65,7 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 	}
 	
 	@Override 
-	public void formatOutput() {
+	public void formatOutput() throws CalculationNotPossibleException {
 		super.formatOutput();
 		if(queryTuples.get(QueryStrings.MAIL_CLASS).equals(QueryStrings.MAIL_CLASS_PRI)) {
 			output.put(QueryStrings.LOCATION, Location.printLocationList(locationList));

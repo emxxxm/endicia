@@ -88,7 +88,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		
 		output.put(QueryStrings.DEST_TYPE, queryTuples.get(QueryStrings.DEST_TYPE));
 		if (QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
-			output.put(QueryStrings.destTypeToString(QueryStrings.DESTTYPE_HFPU), HFPUAddress);
+			output.put(QueryStrings.destTypeToString(QueryStrings.DESTTYPE_HFPU), Location.printHFPULocation(HFPUAddress));
 		}
 		
 		

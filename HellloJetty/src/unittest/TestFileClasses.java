@@ -142,7 +142,7 @@ public class TestFileClasses{
 		ArrayList<CSVRecord> destRecord = DataMaster.getInstance().getAddressClose().getAddressRecords(fakeQueryTuples.get(QueryStrings.ORIGIN_ZIP),fakeQueryTuples.get(QueryStrings.DEST_ZIP)).get(QueryStrings.DEST_ZIP);
 		HFPULocation loc = new HFPULocation(QueryParser.getFakeQueryPRITuples(), destRecord);
 		
-		assertEquals(loc.getHFPULocation(), "SNOWMASS,26900 HIGHWAY 82,SNOWMASS,CO");
+		assertEquals(loc.getHFPULocation(), "816549001,SNOWMASS,26900 HIGHWAY 82,SNOWMASS,CO");
 	}  
 	
 
