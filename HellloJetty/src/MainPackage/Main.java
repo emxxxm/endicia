@@ -6,20 +6,19 @@ import org.eclipse.jetty.server.Server;
 
 import MainPackage.JettyRequestHandler;
 import MainPackage.LoggingHub;
-import dataHandler.DataMaster;
-import dataHandler.IDataMaster;
 
 public class Main {
 
 	private final static Logger logger = Logger.getLogger(LoggingHub.class.getName());
-	
+	public static JettyRequestHandler jRequest;
 	public static void main(String[] args) {
 		
 		LoggingHub.initLogger();
 		
 		Server server = new Server(4651);
 		try {
-			server.setHandler(new JettyRequestHandler());
+			jRequest = new JettyRequestHandler();
+			server.setHandler(jRequest);
 			server.start();
 			server.join();
 		} catch (Exception e) {

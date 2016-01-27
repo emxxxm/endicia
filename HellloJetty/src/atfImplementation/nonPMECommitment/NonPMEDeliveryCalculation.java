@@ -1,87 +1,47 @@
 package atfImplementation.nonPMECommitment;
 
-
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedHashMap;
 
+import java.util.HashMap;
+import MainPackage.DateTimeUtilities;
+import MainPackage.QueryParser;
+import MainPackage.QueryStrings;
+import atfImplementation.CalculationNotPossibleException;
 import dataHandler.DataMaster;
-import dataHandler.IDataMaster;
 import dataHandler.dataFiles.AddressClose;
+import dataHandler.dataFiles.RulesObject;
+import droolsRules.SDCKnowledgeDTO;
 
 public class NonPMEDeliveryCalculation {
+	
+	SDCKnowledgeDTO droolsMsg;
+	
 	//Take in Delivery Date which is initally set in Main Flow
-	public NonPMEDeliveryCalculation(LinkedHashMap<String, String> queryTuples){
+	public NonPMEDeliveryCalculation(HashMap<String, String> q) throws ParseException, NumberFormatException, CalculationNotPossibleException{
 		int closeTime = 0;
-		String deliveryDate = "2016/01/14";
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(q, new SDCKnowledgeDTO()); 
 		while(closeTime == 0){
 			//[Drools] Execute Rules Engine for Delivery Date Rules 
 			
-			if(isPO_HFPU()){
-				int deliveryDOW = getDayOfWeek(queryTuples.get("deliveryDate"));
-				closeTime = getCloseTimeOnDOW(deliveryDOW);
+			DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_DELIVERY);
+			
+			if(QueryParser.isHFPU(q.get(QueryStrings.DEST_TYPE))) {
+				int deliveryDOW = DateTimeUtilities.getDayOfWeek(droolsMsg.deliveryDate);
+				closeTime = AddressClose.getCloseTimeOnDOWWrapper(deliveryDOW, droolsMsg.destinationZip);
+
 				if(closeTime!=0){
 					break;
 				}
 				else{
-					deliveryDate = incrementDeliveryDate(deliveryDate);
-				}
-				
+					droolsMsg.deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
+				}	
+			} else {
+				break;
 			}
-			 
 		}
 	}
-	//CLOSE TIME = 0
-	//while(CLOSE_TIME==0){
+	public String getDeliveryTime(){
+		return droolsMsg.deliveryDate;
+	}
 	
-		//[Drools] Execute Rules Engine for Delivery Date Rules 
-		
-		//if the Destination is a PO Box or HFPU{
-			//[DataAccess]Read delivery DOW Close Time from [ATF_ADDRESS_CLOSE]
-			//CLOSE_TIME = delivery DOW Close Time
-			//if(CLOSE_TIME!=0)
-				//break;
-			//else DeliveryDate++
-		//}
-	
-		//else return Modified Delivery Date;}
-	//return Modified Delivery Date;
-	
-	//TODO decide whether is PO or HFPU
-	public boolean isPO_HFPU(){
-		return true;
-	}
-	//TODO deliveryDate++
-	public String incrementDeliveryDate(String deliveryDate){
-		return deliveryDate;
-	}
-	public int getDayOfWeek(String date){
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-		Date calendarDate = new Date();
-		try {
-			 calendarDate = format.parse(date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-		}
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(calendarDate);
-		return calendar.get(Calendar.DAY_OF_WEEK);
-		
-	}
-	//[DateAccess] get the closeTime on given DOW
-	public int getCloseTimeOnDOW(int DOW){
-		
-		IDataMaster d = DataMaster.getInstance();
-		AddressClose ac = d.getAddressClose();
-		
-		return 0;//TODO ac.getCloseTime(int DOW, String address);
-	}
-		
-		
-			
-
 }

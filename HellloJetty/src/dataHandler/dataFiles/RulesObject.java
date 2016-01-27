@@ -12,8 +12,14 @@ import org.drools.builder.KnowledgeBuilderFactory;
 import org.drools.builder.ResourceType;
 import org.drools.io.ResourceFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
+import org.drools.runtime.StatelessKnowledgeSession;
+import org.drools.runtime.rule.FactHandle;
+
+import droolsRules.SDCKnowledgeDTO;
 
 public class RulesObject implements IDataFile {
+	public static final String SERVICE_STD_MSG = "svcstdmsg";
+	public static final String GUARANTEE = "guarantee";
 	private static ArrayList<String> filenames = new ArrayList<String>();
 	public static String DROOLS_DELIVERY = "ATF_DROOLS_DELIVERY.drl";
 	public static String DROOLS_POSTPROCESSING = "ATF_DROOLS_POSTPROCESSING.drl";
@@ -39,7 +45,7 @@ public class RulesObject implements IDataFile {
 			String fileLocation;
 			fileLocation = "droolsRules/" + filenames.get(i);
 			//System.out.println(fileLocation);
-			kbuilder.add(ResourceFactory.newClassPathResource(fileLocation), ResourceType.DRL);
+			kbuilder.add(ResourceFactory.newClassPathResource(fileLocation),ResourceType.DRL);
 			KnowledgeBuilderErrors errors = kbuilder.getErrors();
 			if (errors.size() > 0) {
 				for (KnowledgeBuilderError error: errors) {
@@ -58,6 +64,12 @@ public class RulesObject implements IDataFile {
 		return sessionList;
 	}
 
+	public void insertAndFire(SDCKnowledgeDTO message, String filename) {
+		FactHandle handler = getSessionList().get(filename).insert(message);
+		getSessionList().get(filename).fireAllRules();
+		getSessionList().get(filename).retract(handler);
+	}
+	
 	@Override
 	public String getFileName() {
 		return null;

@@ -1,40 +1,58 @@
 package MainPackage;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class QueryParser {
-	public static HashMap<String, String> parseStringForTuples(String queryString) throws UnsupportedEncodingException, InvalidQueryFormatException {
+	public static HashMap<String, String> parseStringForTuples(String queryString) throws InvalidQueryFormatException {
 		HashMap<String, String> queryTuples = new HashMap<String, String>();
+		
+		//count number of "=" in string
+
+		System.out.println(queryString);
+		URI decoder = null;
+		try {
+			decoder = new URI("/?" + queryString);
+		} catch (URISyntaxException e1) {
+			throw new InvalidQueryFormatException("Invalid query string syntax");
+		}
+		
+		queryString = decoder.getQuery();
 		
 		if (queryString == null) {
 			throw new InvalidQueryFormatException("The query string is null.");
-		} else if (!queryString.contains("&") || !queryString.contains("=")) {
+		} if (!queryString.contains("&") || !queryString.contains("=")) {
 			throw new InvalidQueryFormatException("The query contains at most one parameter. Please refer to documentation for proper format.");
 		}
 		
+		queryString = queryString.replaceAll("\"", "");
 		String[] tuples = queryString.split("&");
 		
 		int index;
 		for (String tuple: tuples) {
 			index = tuple.indexOf("=");
-			queryTuples.put(URLDecoder.decode(tuple.substring(0,index).toLowerCase(), "UTF-8"),URLDecoder.decode(tuple.substring(index+1), "UTF-8")); 
+			try {
+				queryTuples.put(tuple.substring(0,index).toLowerCase(), tuple.substring(index+1));
+			} catch (Exception e) {
+				throw new InvalidQueryFormatException("The Query string's syntax is invalid");
+			}
 		}
 		
-		if (!queryTuples.containsKey(QueryStrings.DATE)) {
-			queryTuples.put(QueryStrings.DATE, DateTimeUtilities.getCurrentUTCDate());
-		}
-			
-		for (String s: queryTuples.values()) {
-			System.out.println(s);
+		if (!queryTuples.containsKey(QueryStrings.SHIP_DATE)) {
+			queryTuples.put(QueryStrings.SHIP_DATE, DateTimeUtilities.getCurrentUTCDate());
 		}
 		
 		validateQuery(queryTuples);
 		
-		return getFakeQueryTuples();
+		return queryTuples;//getQueryTuplesForNonPME();
+	}
+	
+	public static HashMap<String, String> getQueryTuplesForNonPME() {
+		HashMap<String, String> tuples = getFakeQueryPRITuples();
+		return tuples;
 	}
 
 	/**
@@ -47,7 +65,7 @@ public class QueryParser {
 		ArrayList<String> queryParameters;
 		boolean hasValidParameters = true;
 		
-		if (queryTuples.size() != 6) {
+		if (!(queryTuples.size() == 7 || queryTuples.size() == 6 || queryTuples.size() == 8)) {
 			throw new InvalidQueryFormatException("The query string does not have enough Parameters.");
 		}
 		
@@ -64,12 +82,16 @@ public class QueryParser {
 		
 		validateZip(queryTuples.get(QueryStrings.DEST_ZIP));
 		validateZip(queryTuples.get(QueryStrings.ORIGIN_ZIP));
-		validateDropOffTime(queryTuples.get(QueryStrings.DROP_OFF_TIME));
-		validateDate(queryTuples.get(QueryStrings.DATE));
+		validateDropOffTime(queryTuples.get(QueryStrings.SHIP_TIME));
+		validateDate(queryTuples.get(QueryStrings.SHIP_DATE));
 		validateMailClass(queryTuples.get(QueryStrings.MAIL_CLASS));
 		validateDestType(queryTuples.get(QueryStrings.DEST_TYPE));
 		
 		validateNoNullStrings(queryTuples);
+	}
+	
+	public static boolean isExpress(String mailClass) {
+		return mailClass.equals(QueryStrings.MAIL_CLASS_PME);
 	}
 	
 	private static void validateNoNullStrings(HashMap<String, String> queryTuples) throws InvalidQueryFormatException {
@@ -123,7 +145,7 @@ public class QueryParser {
 	
 	private static void validateDestType(String desttype) throws InvalidQueryFormatException {
 		if ( !(QueryStrings.getDestTypes().contains(desttype)) ) {
-			throw new InvalidQueryFormatException("Invalid destination type given. Please use one of the appropriate destination types: " + QueryStrings.getMailClasses());
+			throw new InvalidQueryFormatException("Invalid destination type given. Please use one of the appropriate destination types: " + QueryStrings.getDestTypes());
 		}
 	}
 	
@@ -132,10 +154,26 @@ public class QueryParser {
 		
 		fakeQueryTuples.put(QueryStrings.ORIGIN_ZIP, "01609");
 		fakeQueryTuples.put(QueryStrings.DEST_ZIP, "90610");
-		fakeQueryTuples.put(QueryStrings.DATE, DateTimeUtilities.getCurrentUTCDate());
-		fakeQueryTuples.put(QueryStrings.DROP_OFF_TIME, "1000");
+		fakeQueryTuples.put(QueryStrings.SHIP_DATE, DateTimeUtilities.getCurrentUTCDate());
+		fakeQueryTuples.put(QueryStrings.SHIP_TIME, "1000");
 		fakeQueryTuples.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_PME);
 		fakeQueryTuples.put(QueryStrings.DEST_TYPE, QueryStrings.DESTTYPE_HFPU);
+		fakeQueryTuples.put(QueryStrings.EAD, DateTimeUtilities.getCurrentUTCDate());
+		fakeQueryTuples.put(QueryStrings.DELIVERY_DATE, DateTimeUtilities.getCurrentUTCDate());
+		
+		return fakeQueryTuples;
+	}
+	public static HashMap<String, String> getFakeQueryPRITuples() {
+		HashMap<String, String> fakeQueryTuples = new HashMap<String,String>();
+		
+		fakeQueryTuples.put(QueryStrings.ORIGIN_ZIP, "32669");
+		fakeQueryTuples.put(QueryStrings.DEST_ZIP, "81654");
+		fakeQueryTuples.put(QueryStrings.SHIP_DATE, "15-Jan-2016");
+		fakeQueryTuples.put(QueryStrings.SHIP_TIME, "1000");
+		fakeQueryTuples.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_PRI);
+		fakeQueryTuples.put(QueryStrings.DEST_TYPE, QueryStrings.DESTTYPE_HFPU);
+		fakeQueryTuples.put(QueryStrings.EAD, "15-Jan-2016");
+		fakeQueryTuples.put(QueryStrings.DELIVERY_DATE, "17-Jan-2016");
 		
 		return fakeQueryTuples;
 	}

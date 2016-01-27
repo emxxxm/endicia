@@ -7,7 +7,6 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
@@ -16,6 +15,8 @@ import atfImplementation.MainATFImplementation;
  
 public class JettyRequestHandler extends AbstractHandler
 {
+	MainATFImplementation mainLogic;
+	HashMap<String, String> output;
 	//This method is called in main when the server receives a request
     public void handle(String target,
                        Request baseRequest,
@@ -24,7 +25,6 @@ public class JettyRequestHandler extends AbstractHandler
         throws IOException, ServletException
     {
     	HashMap<String, String> queryTuples = new LinkedHashMap<String,String>();
-        String xmlResp = "<ExpressMail><OriginZip>90201</OriginZip><Date></Date><Location><City>Mountains</City><State>CA</State></Location></ExpressMail>";
     	
     	response.setContentType("application/xml;charset=utf-8"); //TODO have serializer to dispatch based on content-type in get request
         baseRequest.setHandled(true);
@@ -34,12 +34,30 @@ public class JettyRequestHandler extends AbstractHandler
 		try {
 			queryTuples = QueryParser.parseStringForTuples(request.getQueryString());
 			
-	        MainATFImplementation results = new MainATFImplementation(queryTuples);
+	        String xmlResp = "<ExpressMail><OriginZip>" + queryTuples.get(QueryStrings.ORIGIN_ZIP) +
+	        		"</OriginZip><Date>" + queryTuples.get(QueryStrings.SHIP_DATE) + 
+	        		"</Date><destZip>" + queryTuples.get(QueryStrings.DEST_TYPE) + 
+	        		"</destZip><mailClass>" + queryTuples.get(QueryStrings.MAIL_CLASS) +
+	        		"</mailClass><destType>" + queryTuples.get(QueryStrings.DEST_TYPE) +
+	        		"</destType></ExpressMail>";
+	        
+	        mainLogic = new MainATFImplementation(queryTuples);
+	        mainLogic.execute();
+	        
+	        output = mainLogic.getOutput();
+	        
+	        xmlResp = "<ExpressMail>";
+	        for (String s: output.keySet()) {
+	        	xmlResp += "<" + s + ">" + output.get(s) + "</" + s + ">"; 
+	        }
+	        xmlResp += "</ExpressMail>";
+	        
+	        System.out.println(xmlResp);
 	        
 	        response.setStatus(HttpServletResponse.SC_OK);
 	        response.getWriter().println(xmlResp);
 	        
-		} catch (InvalidQueryFormatException e) {
+		} catch (Exception e) {//(InvalidQueryFormatException e) {
 		    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	        response.getWriter().println("<tag>" + e.getMessage() + "</tag>");
 		}

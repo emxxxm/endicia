@@ -1,23 +1,34 @@
 package atfImplementation.nonPMECommitment;
 
+import java.util.HashMap;
+
+import MainPackage.QueryStrings;
+import atfImplementation.CalculationNotPossibleException;
+import dataHandler.DataMaster;
+import dataHandler.dataFiles.ServiceStandardAll;
+
+
 public class NonPMEServiceStandard {
+	//Number of days
+	int transitTime;
 	//Take in Origin ZIP Code, Destination ZIP Code
-	//[DataAccess]Lookup 5-Digit Origin and 5-Digit Destination in [ATF_NON_PME_SVC_STD]
+	public NonPMEServiceStandard(HashMap<String, String> queryTuples) throws NumberFormatException, CalculationNotPossibleException{
+		String originZIP = queryTuples.get(QueryStrings.ORIGIN_ZIP);
+		String destZIP = queryTuples.get(QueryStrings.DEST_ZIP);
+		String mailClass = queryTuples.get(QueryStrings.MAIL_CLASS);
+		transitTime = Integer.parseInt(getServiceStandard(originZIP, destZIP, mailClass));
+		//TODO [Optimization] Index 3-Digit	
+	}
 	
-	//if a Service Standard NOT found for the desired Mail Class{
-		//[DataAccess]Lookup 3-Digit Origin and 5-Digit Destination in [ATF_NON_PME_SVC_STD]
+	public int getTransitTime(){
+		return transitTime;
+	}
+	
+	public String getServiceStandard(String originZIP, String destZIP, String mailClass) throws CalculationNotPossibleException{
+		ServiceStandardAll ssd = DataMaster.getInstance().getServiceStandardAll();
+		return ssd.getServiceStandard(originZIP, destZIP, mailClass);
 		
-		//if Service Standard NOT found for the desired Mail Class{
-			//[DataAccess]Lookup 5-Digit Origin and 3-Digit Destination in [ATF_NON_PME_SVC_STD]
-	
-			//If Service Standard NOT found for the desired Mail Class{
-				//[DataAccess] LoOkup 3-Digit Origin and 3-Digit Destination in [ATF_NON_PME_SVC_STD]
-				
-				//If Service Standard NOT found for the desired Mail Class{
-					//Exception; STOP-CALCULATION NOT POSSIBLE}}}}
-	//Set Transit Time = Value fond for Mail Class
-	
-	//Return NON-PME Service Standard, Non-PME Transit Time; 
+	}
 			
 				
 }

@@ -1,109 +1,142 @@
 package droolsRules;
 
+import java.text.ParseException;
+import java.util.HashMap;
+
+import MainPackage.DateTimeUtilities;
+import MainPackage.QueryParser;
+import MainPackage.QueryStrings;
+import dataHandler.DataMaster;
+
 public class SDCKnowledgeDTO {
+	//TODO Change everything back to private
+	//TODO Check on the isNotGuarantee method
+	//TODO refactor into four classes
 	//Delivery Drools File
-	private String deliveryDate;
-	private String ead;
-	private int mailClass;
-	private int transitTime;
-	public int deliveryDow;
-	public int originZipAs5Digit;
-	public int destinationZipAs5Digit;
-	public int originZip;
-	public int destinationZip;
+	public String deliveryDate, ead, mailClass, progradeZip, originZipAs5Digit, destinationZipAs5Digit, originZip, destinationZip;
+	public int transitTime, deliveryDow;
 	public boolean noExpressMail;
-	public int progradeZip;
+	public boolean isGuarantee = true;
 
 	//Post Processing Drools File
-	public int svcStd;
-	public String acceptDate;
-	public int deliveryTime;
+	public int svcStd, deliveryTime;
+	//Accept date 
+	public String acceptDate, svcStdMsg ="";
 	
 	//Transit File
-	public int eadDow;
+	public int eadDow, destType;
 	public boolean missedCot;
-	public int destType;
 	
 	//Acceptance file
-	public String acceptTime;
-	public String cutOffTime;
-	
+	//Accept time is drop off time
+	public String acceptTime, cutOffTime;
 	
 	public SDCKnowledgeDTO() {
-		
 	}
 	
+	public static SDCKnowledgeDTO getFakeDroolsMsg() {
+		SDCKnowledgeDTO message = new SDCKnowledgeDTO();
+		message.deliveryDate = "31-Jan-2020";
+		message.ead = "28-Feb-2020";
+		message.mailClass = QueryStrings.MAIL_CLASS_PRI;
+		message.transitTime = 3;
+		message.deliveryDow = 5;
+		message.originZipAs5Digit= "01609";
+		message.destinationZipAs5Digit = "94043";
+		message.originZip = "01609";
+		message.destinationZip = "94043";
+		message.progradeZip = "12345";
+		message.noExpressMail = message.isNotExpressMail();
+		message.acceptDate = "03-Feb-2020";
+		return message;
+	}
+	
+	public boolean isNotExpressMail() {
+		return !QueryParser.isExpress(mailClass);
+	}
+	
+	public void print() {
+		System.out.println("DeliveryDate: " + deliveryDate);
+		System.out.println("ead: " + ead);
+		System.out.println("mailCalss: " + mailClass);
+		System.out.println("transitTime: " + transitTime);
+		System.out.println("deliveryDow: " + deliveryDow);
+		System.out.println("originZipAs5Digit: " + originZipAs5Digit);
+		System.out.println("destinationZipAs5Digit: " + destinationZipAs5Digit);
+		System.out.println("originZIp: " + originZip);
+		System.out.println("destinationZip: " + destinationZip);
+		System.out.println("noExpressMail: " + noExpressMail);
+		System.out.println("progradeZip: " + progradeZip);
+	}
 	
 	//Actual methods
 	
 	//Acceptance File
-	public void incrementEad(int number) {
-		
+	public void incrementEad(int increment) throws ParseException {
+		ead = DateTimeUtilities.incrementDate(ead,  increment);
 	}
 	
 	//Transit File
-	public void addDaysToDate(String date, int numDays) {
-		
+	public String addDaysToDate(String date, int numDays) throws ParseException {
+		return DateTimeUtilities.incrementDate(date,  numDays);
 	}
 	
 	public void incrementTransitTime(int number) {
-		
+		transitTime += number;
 	}
 	
 	public void decreaseServiceStandard(int number) {
-		
+		svcStd -= number;
 	}
 	
 	public void increaseNonPmeServiceStandard(int number) {
-		
+		svcStd += number;
 	}
 	
 	public void increasePmeServiceStandard(int number) {
-		
+		svcStd += number;
 	}
 	
 	public void increasePriServiceStandard(int number) {
-		
+		svcStd += number;
 	}
 	
 	//From Post Processing File
-	public boolean isDpo(int destinationZip) {
-		return true;
+	public boolean isDpo(String destinationZip) {
+		return DataMaster.getInstance().getRefValue().getDPOZips().contains(destinationZip);
 	}
 	
-	public boolean isPtfas(int originZip) {
-		return true;
+	public boolean isPtfas(String originZip) {
+		return DataMaster.getInstance().getRefValue().getPTFASRanges().contains(originZip);
 	}
 	
 	//From Delivery Drools File
 	public boolean isUspsHoliday(String deliveryDate) {
-		return true;
+		return DataMaster.getInstance().getRefValue().getHolidays().contains(deliveryDate);
 	}
 	
-	public boolean isApoFpoDpo(int destinationZip) {
-		return true;
+	public boolean isApoFpoDpo(String destinationZip) {
+		return DataMaster.getInstance().getRefValue().isZipInRange(destinationZip);	
 	}
 	
 	public boolean isOriginZipWithinRange(String lowerBound, String upperBound) {
-		return true;
+		int lower = Integer.parseInt(lowerBound), upper = Integer.parseInt(upperBound), origin = Integer.parseInt(originZipAs5Digit); 
+		return (origin >= lower && origin <= upper);
 	}
 	
 	public boolean isDestinationZipWithinRange(String lowerBound, String upperBound) {
-		return true;
+		int lower = Integer.parseInt(lowerBound), upper = Integer.parseInt(upperBound), dest = Integer.parseInt(destinationZipAs5Digit); 
+		return (dest >= lower && dest <= upper);
 	}
 	
-	public void incrementDeliveryDate(int increment) {
-		
+	public void incrementDeliveryDate(int increment) throws ParseException {
+		System.out.println("Incrementing Delivery Date");
+		deliveryDate = DateTimeUtilities.incrementDate(deliveryDate,  increment);
 	}
 	
 	public void isNotGuaranteed() {
-		
+		isGuarantee = false;
 	}
-	
-	
-	
-	
-	
 	
 	//Getters
 	
@@ -114,16 +147,21 @@ public class SDCKnowledgeDTO {
 		return svcStd;
 	}
 	
+	public void printStatement() {
+		System.out.println("Firing Rule");
+	}
+	
 	//From Delivery Drools File
 	public int getTransitTime() {
 		return transitTime;
 	}
 	
-	public int getDaysBetweenDates(String ead, String deliverydate) {
-		return -1;
+	public int getDaysBetweenDates(String ead, String deliverydate) throws ParseException {
+		int days = DateTimeUtilities.getDaysBetweenDates(ead, deliverydate);
+		return days;
 	}
 
-	public int getMailClass() {
+	public String getMailClass() {
 		return mailClass;
 	}
 
@@ -134,11 +172,6 @@ public class SDCKnowledgeDTO {
 	public String getEad() {
 		return ead;
 	}
-	
-	
-	
-	
-	
 	
 	
 	//Setters
@@ -157,7 +190,7 @@ public class SDCKnowledgeDTO {
 	}
 	
 	public void setSvcStdMsg(String newMsg) {
-		
+		svcStdMsg = newMsg;
 	}
 	
 	//From Delivery Drools File
@@ -169,7 +202,38 @@ public class SDCKnowledgeDTO {
 		transitTime = newTime;
 	}
 	
+	public static SDCKnowledgeDTO initializeDroolsMsgForTransit(HashMap<String, String> q) {
+		SDCKnowledgeDTO droolsMsg = new SDCKnowledgeDTO();
+		droolsMsg.svcStd = Integer.parseInt(q.get(QueryStrings.TRANSIT_TIME));
+		droolsMsg.transitTime = Integer.parseInt(q.get(QueryStrings.TRANSIT_TIME));
+		//droolsMsg.deliveryDow = DateTimeUtilities.getDayOfWeek(droolsMsg.deliveryDate);
+		return initializeDroolsMsg(q, droolsMsg);
+	}
 	
+	public static SDCKnowledgeDTO initializeDroolsMsgForPost(HashMap<String, String> q) {
+		SDCKnowledgeDTO droolsMsg = new SDCKnowledgeDTO();
+		droolsMsg.svcStd = Integer.parseInt(q.get(QueryStrings.TRANSIT_TIME));
+		droolsMsg.transitTime = Integer.parseInt(q.get(QueryStrings.TRANSIT_TIME));
+		//droolsMsg.deliveryDow = DateTimeUtilities.getDayOfWeek(droolsMsg.deliveryDate);
+		return initializeDroolsMsg(q, droolsMsg);
+	}
+	
+	public static SDCKnowledgeDTO initializeDroolsMsg(HashMap<String, String> q, SDCKnowledgeDTO droolsMsg) {
+		droolsMsg.originZipAs5Digit = q.get(QueryStrings.ORIGIN_ZIP);
+		droolsMsg.destinationZipAs5Digit = q.get(QueryStrings.DEST_ZIP);
+		droolsMsg.originZip = q.get(QueryStrings.ORIGIN_ZIP);
+		droolsMsg.destinationZip = q.get(QueryStrings.DEST_ZIP);
+		droolsMsg.deliveryDate = q.get(QueryStrings.DELIVERY_DATE);
+		droolsMsg.mailClass = q.get(QueryStrings.MAIL_CLASS);
+		droolsMsg.noExpressMail = droolsMsg.isNotExpressMail();
+		droolsMsg.ead = q.get(QueryStrings.EAD);
+		droolsMsg.cutOffTime = q.get(QueryStrings.CUTOFF_TIME);
+		droolsMsg.acceptDate = q.get(QueryStrings.SHIP_DATE);
+		
+		//TODO Add in prograde zip
+		droolsMsg.progradeZip = "00000";
+		return droolsMsg;
+	}
 
 }
 

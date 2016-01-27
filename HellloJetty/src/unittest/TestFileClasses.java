@@ -2,7 +2,9 @@ package unittest;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.apache.commons.csv.CSVRecord;
@@ -10,8 +12,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import MainPackage.QueryParser;
+import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
+import atfImplementation.HFPULocation;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
+import atfImplementation.nonPMECommitment.NonPMEDeliveryCalculation;
+import atfImplementation.nonPMECommitment.NonPMEServiceStandard;
+import atfImplementation.nonPMECommitment.PRI_COT;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
 import dataHandler.dataFiles.APOFPODPO;
@@ -71,6 +78,16 @@ public class TestFileClasses{
 		assertEquals(189, refVal.getDPOZips().size());
 	}
 	
+	@Test
+	public void testGetDefaultNonPMCOT() throws CalculationNotPossibleException {
+		assertEquals("1700",refVal.getDefaultNonPMCOT(Calendar.MONDAY, QueryStrings.MAIL_CLASS_PKG));
+	}
+	
+	@Test
+	public void testGetDefaultPMCOT() {
+		assertEquals("1700",refVal.getDefaultPMCOT(Calendar.MONDAY));
+	}
+	
 
 	/*****************Test IDataFile APOFPODPO Class******************************/
 	@Test
@@ -87,12 +104,46 @@ public class TestFileClasses{
 	@Test
 	public void testTemporaryAPOFPODPOsubroutine() throws CalculationNotPossibleException {
 		HashMap<String, String> q = QueryParser.getFakeQueryTuples();
-		APOFPODPOSubroutine afdSub = new APOFPODPOSubroutine(q);
 		
 		for (String s: range) {
-			assertTrue(afdSub.isZipInRange(s));
+			assertTrue(refVal.isZipInRange(s));
 		}
 	}
+	
+	/*****************Test PRI_COTsubroutine******************************/
+	@Test
+	public void testTemporaryPRICOTsubroutine() throws CalculationNotPossibleException {
+		PRI_COT cot = new PRI_COT(QueryParser.getFakeQueryPRITuples());
+
+		assertEquals("1630", cot.getPRI_COT());
+	} 
+	
+	/*****************Test NonPMEDeliveryCalculationsubroutine
+	 * @throws ParseException ******************************/
+	@Test 
+	public void testNonPMEDeliveryCalculation() throws CalculationNotPossibleException, ParseException{
+		HashMap<String, String> q = QueryParser.getFakeQueryPRITuples();
+		System.out.println("Dest ZIP" + q.get(QueryStrings.DEST_ZIP));
+		NonPMEDeliveryCalculation nonPMEdelivery = new NonPMEDeliveryCalculation(q);
+		assertEquals("19-Jan-2016", nonPMEdelivery.getDeliveryTime());
+	}
+	/*****************Test Get Non PME Service Standard******************************/
+	@Test
+	public void testGetNonPMEServiceStandard() throws CalculationNotPossibleException {
+		NonPMEServiceStandard ssd = new NonPMEServiceStandard(QueryParser.getFakeQueryPRITuples());
+		
+		assertEquals(3, ssd.getTransitTime());
+	} 
+	
+	/*****************Test getHFPU subroutine******************************/
+	@Test
+	public void testGetHFPU() throws CalculationNotPossibleException {
+		HashMap<String, String> fakeQueryTuples = QueryParser.getFakeQueryPRITuples();
+		ArrayList<CSVRecord> destRecord = DataMaster.getInstance().getAddressClose().getAddressRecords(fakeQueryTuples.get(QueryStrings.ORIGIN_ZIP),fakeQueryTuples.get(QueryStrings.DEST_ZIP)).get(QueryStrings.DEST_ZIP);
+		HFPULocation loc = new HFPULocation(QueryParser.getFakeQueryPRITuples(), destRecord);
+		
+		assertEquals(loc.getHFPULocation(), "816549001,SNOWMASS,26900 HIGHWAY 82,SNOWMASS,CO");
+	}  
 	
 
 }

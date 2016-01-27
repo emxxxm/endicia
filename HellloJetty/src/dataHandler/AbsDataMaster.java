@@ -2,10 +2,13 @@ package dataHandler;
 
 import dataHandler.dataFiles.APOFPODPO;
 import dataHandler.dataFiles.AddressClose;
+import dataHandler.dataFiles.COT_ALL;
+import dataHandler.dataFiles.OriginScheduleAll;
 import dataHandler.dataFiles.PMEDestSchedule;
 import dataHandler.dataFiles.PMEDispSchedule;
 import dataHandler.dataFiles.RefValue;
 import dataHandler.dataFiles.RulesObject;
+import dataHandler.dataFiles.ServiceStandardAll;
 
 public abstract class AbsDataMaster implements IDataMaster {
 	APOFPODPO APOFPODPO;
@@ -14,6 +17,9 @@ public abstract class AbsDataMaster implements IDataMaster {
 	PMEDispSchedule PMEDisp;
 	RefValue refVal;
 	RulesObject rules;
+	COT_ALL cot;
+	ServiceStandardAll ssd;
+	OriginScheduleAll orgScheduleAll = new OriginScheduleAll();
 	
 	public AbsDataMaster() {
 		APOFPODPO = new APOFPODPO();
@@ -22,8 +28,13 @@ public abstract class AbsDataMaster implements IDataMaster {
 		PMEDisp = new PMEDispSchedule();
 		refVal = new RefValue();
 		rules = new RulesObject();
+		cot = new COT_ALL();
+		ssd = new ServiceStandardAll();
+		
 	}
-	
+	public ServiceStandardAll getServiceStandardAll(){
+		return ssd;
+	}
 	public RulesObject getRulesObject() {
 		return rules;
 	}
@@ -46,6 +57,14 @@ public abstract class AbsDataMaster implements IDataMaster {
 	
 	public RefValue getRefValue() {
 		return refVal;
+	}
+	
+	public COT_ALL getCotAll(){
+		return cot;
+	}
+	
+	public OriginScheduleAll getOriginScheduleAll(){
+		return orgScheduleAll;
 	}
 	
 }
