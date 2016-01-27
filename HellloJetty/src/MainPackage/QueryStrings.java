@@ -7,6 +7,7 @@ public class QueryStrings {
 	public static String DESTTYPE_STREET_ADDRESS = "1";
 	public static String DESTTYPE_PO_BOX = "2";
 	public static String DESTTYPE_HFPU = "3";
+	public static final String HPFU_LOCATIONS = "HFPU";
 	
 	public static final String MAIL_CLASS_PME = "PME";
 	public static final String MAIL_CLASS_PRI = "PRI";
@@ -46,6 +47,18 @@ public class QueryStrings {
 		queryParameters.add(DEST_TYPE);
 		
 		return queryParameters;
+	}
+	
+	public static String destTypeToString(String destType) {
+		String destType;
+		switch (destType) {
+		case DESTTYPE_HFPU:
+			destType = "HFPU";
+			break;
+		case DESTTYPE_PO_BOX:
+			destType = "PO_BOX";
+		case D
+		}
 	}
 	
 	public static String mapMailClassToInt(String mailClass) {
