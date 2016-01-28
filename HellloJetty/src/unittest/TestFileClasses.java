@@ -1,6 +1,7 @@
 package unittest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -15,7 +16,6 @@ import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
 import atfImplementation.HFPULocation;
-import atfImplementation.PMECommitment.APOFPODPOSubroutine;
 import atfImplementation.nonPMECommitment.NonPMEDeliveryCalculation;
 import atfImplementation.nonPMECommitment.NonPMEServiceStandard;
 import atfImplementation.nonPMECommitment.PRI_COT;
@@ -88,6 +88,12 @@ public class TestFileClasses{
 		assertEquals("1700",refVal.getDefaultPMCOT(Calendar.MONDAY));
 	}
 	
+	@Test
+	public void testIsUSPSHoliday() throws ParseException {
+		String knownHoliday = "01-Jan-2016";
+		assertTrue(refVal.isUspsHoliday(knownHoliday));
+	}
+	
 
 	/*****************Test IDataFile APOFPODPO Class******************************/
 	@Test
@@ -110,9 +116,10 @@ public class TestFileClasses{
 		}
 	}
 	
-	/*****************Test PRI_COTsubroutine******************************/
+	/*****************Test PRI_COTsubroutine
+	 * @throws ParseException ******************************/
 	@Test
-	public void testTemporaryPRICOTsubroutine() throws CalculationNotPossibleException {
+	public void testTemporaryPRICOTsubroutine() throws CalculationNotPossibleException, ParseException {
 		PRI_COT cot = new PRI_COT(QueryParser.getFakeQueryPRITuples());
 
 		assertEquals("1630", cot.getPRI_COT());
@@ -144,6 +151,6 @@ public class TestFileClasses{
 		
 		assertEquals(loc.getHFPULocation(), "816549001,SNOWMASS,26900 HIGHWAY 82,SNOWMASS,CO");
 	}  
-	
+
 
 }

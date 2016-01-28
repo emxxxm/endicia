@@ -1,5 +1,7 @@
 package dataHandler;
 
+import java.text.ParseException;
+
 import dataHandler.dataFiles.APOFPODPO;
 import dataHandler.dataFiles.AddressClose;
 import dataHandler.dataFiles.COT_ALL;
@@ -21,7 +23,7 @@ public abstract class AbsDataMaster implements IDataMaster {
 	ServiceStandardAll ssd;
 	OriginScheduleAll orgScheduleAll = new OriginScheduleAll();
 	
-	public AbsDataMaster() {
+	public AbsDataMaster() throws ParseException {
 		APOFPODPO = new APOFPODPO();
 		ac = new AddressClose();
 		PMEDest = new PMEDestSchedule();

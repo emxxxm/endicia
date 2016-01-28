@@ -1,8 +1,15 @@
 package atfImplementation.PMECommitment;
 
+import java.util.HashMap;
+
+import MainPackage.QueryStrings;
+
 public class IntraFacilityCommitment {
+
+	public IntraFacilityCommitment(HashMap<String, String> queryTuples) {
 	//while(true){
-		//daysElapsed=0; transitDate = EAD; commitmentDate = EAD
+		int daysElapsed=0; 
+		String transitDate = queryTuples.get(QueryStrings.EAD), commitmentDate = queryTuples.get(QueryStrings.EAD);
 		//while(true){
 			//if(transitDate == any USPS Holiday in ATF_REF_VAL_T){
 				//DOW = 8
@@ -77,7 +84,7 @@ public class IntraFacilityCommitment {
 			//}
 		//}
 	//}
-		
+	}
 		
 
 }

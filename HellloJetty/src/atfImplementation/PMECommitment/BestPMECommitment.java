@@ -2,8 +2,6 @@ package atfImplementation.PMECommitment;
 
 import java.util.ArrayList;
 
-import atfImplementation.Commitment;
-
 public class BestPMECommitment {
 
 	public BestPMECommitment(ArrayList<Commitment> commitments) {

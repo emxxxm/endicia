@@ -35,7 +35,7 @@ public class PMEDeliveryDate {
 			else {
 				dow = DateTimeUtilities.getDayOfWeek(droolsMsg.deliveryDate);
 				if(QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
-					if(DateTimeUtilities.getUSPSHolidays().contains(droolsMsg.deliveryDate)) {
+					if(DataMaster.getInstance().getRefValue().isUspsHoliday(droolsMsg.deliveryDate)) {
 						dow = 8;
 					}
 					closeTime = AddressClose.getCloseTimeOnDOWWrapper(dow, droolsMsg.destinationZip);
@@ -60,7 +60,7 @@ public class PMEDeliveryDate {
 							continue;
 						}
 					}
-					else if(DateTimeUtilities.getUSPSHolidays().contains(droolsMsg.deliveryDate)) {
+					else if(DataMaster.getInstance().getRefValue().isUspsHoliday(droolsMsg.deliveryDate)) {
 						if(isNoDeliverySelected(dow)) {
 							droolsMsg.deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
 							continue;

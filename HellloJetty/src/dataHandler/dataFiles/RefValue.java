@@ -1,9 +1,12 @@
 package dataHandler.dataFiles;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.apache.commons.csv.CSVRecord;
+
+import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
 
@@ -15,16 +18,38 @@ public class RefValue extends AbsDataFile {
 	private static String NON_PME_DEFAULT_COT_ID = "NON_PME_DEFAULT_COT";
 	private static String PTFAS_ID = "PTFAS_ZIPS";
 	private static String PM_DEFAULT_COT_ID = "DEFAULT_COT_PM";
+	private ArrayList<String> holidays;// = initUSPSHolidays();
+	ArrayList<String> ranges = initMilitaryZipRanges();
 	
-	public ArrayList<String> getMilitaryZipRanges() {
-		
-		ArrayList<String> ranges = new ArrayList<String>();
-		
+	public RefValue() throws ParseException {
+		super();
+		holidays = initUSPSHolidays();
+	}
+	
+	private ArrayList<String> initMilitaryZipRanges() {
+		ranges = new ArrayList<String>();
 		for (CSVRecord r: recordsList) {
 			if (r.get(tupleID).equals(MILITARY_RANGE_ID)) {
 				ranges.add(r.get(valueID)); 
 			}
 		}
+		return ranges;
+	}
+	
+	private ArrayList<String> initUSPSHolidays() throws ParseException {
+		ArrayList<String> holidays = new ArrayList<String>();
+		
+		String currHoliday;
+		for(CSVRecord r: recordsList){
+			if(r.get(tupleID).equals(HOLIDAY_RANGE_ID)){
+				currHoliday = DateTimeUtilities.convertDateFromHolidayFormat(r.get(valueID));
+				holidays.add(currHoliday);
+			}
+		}
+		return holidays;
+	}
+ 	
+	public ArrayList<String> getMilitaryZipRanges() {
 		return ranges;
 	}
 	
@@ -40,14 +65,12 @@ public class RefValue extends AbsDataFile {
 	}
 	
 	public ArrayList<String> getHolidays(){
-		ArrayList<String> holidays = new ArrayList<String>();
-		
-		for(CSVRecord r: recordsList){
-			if(r.get(tupleID).equals(HOLIDAY_RANGE_ID)){
-				holidays.add(r.get(valueID));
-			}
-		}
 		return holidays;
+	}
+	
+	//From Delivery Drools File
+	public boolean isUspsHoliday(String deliveryDate) throws ParseException {
+		return holidays.contains(deliveryDate);
 	}
 	
 	public ArrayList<String> getDPOZips() {

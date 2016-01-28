@@ -1,9 +1,11 @@
 package dataHandler;
 
+import java.text.ParseException;
+
 public class DataMaster extends AbsDataMaster  {
 	private static IDataMaster instance = null;
 
-	private DataMaster() {	
+	private DataMaster() throws ParseException {	
 		super();
 	}
 	
@@ -17,7 +19,14 @@ public class DataMaster extends AbsDataMaster  {
 	}
 	
 	private static class SingletonHelper {
-		private static final IDataMaster INSTANCE = new DataMaster();
+		private static IDataMaster INSTANCE;
+		static {
+			try {
+				INSTANCE = new DataMaster();
+			} catch (Exception e) {
+	            throw new ExceptionInInitializerError(e);
+			}
+		}
 	}
 	
 }
