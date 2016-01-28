@@ -18,7 +18,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	
 	String EAD, HFPUAddress;
 	HashMap<String, String> queryTuples;
-	HFPULocation HFPUloc; //TODO what does this do
+	HFPULocation HFPUloc = null; //TODO what does this do
 	int originCloseTime; //TODO what does this do
 	SDCKnowledgeDTO droolsMsg;
 	LinkedHashMap<String, String> output = new LinkedHashMap<String, String>();
@@ -70,12 +70,12 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_POSTPROCESSING);
 	}
 	
-	public HashMap<String, String> getOutput() {
+	public HashMap<String, String> getOutput() throws CalculationNotPossibleException {
 		formatOutput();
 		return output;
 	}
 	
-	public void formatOutput() {
+	public void formatOutput() throws CalculationNotPossibleException {
 		String svcStdMsg = droolsMsg.svcStdMsg;
 		String guarantee = String.valueOf(droolsMsg.isGuarantee);
 		
@@ -86,6 +86,11 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		output.put(QueryStrings.ORIGIN_CITY, AddressClose.getCity(originRecord));
 		output.put(QueryStrings.ORIGIN_STATE, AddressClose.getState(originRecord));
 		
+		output.put(QueryStrings.DEST_TYPE, queryTuples.get(QueryStrings.DEST_TYPE));
+		if (QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
+			output.put(QueryStrings.destTypeToString(QueryStrings.DESTTYPE_HFPU), Location.printHFPULocation(HFPUAddress));
+		}
+		
 		
 		output.put(QueryStrings.ORIGIN_ZIP, queryTuples.get(QueryStrings.ORIGIN_ZIP));
 		output.put(QueryStrings.DEST_ZIP, queryTuples.get(QueryStrings.DEST_ZIP));
@@ -95,7 +100,6 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		output.put(QueryStrings.SHIP_TIME, queryTuples.get(QueryStrings.SHIP_TIME)); //Accept Time and Ship Time
 		output.put(RulesObject.SERVICE_STD_MSG, svcStdMsg);
 		output.put(RulesObject.GUARANTEE, guarantee);
-		
 	}
 	
 }

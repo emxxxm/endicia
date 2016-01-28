@@ -3,10 +3,11 @@ package jexlexample;
 import java.util.ArrayList;
 
 import MainPackage.QueryStrings;
+import atfImplementation.CalculationNotPossibleException;
 
 public class JexlLogic {
 
-	public static boolean evalHFPU(String mailClass) {
+	public static boolean evalHFPU(String mailClass) throws NumberFormatException, CalculationNotPossibleException {
 		if (Integer.parseInt(QueryStrings.mapMailClassToInt(mailClass)) < 4) {
 			return true;
 		} else {

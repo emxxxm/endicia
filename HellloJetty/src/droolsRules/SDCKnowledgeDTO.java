@@ -111,8 +111,8 @@ public class SDCKnowledgeDTO {
 	}
 	
 	//From Delivery Drools File
-	public boolean isUspsHoliday(String deliveryDate) {
-		return DataMaster.getInstance().getRefValue().getHolidays().contains(deliveryDate);
+	public boolean isUspsHoliday(String deliveryDate) throws ParseException {
+		return DataMaster.getInstance().getRefValue().isUspsHoliday(deliveryDate);
 	}
 	
 	public boolean isApoFpoDpo(String destinationZip) {

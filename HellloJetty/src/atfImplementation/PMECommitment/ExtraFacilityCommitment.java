@@ -5,6 +5,10 @@ public class ExtraFacilityCommitment {
 	//Transit Date = EAD;
 	//Commitment Date = EAD;
 	
+	public ExtraFacilityCommitment() {
+	
+		
+	
 	//while(1) {
 		//if(Transit Date = any USPS Holiday in ATF_REF_VAL_T) {
 			//DOW = 8
@@ -95,4 +99,6 @@ public class ExtraFacilityCommitment {
 				//Commitment Date++
 			//}
 		//GO TO WHILE LOOP ON LINE 8
+
+	}	
 }

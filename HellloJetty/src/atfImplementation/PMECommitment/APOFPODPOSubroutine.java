@@ -18,7 +18,6 @@ public class APOFPODPOSubroutine {
 	int progradeOffset=0,retrogradeOffset=0, retrogradeOffsetFromRecord, progradeOffsetFromRecord;
 
 	//Variables Initialized 
-	ArrayList<Integer> lowerbounds = new ArrayList<Integer>(), upperbounds = new ArrayList<Integer>();
 	ArrayList<String> DPOZips;
 	String originZip="01609", destZip ="90610", mailClass="-1", destType = "-1";
 	String retrogradeZip= null, progradeZip= null, dropOffTime, retrogradeArrivalTime;
@@ -90,12 +89,10 @@ public class APOFPODPOSubroutine {
 		
 		IDataMaster dm = DataMaster.getInstance();
 		refVal =  dm.getRefValue();
-
-		refVal.initRanges(lowerbounds, upperbounds);
 		DPOZips = refVal.getDPOZips();
 	}
 	
-	private void initRecords(String zip) { //TODO possible optimization betwene this and initAPOFPODPOData
+	private void initRecords(String zip) throws CalculationNotPossibleException { //TODO possible optimization betwene this and initAPOFPODPOData
 		APOFPODPO APOData = DataMaster.getInstance().getAPOFPODPO(); 
 		records = APOData.getRecords(QueryStrings.mapMailClassToInt(mailClass), zip);
 	}

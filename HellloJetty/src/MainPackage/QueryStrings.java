@@ -2,11 +2,14 @@ package MainPackage;
 
 import java.util.ArrayList;
 
+import atfImplementation.CalculationNotPossibleException;
+
 public class QueryStrings {
 
-	public static String DESTTYPE_STREET_ADDRESS = "1";
-	public static String DESTTYPE_PO_BOX = "2";
-	public static String DESTTYPE_HFPU = "3";
+	public static final String DESTTYPE_STREET_ADDRESS = "1";
+	public static final String DESTTYPE_PO_BOX = "2";
+	public static final String DESTTYPE_HFPU = "3";
+	public static final String HPFU_LOCATIONS = "HFPU";
 	
 	public static final String MAIL_CLASS_PME = "PME";
 	public static final String MAIL_CLASS_PRI = "PRI";
@@ -15,25 +18,26 @@ public class QueryStrings {
 	public static final String MAIL_CLASS_PER = "PER";
 	public static final String MAIL_CLASS_PKG = "PKG";
 	
-	public static String ORIGIN_ZIP = "originzip";
-	public static String DEST_ZIP = "destzip";
-	public static String SHIP_DATE = "date";
-	public static String SHIP_TIME = "dropofftime";
-	public static String MAIL_CLASS = "mailclass";
-	public static String DEST_TYPE = "desttype";
-	public static String EAD = "ead";
-	public static String DELIVERY_DATE = "deliveryDate"; //SDD
-	public static String CUTOFF_TIME = "cutofftime";
-	public static String TRANSIT_TIME = "transitTime";
+	
+	public static final String ORIGIN_ZIP = "originzip";
+	public static final String DEST_ZIP = "destzip";
+	public static final String SHIP_DATE = "date";
+	public static final String SHIP_TIME = "dropofftime";
+	public static final String MAIL_CLASS = "mailclass";
+	public static final String DEST_TYPE = "desttype";
+	public static final String EAD = "ead";
+	public static final String DELIVERY_DATE = "deliverydate"; //SDD
+	public static final String CUTOFF_TIME = "cutofftime";
+	public static final String TRANSIT_TIME = "transitTime";
 	
 	public static final String RETROGRADE_ZIP = "retrogradezip";
 	public static final String PROGRADE_ZIP = "progradezip";
 	
-	public static String DEST_CITY = "destcity";
-	public static String DEST_STATE = "deststate";
-	public static String ORIGIN_CITY = "origincity";
-	public static String ORIGIN_STATE = "originstate";
-	public static final String LOCATION = "locationlist";
+	public static final String DEST_CITY = "destcity";
+	public static final String DEST_STATE = "deststate";
+	public static final String ORIGIN_CITY = "origincity";
+	public static final String ORIGIN_STATE = "originstate";
+	public static final String LOCATION = "location";
 	
 	public static ArrayList<String> getQueryParameters() {
 		ArrayList<String> queryParameters = new ArrayList<String>();
@@ -48,7 +52,25 @@ public class QueryStrings {
 		return queryParameters;
 	}
 	
-	public static String mapMailClassToInt(String mailClass) {
+	public static String destTypeToString(String destType) throws CalculationNotPossibleException {
+		String destString;
+		switch (destType) {
+		case DESTTYPE_STREET_ADDRESS:
+			destString = "streetaddress";
+			break;
+		case DESTTYPE_PO_BOX:
+			destString = "pobox";
+			break;
+		case DESTTYPE_HFPU:
+			destString = "hfpu";
+			break;
+		default:
+			throw new CalculationNotPossibleException("destType is invalid");
+		} 
+		return destString;
+	}
+	
+	public static String mapMailClassToInt(String mailClass) throws CalculationNotPossibleException {
 		String mailClassNum;
 		switch(mailClass) {
 		case MAIL_CLASS_PME:
@@ -70,8 +92,7 @@ public class QueryStrings {
 			mailClassNum = "6";
 			break;
 		default:
-			mailClassNum = "-1";
-			break;
+			throw new CalculationNotPossibleException("mail class is invalid");
 		}
 		return mailClassNum;
 	}

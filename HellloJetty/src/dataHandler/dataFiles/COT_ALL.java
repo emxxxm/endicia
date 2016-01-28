@@ -27,7 +27,7 @@ public class COT_ALL extends AbsDataFile {
 			if (r.get(tupleID).startsWith(ZIP)) {
 				newLoc = getLocationFromFile(r, dow);
 				locationList.add(newLoc);
-				
+				 
 				if (Integer.parseInt(r.get(dow + rangeID)) < cot)
 					cot = Integer.parseInt(r.get(dow + rangeID));
 			}
