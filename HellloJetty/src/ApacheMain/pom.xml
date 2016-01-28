@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelversion>4.0.0</modelversion>
+
+    <groupid>com.example</groupid>
+    <artifactid>spring-one-jar</artifactid>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceencoding>UTF-8</project.build.sourceencoding>
+        <org.apache.cxf.version>2.7.2</org.apache.cxf.version>
+        <org.springframework.version>3.2.0.RELEASE</org.springframework.version>
+        <org.eclipse.jetty.version>8.1.8.v20121106</org.eclipse.jetty.version>
+    </properties>
+
+    <dependencies>   
+        <dependency>
+            <groupid>org.apache.cxf</groupid>
+            <artifactid>cxf-rt-frontend-jaxrs</artifactid>
+            <version>${org.apache.cxf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupid>javax.inject</groupid>
+            <artifactid>javax.inject</artifactid>
+            <version>1</version>
+        </dependency>
+
+        <dependency>
+            <groupid>org.codehaus.jackson</groupid>
+            <artifactid>jackson-jaxrs</artifactid>
+            <version>1.9.11</version>
+        </dependency>
+
+        <dependency>
+            <groupid>org.codehaus.jackson</groupid>
+            <artifactid>jackson-mapper-asl</artifactid>
+            <version>1.9.11</version>
+        </dependency>
+
+        <dependency>
+            <groupid>cglib</groupid>
+            <artifactid>cglib-nodep</artifactid>
+            <version>2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupid>org.springframework</groupid>
+            <artifactid>spring-core</artifactid>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupid>org.springframework</groupid>
+            <artifactid>spring-context</artifactid>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupid>org.springframework</groupid>
+            <artifactid>spring-web</artifactid>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupid>org.eclipse.jetty</groupid>
+            <artifactid>jetty-server</artifactid>
+            <version>${org.eclipse.jetty.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupid>org.eclipse.jetty</groupid>
+            <artifactid>jetty-webapp</artifactid>
+            <version>${org.eclipse.jetty.version</version>
+        </dependency>  
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupid>org.apache.maven.plugins</groupid>
+                <artifactid>maven-compiler-plugin</artifactid>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>  
+            <plugin>
+                <groupid>org.apache.maven.plugins</groupid>
+                <artifactid>maven-jar-plugin</artifactid>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainclass>com.example.Starter</mainclass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupid>org.dstovall</groupid>
+                <artifactid>onejar-maven-plugin</artifactid>
+                <version>1.4.4</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <onejarversion>0.97</onejarversion>
+                            <classifier>onejar</classifier>
+                        </configuration>
+                        <goals>
+                            <goal>one-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <pluginrepositories>
+        <pluginrepository>
+            <id>onejar-maven-plugin.googlecode.com</id>
+            <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
+        </pluginrepository>
+    </pluginrepositories>
+
+    <repositories>
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <url>http://download.java.net/maven/2/</url>
+        </repository>
+    </repositories>
+</project>
