@@ -16,6 +16,8 @@ import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
 import atfImplementation.HFPULocation;
+import atfImplementation.PMECommitment.BestPMECommitment;
+import atfImplementation.PMECommitment.Commitment;
 import atfImplementation.nonPMECommitment.NonPMEDeliveryCalculation;
 import atfImplementation.nonPMECommitment.NonPMEServiceStandard;
 import atfImplementation.nonPMECommitment.PRI_COT;
@@ -151,6 +153,36 @@ public class TestFileClasses{
 		
 		assertEquals(loc.getHFPULocation(), "816549001,SNOWMASS,26900 HIGHWAY 82,SNOWMASS,CO");
 	}  
+
+	@Test
+	public void testGetTransitTime() throws NumberFormatException, CalculationNotPossibleException{
+		HashMap<String, String> fakeQueryTuples = QueryParser.getFakeQueryPRITuples();
+		fakeQueryTuples.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_FCM);
+		fakeQueryTuples.put(QueryStrings.SHIP_DATE,"27-Jan-2016");
+		fakeQueryTuples.put(QueryStrings.ORIGIN_ZIP, "32666");
+		fakeQueryTuples.put(QueryStrings.DEST_ZIP, "32668");
+		fakeQueryTuples.put(QueryStrings.DEST_TYPE, "2");
+		
+		NonPMEServiceStandard ssd = new NonPMEServiceStandard(fakeQueryTuples);
+		assertEquals(ssd.getTransitTime(), 1);
+	    
+	}
+	@Test
+	public void testBestCommitment() throws ParseException{
+		ArrayList<Commitment> commits = new ArrayList<Commitment>();
+		Commitment c1 = new Commitment(1, 1, 3, 1600, "29-Jan-2016");
+		Commitment c2 = new Commitment(1, 1, 3, 1600, "30-Jan-2016");
+		Commitment c3 = new Commitment(2, 1, 3, 1600, "29-Jan-2016");
+		Commitment c4 = new Commitment(1, 1, 3, 1600, "31-Jan-2016");
+		Commitment c5 = new Commitment(1, 1, 3, 1700, "29-Jan-2016");
+		commits.add(c1);
+		commits.add(c2);
+		commits.add(c3);
+		commits.add(c4);
+		commits.add(c5);
+		BestPMECommitment bs = new BestPMECommitment(commits);
+		assertEquals(bs.getBestCommitment(), c1);
+	}
 
 
 }
