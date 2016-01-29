@@ -19,11 +19,12 @@ public class RefValue extends AbsDataFile {
 	private static String PTFAS_ID = "PTFAS_ZIPS";
 	private static String PM_DEFAULT_COT_ID = "DEFAULT_COT_PM";
 	private ArrayList<String> holidays;// = initUSPSHolidays();
-	ArrayList<String> ranges = initMilitaryZipRanges();
+	ArrayList<String> ranges;
 	
 	public RefValue() throws ParseException {
 		super();
 		holidays = initUSPSHolidays();
+		ranges = initMilitaryZipRanges();
 	}
 	
 	private ArrayList<String> initMilitaryZipRanges() {

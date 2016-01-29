@@ -13,7 +13,6 @@ public class COT_ALL extends AbsDataFile {
 	
 	@Override
 	public String getFileName() {
-
 		return FilenameConstants.COT_ALL;
 	}
 
