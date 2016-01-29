@@ -8,6 +8,7 @@ import org.apache.commons.csv.CSVRecord;
 public class OriginScheduleAll extends AbsDataFile {
 	private int rangeID = 0;
 	
+	public static final int FAC_ID = 5;
 	public static final int CLRNC_ID = 14;
 	public static final int RANK_ID = 15;
 	
@@ -26,27 +27,21 @@ public class OriginScheduleAll extends AbsDataFile {
 		return originList;
 	}
 	
-	//TODO make this method get the CLRNC
-	private int getOriginCLRNC(ArrayList<CSVRecord> originList) {
-		String output = "";
-		
-		return Integer.parseInt(output);
-	}
-	
-	public HashMap<Integer, Integer> getCLRNCandRankIND(String originZip) {
-		HashMap<Integer, Integer> output = new HashMap<Integer, Integer>();
+	public HashMap<Integer, String> getOriginFacilityInfo(String originZip) {
+		HashMap<Integer, String> output = new HashMap<Integer, String>();
 		
 		ArrayList<CSVRecord> originList = getOriginList(originZip);
 
-		if (!originList.isEmpty()) {
+		if (originList.isEmpty()) {
 			return output;
 		}
 		
 		//TODO this should not just get the first record! USPS!!!!!!!!!!!!!!!!!!!!!!!
 		CSVRecord record = originList.get(0);
 		
-		output.put(CLRNC_ID, Integer.parseInt(record.get(CLRNC_ID)));
-		output.put(RANK_ID, Integer.parseInt(record.get(RANK_ID)));
+		output.put(CLRNC_ID, record.get(CLRNC_ID));
+		output.put(RANK_ID, record.get(RANK_ID));
+		output.put(FAC_ID, record.get(FAC_ID));
 		
 		return output;
 	}

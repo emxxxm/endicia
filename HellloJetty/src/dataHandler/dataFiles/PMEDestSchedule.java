@@ -8,9 +8,10 @@ import org.apache.commons.csv.CSVRecord;
 public class PMEDestSchedule extends AbsDataFile {
 	int rangeID = 0, rangeID1 = 3;
 
-	public static final Integer CET_ID = 2;
-	public static final Integer DELIVERY_TIME_ID = 4;
+	public static final int CET_ID = 2;
+	public static final int DELIVERY_TIME_ID = 4;
 	public static final int RANK_ID = 5;
+	public static final int FAC_ID = 1;
 	
 	@Override
 	public String getFileName() {
@@ -28,8 +29,8 @@ public class PMEDestSchedule extends AbsDataFile {
 	}
 	
 	//TODO get the values from the correct record instead of the first
-	public HashMap<Integer, Integer> getCETandDeliveryTime(String destZip, String destType) {
-		HashMap<Integer, Integer> output = new HashMap<Integer, Integer>();
+	public HashMap<Integer, String> getDestFacilityInfo(String destZip, String destType) {
+		HashMap<Integer, String> output = new HashMap<Integer, String>();
 		ArrayList<CSVRecord> destList = getDestList(destType, destZip);
 		
 		if (destList.isEmpty()) {
@@ -38,9 +39,10 @@ public class PMEDestSchedule extends AbsDataFile {
 		
 		CSVRecord record = destList.get(0);
 		
-		output.put(CET_ID, Integer.parseInt(record.get(CET_ID)));
-		output.put(DELIVERY_TIME_ID, Integer.parseInt(record.get(DELIVERY_TIME_ID)));
-		output.put(RANK_ID, Integer.parseInt(record.get(RANK_ID)));
+		output.put(CET_ID, record.get(CET_ID));
+		output.put(DELIVERY_TIME_ID, record.get(DELIVERY_TIME_ID));
+		output.put(RANK_ID, record.get(RANK_ID));
+		output.put(FAC_ID, record.get(FAC_ID));
 		
 		return output;
 	}

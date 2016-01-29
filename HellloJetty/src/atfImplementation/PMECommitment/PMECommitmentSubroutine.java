@@ -42,12 +42,15 @@ public class PMECommitmentSubroutine {
 					}
 				} else {
 					dispList = DataMaster.getInstance().getPMEDisp().getDispList(originRecord.get(originFACID),
-							destRecord.get(destFACID));
+							destRecord.get(destFACID)); 
 
 					for (int k = 0; i < dispList.size(); k++) {
 						CSVRecord dispRecord = dispList.get(k);
-						new ExtraFacilityCommitment(); // TODO finish
-														// extrafacility and get commitments;
+						extraFac = new ExtraFacilityCommitment(queryTuples); // TODO debug
+						commitment = extraFac.getCommitment();
+						if (commitment != null) {
+							commitmentList.add(commitment);
+						}
 					}
 				}
 			}
