@@ -46,8 +46,9 @@ public class RefValue extends AbsDataFile {
 		String currHoliday;
 		for (CSVRecord r: recordsList) {
 			if (r.get(PRIMARY_ID).equals(HOLIDAY_RANGE_ID) && r.get(SECONDARY_ID).equals(HOLIDAY_EVE)) {
-				currHoliday = r.get(valueID);
-				holidayEves.add(DateTimeUtilities.convertDateFromHolidayFormat(currHoliday));
+				currHoliday = DateTimeUtilities.convertDateFromHolidayFormat(r.get(valueID));
+				System.out.println("CurrHoliday: " + currHoliday);
+				holidayEves.add(currHoliday);
 			}
 		}
 		
