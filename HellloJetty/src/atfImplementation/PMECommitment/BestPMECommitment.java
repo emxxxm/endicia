@@ -1,7 +1,6 @@
 package atfImplementation.PMECommitment;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -13,6 +12,7 @@ public class BestPMECommitment {
 	int transitTime;
 	String EAD;
 	public BestPMECommitment(List<Commitment> commitments) throws ParseException {
+		
 	Comparator<Commitment> commitDateComparator = new Comparator<Commitment>(){
 		@Override
 		public int compare(Commitment commit1, Commitment commit2){
@@ -100,6 +100,7 @@ public class BestPMECommitment {
 	public Commitment getBestCommitment(){
 		return bestCommitment;
 	}
+	
 	public List<Commitment> keepHighest(List<Commitment> commitments,  Comparator<Commitment> comparator){
 		Commitment lastCommit = commitments.get(0);
 		int index = 0;

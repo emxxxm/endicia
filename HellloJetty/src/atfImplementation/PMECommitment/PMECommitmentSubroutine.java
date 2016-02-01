@@ -1,7 +1,6 @@
 package atfImplementation.PMECommitment;
 
 import java.text.ParseException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -57,8 +56,11 @@ public class PMECommitmentSubroutine {
 			}
 		}
 		if (commitmentList.isEmpty()) {
+			//TODO test if its origin or dest for following line
+			String DOW_COT = DataMaster.getInstance().getCotAll().getCot(
+					DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.SHIP_DATE)), queryTuples.get(QueryStrings.ORIGIN_ZIP));  
 			if (Integer.parseInt(queryTuples.get(QueryStrings.SHIP_TIME)) < Integer
-					.parseInt(queryTuples.get(QueryStrings.CUTOFF_TIME))) {
+					.parseInt(DOW_COT)) {
 				commitment = new Commitment(PMECommitmentRank, PMEPreferredIndicator, PMEServiceStd, PMEDeliverytime,
 						queryTuples.get(QueryStrings.EAD));
 			} else {
