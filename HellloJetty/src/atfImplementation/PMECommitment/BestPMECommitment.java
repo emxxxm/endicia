@@ -103,19 +103,20 @@ public class BestPMECommitment {
 	
 	public List<Commitment> keepHighest(List<Commitment> commitments,  Comparator<Commitment> comparator){
 		Commitment lastCommit = commitments.get(0);
-		int index = 0;
-		for(int i = 0; i < commitments.size(); i++){
+		int i = 0;
+		for(i = 0; i < commitments.size(); i++){
 			if(comparator.compare(commitments.get(i), lastCommit) == 0){
 				lastCommit = commitments.get(i);
+				
 			}
 			else {
-				index = i; 
+				
 				break;
 				
 			}
 		}
 		
-		return commitments.subList(0, index);
+		return commitments.subList(0, i);
 	}
 	
 
