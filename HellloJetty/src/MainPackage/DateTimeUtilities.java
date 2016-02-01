@@ -110,6 +110,8 @@ public class DateTimeUtilities {
 			return false;
 	}
 	
+	//TODO fix this method to not always return a date in january
+	//TODO fix this method to not always return a date in january!!
 	public static String convertDateFromHolidayFormat(String holidayDate) throws ParseException {
 		SimpleDateFormat correctFormating = new SimpleDateFormat(DATE_FORMAT);
 		SimpleDateFormat holidayFormating = new SimpleDateFormat(HOLIDAY_FORMAT);

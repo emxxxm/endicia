@@ -91,7 +91,8 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 			output.put(QueryStrings.destTypeToString(QueryStrings.DESTTYPE_HFPU), Location.printHFPULocation(HFPUAddress));
 		}
 		
-		
+		//TODO inspect where cutoff time is set for PME
+		output.put(QueryStrings.CUTOFF_TIME, queryTuples.get(QueryStrings.CUTOFF_TIME));
 		output.put(QueryStrings.ORIGIN_ZIP, queryTuples.get(QueryStrings.ORIGIN_ZIP));
 		output.put(QueryStrings.DEST_ZIP, queryTuples.get(QueryStrings.DEST_ZIP));
 		output.put(QueryStrings.MAIL_CLASS, queryTuples.get(QueryStrings.MAIL_CLASS));

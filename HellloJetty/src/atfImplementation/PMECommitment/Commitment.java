@@ -1,7 +1,7 @@
 package atfImplementation.PMECommitment;
 
 public class Commitment {
-	private int commitmentRank, preferredIndicator, serviceStd, deliveryTime;
+	private int commitmentRank, preferredIndicator, serviceStd, deliveryTime, cutOffTime;
 	private String commitmentDate;
 
 	public Commitment(int commitmentRank, int preferredIndicator, int serviceStd, int deliveryTime,
@@ -11,6 +11,7 @@ public class Commitment {
 		this.serviceStd = serviceStd;
 		this.deliveryTime = deliveryTime;
 		this.commitmentDate = commitmentDate;
+		//TODO this.cutOffTime = ?;
 	}
 
 	/**
@@ -46,5 +47,15 @@ public class Commitment {
 	 */
 	public String getCommitmentDate() {
 		return commitmentDate;
+	}
+
+	public String printCommitment() {
+		String commitmentString = "";
+		commitmentString += "<commitmentRank>" + commitmentRank + "</commitmentRank>";
+		commitmentString += "<commitmentDate>" + commitmentDate + "</commitmentDate>";
+		commitmentString += "<deliveryTime>" + deliveryTime + "</deliveryTime>";
+		commitmentString += "<serviceStd>" + serviceStd + "</serviceStd>";
+		commitmentString += "<preferredIndicator>" + preferredIndicator + "</preferredIndicator>";
+		return commitmentString;
 	}
 }

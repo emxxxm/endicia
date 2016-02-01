@@ -39,6 +39,7 @@ public class QueryStrings {
 	public static final String ORIGIN_STATE = "originstate";
 	public static final String LOCATION = "location";
 	public static final String DELIVERY_TIME = "deliverytime";
+	public static final String COMMITMENT = "commitment";
 	
 	public static ArrayList<String> getQueryParameters() {
 		ArrayList<String> queryParameters = new ArrayList<String>();
