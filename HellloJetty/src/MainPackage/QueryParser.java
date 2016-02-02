@@ -153,6 +153,17 @@ public class QueryParser {
 							+ QueryStrings.getDestTypes());
 		}
 	}
+	
+	public static HashMap<String, String> initializeTuples(String originZip, String destZip, String shipDate, String shipTime, String mailClass, String destType) {
+		HashMap<String, String> tuples = new HashMap<String, String>();
+		tuples.put(QueryStrings.ORIGIN_ZIP, originZip);
+		tuples.put(QueryStrings.DEST_ZIP, destZip);
+		tuples.put(QueryStrings.SHIP_DATE, shipDate);
+		tuples.put(QueryStrings.SHIP_TIME, shipTime);
+		tuples.put(QueryStrings.MAIL_CLASS, mailClass);
+		tuples.put(QueryStrings.DEST_TYPE, destType);
+		return tuples;
+	}
 
 	public static HashMap<String, String> getFakeQueryTuples() {
 		HashMap<String, String> fakeQueryTuples = new HashMap<String, String>();
