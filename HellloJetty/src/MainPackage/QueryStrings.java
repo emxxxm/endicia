@@ -21,14 +21,14 @@ public class QueryStrings {
 	
 	public static final String ORIGIN_ZIP = "originzip";
 	public static final String DEST_ZIP = "destzip";
-	public static final String SHIP_DATE = "date";
+	public static final String SHIP_DATE = "shipdate";
 	public static final String SHIP_TIME = "dropofftime";
 	public static final String MAIL_CLASS = "mailclass";
 	public static final String DEST_TYPE = "desttype";
 	public static final String EAD = "ead";
 	public static final String DELIVERY_DATE = "deliverydate"; //SDD
 	public static final String CUTOFF_TIME = "cutofftime";
-	public static final String TRANSIT_TIME = "transitTime";
+	public static final String TRANSIT_TIME = "transittime";
 	
 	public static final String RETROGRADE_ZIP = "retrogradezip";
 	public static final String PROGRADE_ZIP = "progradezip";
@@ -39,6 +39,7 @@ public class QueryStrings {
 	public static final String ORIGIN_STATE = "originstate";
 	public static final String LOCATION = "location";
 	public static final String DELIVERY_TIME = "deliverytime";
+	public static final String COMMITMENT = "commitment";
 	
 	public static ArrayList<String> getQueryParameters() {
 		ArrayList<String> queryParameters = new ArrayList<String>();

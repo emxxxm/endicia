@@ -11,16 +11,19 @@ import org.apache.commons.csv.CSVRecord;
 import org.junit.Before;
 import org.junit.Test;
 
+import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
 import atfImplementation.HFPULocation;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
+import atfImplementation.PMECommitment.PMEDeliveryDate;
 import atfImplementation.PMECommitment.BestPMECommitment;
 import atfImplementation.PMECommitment.Commitment;
 import atfImplementation.PMECommitment.IntraFacilityCommitment;
 import atfImplementation.PMECommitment.PMECommitmentSubroutine;
 import dataHandler.DataMaster;
+
 
 public class TestSubroutines {
 
@@ -98,7 +101,28 @@ public class TestSubroutines {
 		APOFPODPOSubroutine AFDsub = new APOFPODPOSubroutine(queryTuples);
 	}
 	
+
 	/*****************Test bestCommitment subroutine******************************/
+
+	@Test //PMEDeliveryDate First IF
+	public void testPMEDeliveryDate() throws NumberFormatException, ParseException, CalculationNotPossibleException {
+		String originalDatePlusSeven = "16-Feb-2016";
+		queryTuples.put(QueryStrings.DELIVERY_DATE, "01-Feb-2016");
+		queryTuples.put(QueryStrings.EAD, "09-Feb-2016");
+		PMEDeliveryDate pmeDeliv = new PMEDeliveryDate(queryTuples);
+		String delivDate = pmeDeliv.getDeliveryDate();
+		assertEquals(originalDatePlusSeven,  delivDate);
+	}
+	
+	
+	
+	@Test
+	public void testIncrementSunday() throws ParseException {
+		String sundayDate = "07-Feb-2016";
+		String incrementSunday = "08-Feb-2016";
+		assertEquals(incrementSunday, DateTimeUtilities.incrementDate(sundayDate, 1));	
+	}
+
 	@Test
 	public void testBestCommitment() throws ParseException{
 		ArrayList<Commitment> commits = new ArrayList<Commitment>();
