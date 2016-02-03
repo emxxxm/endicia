@@ -15,7 +15,7 @@ public class DateTimeUtilities {
 	public static String DATE_FORMAT = "dd-MMM-yyyy";
 	public static String TIME_ZONE = "UTC";
 	private final static Logger logger = Logger.getLogger(LoggingHub.class.getName());
-	private static final String HOLIDAY_FORMAT = "yyyy-mm-dd";
+	private static final String HOLIDAY_FORMAT = "yyyy-MM-dd";
 	public static TimeZone getTimeZone() { //TODO fix get timeZone to not be UTC; should be based off ZIP due to cutoff time
 		return TimeZone.getTimeZone("UTC");
 	}
