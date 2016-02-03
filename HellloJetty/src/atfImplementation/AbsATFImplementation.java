@@ -6,6 +6,8 @@ import java.util.LinkedHashMap;
 
 import org.apache.commons.csv.CSVRecord;
 
+import ApacheMain.outputwrappers.DazzleOutputMain;
+import ApacheMain.outputwrappers.IOutput;
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
@@ -16,12 +18,13 @@ import droolsRules.SDCKnowledgeDTO;
 
 public abstract class AbsATFImplementation implements IATFImplementation {
 	
-	String EAD, HFPUAddress;
+	String EAD, HFPUAddressString;
 	HashMap<String, String> queryTuples;
-	HFPULocation HFPUloc = null; //TODO what does this do
+	HFPULocation HFPUloc = null;
+	Location HFPUAddress;
 	int originCloseTime; //TODO what does this do
 	SDCKnowledgeDTO droolsMsg;
-	LinkedHashMap<String, String> output = new LinkedHashMap<String, String>();
+	LinkedHashMap<String, Object> output = new LinkedHashMap<String, Object>();
 	HashMap<String, ArrayList<CSVRecord>> locationRecords;
 	
 	
@@ -44,7 +47,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		ArrayList<CSVRecord> destRecords = locationRecords.get(QueryStrings.DEST_ZIP);
 		if (QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
 				HFPUloc = new HFPULocation(queryTuples, destRecords); 
-				HFPUAddress = HFPUloc.getHFPULocation();
+				HFPUAddressString = HFPUloc.getHFPULocation();
 		}
 	}
 	
@@ -70,12 +73,17 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_POSTPROCESSING);
 	}
 	
-	public HashMap<String, String> getOutput() throws CalculationNotPossibleException {
-		formatOutput();
+	public LinkedHashMap<String, Object> getOutput() throws CalculationNotPossibleException {
+		this.formatOutput();
 		return output;
 	}
 	
-	public void formatOutput() throws CalculationNotPossibleException {
+	public IOutput getCXFOutputWrapper() throws CalculationNotPossibleException {
+		IOutput output = this.formatOutput();
+		return output; 
+	}
+	
+	public IOutput formatOutput() throws CalculationNotPossibleException {
 		String svcStdMsg = droolsMsg.svcStdMsg;
 		String guarantee = String.valueOf(droolsMsg.isGuarantee);
 		
@@ -87,9 +95,6 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		output.put(QueryStrings.ORIGIN_STATE, AddressClose.getState(originRecord));
 		
 		output.put(QueryStrings.DEST_TYPE, queryTuples.get(QueryStrings.DEST_TYPE));
-		if (QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
-			output.put(QueryStrings.destTypeToString(QueryStrings.DESTTYPE_HFPU), Location.printHFPULocation(HFPUAddress));
-		}
 		
 		//TODO inspect where cutoff time is set for PME
 		output.put(QueryStrings.CUTOFF_TIME, queryTuples.get(QueryStrings.CUTOFF_TIME));
@@ -101,6 +106,11 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		output.put(QueryStrings.SHIP_TIME, queryTuples.get(QueryStrings.SHIP_TIME)); //Accept Time and Ship Time
 		output.put(RulesObject.SERVICE_STD_MSG, svcStdMsg);
 		output.put(RulesObject.GUARANTEE, guarantee);
+		
+		if (QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
+			output.put(QueryStrings.destTypeToString(QueryStrings.DESTTYPE_HFPU), Location.getHFPULocation(HFPUAddressString));
+		}
+		return new DazzleOutputMain(output);
 	}
 	
 }

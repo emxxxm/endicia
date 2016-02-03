@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import ApacheMain.outputwrappers.DazzleOutputMain;
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
 import atfImplementation.nonPMECommitment.NonPMEDeliveryCalculation;
@@ -11,7 +12,6 @@ import atfImplementation.nonPMECommitment.NonPMEServiceStandard;
 import atfImplementation.nonPMECommitment.PRI_COT;
 import dataHandler.DataMaster;
 import dataHandler.dataFiles.RulesObject;
-import droolsRules.SDCKnowledgeDTO;
 
 public class MainNonPMEImplementation extends AbsATFImplementation {
 	RulesObject rules = DataMaster.getInstance().getRulesObject();
@@ -65,11 +65,12 @@ public class MainNonPMEImplementation extends AbsATFImplementation {
 	}
 	
 	@Override 
-	public void formatOutput() throws CalculationNotPossibleException {
+	public DazzleOutputMain formatOutput() throws CalculationNotPossibleException {
 		super.formatOutput();
 		if(queryTuples.get(QueryStrings.MAIL_CLASS).equals(QueryStrings.MAIL_CLASS_PRI)) {
-			output.put(QueryStrings.LOCATION, Location.printLocationList(locationList));
+			output.put(QueryStrings.LOCATION, locationList);//Location.printLocationList(locationList));
 		}
+		return new DazzleOutputMain(output);
 	}
 	
 	

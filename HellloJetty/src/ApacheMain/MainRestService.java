@@ -19,6 +19,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import ApacheMain.outputwrappers.DazzlePMEOutput;
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
@@ -34,7 +35,7 @@ public class MainRestService {
     @Produces( { "application/xml"} )
    // @Consumes( {"application/x-www-form-urlencoded"} )
     @GET
-    public Collection< DazzleOutput > getPeople( @QueryParam( QueryStrings.ORIGIN_ZIP) String originZip, 
+    public Collection< DazzlePMEOutput > getPeople( @QueryParam( QueryStrings.ORIGIN_ZIP) String originZip, 
     									   @QueryParam(QueryStrings.DEST_ZIP) String destZip,
     									   @QueryParam(QueryStrings.SHIP_DATE) @DefaultValue("") String shipDate,
     									   @QueryParam(QueryStrings.SHIP_TIME) String dropOffTime,

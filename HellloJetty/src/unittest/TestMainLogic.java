@@ -20,7 +20,7 @@ public class TestMainLogic {
 		
 		MainATFImplementation mainLogic = new MainATFImplementation(q);
 		mainLogic.execute();
-		HashMap<String, String> output = mainLogic.getOutput();
+		HashMap<String, Object> output = mainLogic.getOutput();
 
 		String xmlResp = "<ExpressMail>";
 		for (String s: output.keySet()) {
@@ -38,7 +38,7 @@ public class TestMainLogic {
 		
 		MainATFImplementation mainLogic = new MainATFImplementation(q);
 		mainLogic.execute();
-		HashMap<String, String> output = mainLogic.getOutput();
+		HashMap<String, Object> output = mainLogic.getOutput();
 
 		String xmlResp = "<ExpressMail>";
 		for (String s: output.keySet()) {
@@ -56,7 +56,7 @@ public class TestMainLogic {
 		
 		MainATFImplementation mainLogic = new MainATFImplementation(q);
 		mainLogic.execute();
-		HashMap<String, String> output = mainLogic.getOutput();
+		HashMap<String, Object> output = mainLogic.getOutput();
 
 		String xmlResp = "<ExpressMail>";
 		for (String s: output.keySet()) {

@@ -70,11 +70,6 @@ public class TestFileClasses{
 	}
 	
 	@Test
-	public void test2() {
-		assertEquals(103, holidays.size());
-	}
-	
-	@Test
 	public void testGetDPOZips() {
 		assertEquals(189, refVal.getDPOZips().size());
 	}

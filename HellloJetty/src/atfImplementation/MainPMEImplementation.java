@@ -3,6 +3,7 @@ package atfImplementation;
 import java.text.ParseException;
 import java.util.HashMap;
 
+import ApacheMain.outputwrappers.DazzleOutputMain;
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
@@ -55,9 +56,10 @@ public class MainPMEImplementation extends AbsATFImplementation {
 	}
 	
 	@Override 
-	public void formatOutput() throws CalculationNotPossibleException {
+	public DazzleOutputMain formatOutput() throws CalculationNotPossibleException {
 		super.formatOutput();
-		output.put(QueryStrings.COMMITMENT, bestCommitmentCalc.getBestCommitment().printCommitment());
+		output.put(QueryStrings.COMMITMENT, bestCommitmentCalc.getBestCommitment());
+		return new DazzleOutputMain(output);
 	}	
 
 }

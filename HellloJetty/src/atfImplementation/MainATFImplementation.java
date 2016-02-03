@@ -3,9 +3,9 @@ package atfImplementation;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
-import org.apache.maven.artifact.resolver.filter.IncludesArtifactFilter;
-
+import ApacheMain.outputwrappers.IOutput;
 import MainPackage.QueryStrings;
 
 public class MainATFImplementation implements IATFImplementation {
@@ -29,7 +29,12 @@ public class MainATFImplementation implements IATFImplementation {
 	}
 
 	@Override
-	public HashMap<String, String> getOutput() throws CalculationNotPossibleException {
+	public LinkedHashMap<String, Object> getOutput() throws CalculationNotPossibleException {
 		return mainLogic.getOutput();
+	}
+
+	@Override
+	public IOutput formatOutput() throws CalculationNotPossibleException {
+		return this.formatOutput();
 	}
 }

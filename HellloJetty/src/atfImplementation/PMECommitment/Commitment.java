@@ -1,7 +1,10 @@
 package atfImplementation.PMECommitment;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "Commitment")
 public class Commitment {
-	private int commitmentRank, preferredIndicator, serviceStd, deliveryTime, cutOffTime;
+	private int commitmentRank, preferredIndicator, serviceStd, deliveryTime; //cutOffTime; //TODO is this needed?
 	private String commitmentDate;
 
 	public Commitment(int commitmentRank, int preferredIndicator, int serviceStd, int deliveryTime,
@@ -14,41 +17,6 @@ public class Commitment {
 		//TODO this.cutOffTime = ?;
 	}
 
-	/**
-	 * @return the commitmentRank
-	 */
-	public int getCommitmentRank() {
-		return commitmentRank;
-	}
-
-	/**
-	 * @return the preferredIndicator
-	 */
-	public int getPreferredIndicator() {
-		return preferredIndicator;
-	}
-
-	/**
-	 * @return the serviceStd
-	 */
-	public int getServiceStd() {
-		return serviceStd;
-	}
-
-	/**
-	 * @return the deliveryTime
-	 */
-	public int getDeliveryTime() {
-		return deliveryTime;
-	}
-
-	/**
-	 * @return the commitmentDate
-	 */
-	public String getCommitmentDate() {
-		return commitmentDate;
-	}
-
 	public String printCommitment() {
 		String commitmentString = "";
 		commitmentString += "<commitmentRank>" + commitmentRank + "</commitmentRank>";
@@ -57,5 +25,45 @@ public class Commitment {
 		commitmentString += "<serviceStd>" + serviceStd + "</serviceStd>";
 		commitmentString += "<preferredIndicator>" + preferredIndicator + "</preferredIndicator>";
 		return commitmentString;
+	}
+
+	public int getCommitmentRank() {
+		return commitmentRank;
+	}
+
+	public int getPreferredIndicator() {
+		return preferredIndicator;
+	}
+
+	public int getServiceStd() {
+		return serviceStd;
+	}
+
+	public int getDeliveryTime() {
+		return deliveryTime;
+	}
+
+	public String getCommitmentDate() {
+		return commitmentDate;
+	}
+
+	public void setCommitmentRank(int commitmentRank) {
+		this.commitmentRank = commitmentRank;
+	}
+
+	public void setPreferredIndicator(int preferredIndicator) {
+		this.preferredIndicator = preferredIndicator;
+	}
+
+	public void setServiceStd(int serviceStd) {
+		this.serviceStd = serviceStd;
+	}
+
+	public void setDeliveryTime(int deliveryTime) {
+		this.deliveryTime = deliveryTime;
+	}
+
+	public void setCommitmentDate(String commitmentDate) {
+		this.commitmentDate = commitmentDate;
 	}
 }
