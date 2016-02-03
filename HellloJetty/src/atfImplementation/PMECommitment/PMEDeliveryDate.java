@@ -23,10 +23,12 @@ public class PMEDeliveryDate {
 	String deliveryDate;
 	
 	public PMEDeliveryDate(HashMap<String, String> queryTuples) throws ParseException, NumberFormatException, CalculationNotPossibleException{
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples, new SDCKnowledgeDTO());
 		while(true){
-			
-			//[Drools] Execute Rules Engine for Delivery Date Rules
-			droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples, new SDCKnowledgeDTO()); 
+			droolsMsg.originZip = queryTuples.get(QueryStrings.ORIGIN_ZIP);
+			droolsMsg.destinationZip = queryTuples.get(QueryStrings.DEST_ZIP);
+	//		droolsMsg.deliveryDate = deliveryDate;
+			//[Drools] Execute Rules Engine for Delivery Date Rules 
 			DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_DELIVERY);
 			
 			if(DateTimeUtilities.getDaysBetweenDates(droolsMsg.deliveryDate, droolsMsg.ead) > 7) {

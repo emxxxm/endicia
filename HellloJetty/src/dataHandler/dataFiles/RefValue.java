@@ -12,18 +12,22 @@ import atfImplementation.CalculationNotPossibleException;
 
 public class RefValue extends AbsDataFile {
 	int tupleID = 0, valueID = 2;
+	private static int PRIMARY_ID = 0;
+	private static int SECONDARY_ID = 1;
 	private static String MILITARY_RANGE_ID = "APOFPODPO_ZIP_RANGE";
 	private static String HOLIDAY_RANGE_ID = "HOLIDAY";
+	private static String HOLIDAY_EVE = "HOL_EVE";
 	private static String DPO_ZIP_ID = "DPO_ZIPS";
 	private static String NON_PME_DEFAULT_COT_ID = "NON_PME_DEFAULT_COT";
 	private static String PTFAS_ID = "PTFAS_ZIPS";
 	private static String PM_DEFAULT_COT_ID = "DEFAULT_COT_PM";
 	private ArrayList<String> holidays;// = initUSPSHolidays();
-	ArrayList<String> ranges = initMilitaryZipRanges();
+	ArrayList<String> ranges;
 	
 	public RefValue() throws ParseException {
 		super();
 		holidays = initUSPSHolidays();
+		ranges = initMilitaryZipRanges();
 	}
 	
 	private ArrayList<String> initMilitaryZipRanges() {
@@ -34,6 +38,21 @@ public class RefValue extends AbsDataFile {
 			}
 		}
 		return ranges;
+	}
+	
+	public boolean isHolidayEve(String date) throws ParseException {
+		ArrayList<String> holidayEves = new ArrayList<String>();
+		
+		String currHoliday;
+		for (CSVRecord r: recordsList) {
+			if (r.get(PRIMARY_ID).equals(HOLIDAY_RANGE_ID) && r.get(SECONDARY_ID).equals(HOLIDAY_EVE)) {
+				currHoliday = DateTimeUtilities.convertDateFromHolidayFormat(r.get(valueID));
+				System.out.println("CurrHoliday: " + currHoliday);
+				holidayEves.add(currHoliday);
+			}
+		}
+		
+		return holidayEves.contains(date);
 	}
 	
 	private ArrayList<String> initUSPSHolidays() throws ParseException {

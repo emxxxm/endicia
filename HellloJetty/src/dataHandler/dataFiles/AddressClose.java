@@ -1,7 +1,6 @@
 package dataHandler.dataFiles;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 
 import org.apache.commons.csv.CSVRecord;
@@ -32,7 +31,7 @@ public class AddressClose extends AbsDataFile {
 	}
 
 	//[DateAccess] get the closeTime on given DOW
-	public static int getCloseTimeOnDOWWrapper(int DOW, String destZIP) throws NumberFormatException, CalculationNotPossibleException{
+	public static int getCloseTimeOnDOWWrapper(int DOW, String destZIP) throws NumberFormatException, CalculationNotPossibleException {
 		int closeTime = 0;
 		IDataMaster d = DataMaster.getInstance();
 		AddressClose ac = d.getAddressClose();
@@ -42,7 +41,7 @@ public class AddressClose extends AbsDataFile {
 		return closeTime;
  
 	}
-	
+/**	
 	public ArrayList<CSVRecord> getAddressRecords(String Zip){
 		ArrayList<CSVRecord> outputRecords = new ArrayList<CSVRecord>();
 		for(CSVRecord r: recordsList){
@@ -52,7 +51,7 @@ public class AddressClose extends AbsDataFile {
 		}
 		return outputRecords;
 	}
-	
+	**/
 	public HashMap<String,ArrayList<CSVRecord>> getAddressRecords(String originZip, String destZip) {
 		HashMap<String, ArrayList<CSVRecord>> outputRecords = new HashMap<String, ArrayList<CSVRecord>>();
 		ArrayList<CSVRecord> destOutputRecords = new ArrayList<CSVRecord>();

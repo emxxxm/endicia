@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 
 public class DateTimeUtilities {
 	
+	public static final int DAY_SUNDAY = 7;
+	
 	public static String DATE_FORMAT = "dd-MMM-yyyy";
 	public static String TIME_ZONE = "UTC";
 	private final static Logger logger = Logger.getLogger(LoggingHub.class.getName());
@@ -92,7 +94,7 @@ public class DateTimeUtilities {
 		calendar.setTime(calendarDate);
 		int dow =  calendar.get(Calendar.DAY_OF_WEEK);
 		if(dow == Calendar.SUNDAY) {
-			return 7;
+			return DAY_SUNDAY;
 		}
 		else
 			return dow-1;
@@ -108,6 +110,8 @@ public class DateTimeUtilities {
 			return false;
 	}
 	
+	//TODO fix this method to not always return a date in january
+	//TODO fix this method to not always return a date in january!!
 	public static String convertDateFromHolidayFormat(String holidayDate) throws ParseException {
 		SimpleDateFormat correctFormating = new SimpleDateFormat(DATE_FORMAT);
 		SimpleDateFormat holidayFormating = new SimpleDateFormat(HOLIDAY_FORMAT);

@@ -15,13 +15,14 @@ import org.junit.Test;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
-import atfImplementation.HFPULocation;
 import atfImplementation.nonPMECommitment.NonPMEDeliveryCalculation;
 import atfImplementation.nonPMECommitment.NonPMEServiceStandard;
 import atfImplementation.nonPMECommitment.PRI_COT;
 import dataHandler.DataMaster;
 import dataHandler.IDataMaster;
 import dataHandler.dataFiles.APOFPODPO;
+import dataHandler.dataFiles.PMEDestSchedule;
+import dataHandler.dataFiles.PMEDispSchedule;
 import dataHandler.dataFiles.RefValue;
 
 public class TestFileClasses{
@@ -94,6 +95,12 @@ public class TestFileClasses{
 		assertTrue(refVal.isUspsHoliday(knownHoliday));
 	}
 	
+	@Test
+	public void testIsHolidayEve() throws ParseException {
+		String knownHolidayEve = "01-Mar-2015";
+		assertTrue(refVal.isHolidayEve(knownHolidayEve));
+	}
+	
 
 	/*****************Test IDataFile APOFPODPO Class******************************/
 	@Test
@@ -142,15 +149,61 @@ public class TestFileClasses{
 		assertEquals(3, ssd.getTransitTime());
 	} 
 	
-	/*****************Test getHFPU subroutine******************************/
+	/****************Test PME_DISP_SCHEDULE file access***************/
 	@Test
-	public void testGetHFPU() throws CalculationNotPossibleException {
-		HashMap<String, String> fakeQueryTuples = QueryParser.getFakeQueryPRITuples();
-		ArrayList<CSVRecord> destRecord = DataMaster.getInstance().getAddressClose().getAddressRecords(fakeQueryTuples.get(QueryStrings.ORIGIN_ZIP),fakeQueryTuples.get(QueryStrings.DEST_ZIP)).get(QueryStrings.DEST_ZIP);
-		HFPULocation loc = new HFPULocation(QueryParser.getFakeQueryPRITuples(), destRecord);
+	public void testPMEDISPLookup() {
+		String originFacID = "RKS", destFacID = "DLH";
+		int resultDepart, resultArr, resultPrefferedInd;
 		
-		assertEquals(loc.getHFPULocation(), "816549001,SNOWMASS,26900 HIGHWAY 82,SNOWMASS,CO");
-	}  
+		PMEDispSchedule disp = DataMaster.getInstance().getPMEDisp();
+		HashMap<Integer, Integer> result = disp.getDestFacilityInfo(originFacID, destFacID);
+		
+		resultDepart = result.get(PMEDispSchedule.DEPART_TIME);
+		resultArr = result.get(PMEDispSchedule.ARR_TIME);
+		resultPrefferedInd = result.get(PMEDispSchedule.PREFFERED_INDICATOR);
+		
+		assertEquals(1745, resultDepart);
+		assertEquals(815, resultArr);
+		assertEquals(1, resultPrefferedInd);
+		
+		int sundayIndicator = disp.getDOWINDforTransitDateDow("31-Jan-2016");
+		assertEquals(0, sundayIndicator);
+	}
+	
+	/***********Test PME_DEST_SCHEDULE data access***************/
+	@Test
+	public void testPMEDestLookup() {
+		String destZip = "53527", destType = QueryStrings.DESTTYPE_HFPU;
+		String knownFACID = "535", knownCET = "325", knownRankID = "2", knownDeliveryTime = "1500";
+				//"53527","535","325","3","1500","2"
+		String resultFACID, resultCET, resultRankID, resultDeliveryTime;
+		
+		PMEDestSchedule dest = DataMaster.getInstance().getPMEDest();
+		HashMap<Integer, String> result = dest.getDestFacilityInfo(destZip, destType);
+		
+		resultFACID = result.get(PMEDestSchedule.FAC_ID);
+		resultCET = result.get(PMEDestSchedule.CET_ID);
+		resultRankID = result.get(PMEDestSchedule.RANK_ID);
+		resultDeliveryTime = result.get(PMEDestSchedule.DELIVERY_TIME_ID);
+		
+		assertEquals(knownFACID, resultFACID);
+		assertEquals(knownCET, resultCET);
+		assertEquals(knownDeliveryTime, resultDeliveryTime);
+		assertEquals(knownRankID, resultRankID);
+	}
 
+	@Test
+	public void testGetTransitTime() throws NumberFormatException, CalculationNotPossibleException{
+		HashMap<String, String> fakeQueryTuples = QueryParser.getFakeQueryPRITuples();
+		fakeQueryTuples.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_FCM);
+		fakeQueryTuples.put(QueryStrings.SHIP_DATE,"27-Jan-2016");
+		fakeQueryTuples.put(QueryStrings.ORIGIN_ZIP, "32666");
+		fakeQueryTuples.put(QueryStrings.DEST_ZIP, "32668");
+		fakeQueryTuples.put(QueryStrings.DEST_TYPE, "2");
+		
+		NonPMEServiceStandard ssd = new NonPMEServiceStandard(fakeQueryTuples);
+		assertEquals(ssd.getTransitTime(), 1);
+	    
+	}
 
 }

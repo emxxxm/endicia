@@ -9,11 +9,10 @@ import atfImplementation.Location;
 public class COT_ALL extends AbsDataFile {
 	private int tupleID = 0, rangeID = 4, ZIP_ID = 0, FAC_NAME_ID = 1, FAC_ADDRESS_ID = 2, FAC_CITY_ID =3, FAC_STATE_ID = 4;
 	private ArrayList<Location> locationList = new ArrayList<Location>();
-	
+	           
 	
 	@Override
 	public String getFileName() {
-
 		return FilenameConstants.COT_ALL;
 	}
 

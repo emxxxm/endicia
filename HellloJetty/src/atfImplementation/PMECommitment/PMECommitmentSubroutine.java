@@ -8,17 +8,21 @@ import org.apache.commons.csv.CSVRecord;
 
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
+import atfImplementation.CalculationNotPossibleException;
 import dataHandler.DataMaster;
 
 public class PMECommitmentSubroutine {
 	ArrayList<Commitment> commitmentList = new ArrayList<Commitment>();
+	Commitment commitment;
+	IntraFacilityCommitment infraFac;
+	ExtraFacilityCommitment extraFac;
 
 	private static final int PMEServiceStd = 2;
 	private static final int PMEPreferredIndicator = 0;
 	private static final int PMEDeliverytime = 1500;
 	private static final int PMECommitmentRank = 1;
 
-	public PMECommitmentSubroutine(HashMap<String, String> queryTuples) throws ParseException {
+	public PMECommitmentSubroutine(HashMap<String, String> queryTuples) throws ParseException, NumberFormatException, CalculationNotPossibleException {
 		int originFACID = 5, destFACID = 1;
 		String originZIP = queryTuples.get(QueryStrings.ORIGIN_ZIP);
 		String destZIP = queryTuples.get(QueryStrings.DEST_ZIP);
@@ -31,24 +35,32 @@ public class PMECommitmentSubroutine {
 			for (int j = 0; j < destList.size(); j++) {
 				CSVRecord destRecord = destList.get(j);
 				if (originRecord.get(originFACID).equals(destRecord.get(destFACID))) {
-					new IntraFacilityCommitment(queryTuples);// TODO finish intrafacility
-					continue;
+					infraFac = new IntraFacilityCommitment(queryTuples);// TODO debug intrafacility
+					commitment = infraFac.getCommitment();
+					if (commitment != null) {
+						commitmentList.add(commitment);
+					}
 				} else {
 					dispList = DataMaster.getInstance().getPMEDisp().getDispList(originRecord.get(originFACID),
-							destRecord.get(destFACID));
+							destRecord.get(destFACID)); 
 
 					for (int k = 0; i < dispList.size(); k++) {
 						CSVRecord dispRecord = dispList.get(k);
-						new ExtraFacilityCommitment(); // TODO finish
-														// extrafacility;
+						extraFac = new ExtraFacilityCommitment(queryTuples); // TODO debug
+						commitment = extraFac.getCommitment();
+						if (commitment != null) {
+							commitmentList.add(commitment);
+						}
 					}
 				}
 			}
 		}
 		if (commitmentList.isEmpty()) {
-			Commitment commitment;
+			//TODO test if its origin or dest for following line
+			String DOW_COT = DataMaster.getInstance().getCotAll().getCot(
+					DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.SHIP_DATE)), queryTuples.get(QueryStrings.ORIGIN_ZIP));  
 			if (Integer.parseInt(queryTuples.get(QueryStrings.SHIP_TIME)) < Integer
-					.parseInt(queryTuples.get(QueryStrings.CUTOFF_TIME))) {
+					.parseInt(DOW_COT)) {
 				commitment = new Commitment(PMECommitmentRank, PMEPreferredIndicator, PMEServiceStd, PMEDeliverytime,
 						queryTuples.get(QueryStrings.EAD));
 			} else {
