@@ -2,15 +2,17 @@ package atfImplementation;
 
 import java.util.ArrayList;
 
+import javax.ws.rs.WebApplicationException;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "Location")
 public class Location {
-	private String zipCode;
-	private String facAddress;
-	private String facState;
-	private String facCity;
+	private String zipCode, facAddress, facState, facCity;
 
+	public Location() {
+		throw new WebApplicationException("Called wrong location constructor");
+	}
+	
 	//TODO sort out what fields are needed to output
 	public Location(String zip, String facName, String facAddress, String facCity, String facState, String cutOffTime) {
 		init(zip, facAddress, facCity, facState);
