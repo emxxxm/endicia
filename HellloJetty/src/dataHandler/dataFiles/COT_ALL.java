@@ -10,7 +10,6 @@ import atfImplementation.Location;
 public class COT_ALL extends AbsDataFile {
 	private int tupleID = 0, rangeID = 4, ZIP_ID = 0, FAC_NAME_ID = 1, FAC_ADDRESS_ID = 2, FAC_CITY_ID =3, FAC_STATE_ID = 4, PME_VALUE_ID= 12;
 	private ArrayList<Location> locationList = new ArrayList<Location>();
-	           
 	
 	@Override
 	public String getFileName() {
@@ -47,7 +46,9 @@ public class COT_ALL extends AbsDataFile {
 
 	
 	public ArrayList<Location> getLocationList() {
-		return locationList;
+		ArrayList<Location> l = (ArrayList<Location>) locationList.clone();
+		resetLocationList();
+		return l;
 	}
 	
 	public Location getLocationFromFile(CSVRecord r, int dow) {
@@ -58,6 +59,11 @@ public class COT_ALL extends AbsDataFile {
 		String facState = r.get(FAC_STATE_ID);
 		String cutOffTime = r.get(dow + rangeID);
 		return new Location(zip, facName, facAddress, facCity, facState, cutOffTime);
+	}
+
+	//TODO fix this jank
+	public void resetLocationList() {
+		locationList = new ArrayList<Location>();
 	}
 
 }
