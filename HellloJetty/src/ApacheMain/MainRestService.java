@@ -18,6 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.bind.annotation.XmlElement;
 
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 
@@ -26,6 +27,7 @@ import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
+import atfImplementation.Location;
 import atfImplementation.MainATFImplementation;
 
 //@Path( "/people" ) 
@@ -50,21 +52,24 @@ public class MainRestService {
         return outputService.getVerbose(queryTuples);
     }
     
+    //Works for post body if in the form originzip=11111&destzip=22222 IF CONTENT_TYPE = form-urlencoded
     @Path("/people.xml")
     @Produces( {"application/xml"} )
-    @Consumes("")
+    @Consumes({"application/xml","application/json","application/x-www-form-urlencoded"})
     @POST
-    public Collection<Output> getPeopleXMLFromForm() {
-    	
+    public Collection<Output> getPeopleXMLFromForm(@FormParam("originzip") String originZip, @FormParam("destzip") String destZip) {
+    	System.out.println(originZip);
+    	System.out.println(destZip);
     	return null;
     }
     
-    @Path("/people.xml")
-    @Produces( {"application/xml"} )
-    @Consumes( {"application/x-www-form-urlencoded"} )
+    @Path("/people.json")
+    @Produces( {"application/json"} )
+    @Consumes( {"application/xml"} )
     @POST
-    public Collection<DazzleOutput> getPeopleJSONPost( @Multipart(value = "originzip", type = "text/xml") String originZip) {
-    	System.out.println(originZip);
+    public Collection<DazzleOutput> getPeopleJSONPost(Location input) {
+    	System.out.println("Inside the POST xml body path");
+    	System.out.println(input.getFacCity());
     	return null;
     }
     
