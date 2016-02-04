@@ -87,7 +87,7 @@ public class MainRestService extends AbsGetMailOutput {
 //    	return null;
 //    }
     
-    @Path("/people.json")
+    @Path(BASE_PATH + URL_JSON)
     @Produces( {"application/json"} )
     @Consumes( {"application/xml"} )
     @POST
@@ -101,7 +101,7 @@ public class MainRestService extends AbsGetMailOutput {
     	return output;
     }
     
-    @Path("/people.xml")
+    @Path(BASE_PATH + URL_XML)
     @Produces( {"application/xml"} )
     @Consumes( {"application/xml"} )
     @POST
