@@ -10,7 +10,7 @@ public class Location {
 	private String zipCode, facAddress, facState, facCity;
 
 	public Location() {
-		throw new WebApplicationException("Called wrong location constructor");
+		//throw new WebApplicationException("Called wrong location constructor");
 	}
 	
 	//TODO sort out what fields are needed to output
