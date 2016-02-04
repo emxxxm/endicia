@@ -38,7 +38,7 @@ public class Main {
 		//handlerList.addHandler(context1);
 		handlerList.addHandler(context2);
 		
-		System.out.println("Current URL for API access is " + MainRestService.BASE_CONTEXT + MainRestService.API + MainRestService.BASE_CONTEXT );
+		System.out.println("Current URL for API access is " + MainRestService.BASE_CONTEXT + MainRestService.API + MainRestService.BASE_PATH );
 
 		try {
 			server.setHandler(handlerList);
