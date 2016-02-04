@@ -1,6 +1,6 @@
 package ApacheMain;
 
-import java.text.ParseException;
+import java.text.ParseException; 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,6 +18,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
@@ -43,10 +45,8 @@ public class MainRestService {
     	if(shipDate.isEmpty()) {
     		shipDate = DateTimeUtilities.getCurrentUTCDate();
     	}
-    	
     	HashMap<String, String> queryTuples = QueryParser.initializeTuples(originZip, destZip, shipDate, dropOffTime, mailClass, destType);
-   
-        return outputService.getVerbose(queryTuples);//peopleService.getPeople( 1, 5 );
+        return outputService.getVerbose(queryTuples);
     }
     
     @Path("/people.xml")
@@ -58,11 +58,29 @@ public class MainRestService {
     	return null;
     }
     
+    @Path("/people.xml")
+    @Produces( {"application/xml"} )
+    @Consumes( {"application/x-www-form-urlencoded"} )
+    @POST
+    public Collection<DazzleOutput> getPeopleJSONPost( @Multipart(value = "originzip", type = "text/xml") String originZip) {
+    	System.out.println(originZip);
+    	return null;
+    }
+    
     @Path("/people.json")
     @Produces( { "application/json"} )
     @GET
-    public Collection<Output> getPeopleJSON( @QueryParam( "page") @DefaultValue( "1" ) final int page ) {
-        return outputService.getPeople( page, 5 );
+    public Collection<DazzleOutput> getPeopleJSON(  @QueryParam( QueryStrings.ORIGIN_ZIP) String originZip, 
+			   @QueryParam(QueryStrings.DEST_ZIP) String destZip,
+			   @QueryParam(QueryStrings.SHIP_DATE) @DefaultValue("") String shipDate,
+			   @QueryParam(QueryStrings.SHIP_TIME) String dropOffTime,
+			   @QueryParam(QueryStrings.MAIL_CLASS) String mailClass, 
+			   @QueryParam(QueryStrings.DEST_TYPE) String destType) throws NumberFormatException, CalculationNotPossibleException, ParseException {
+    	if(shipDate.isEmpty()) {
+    		shipDate = DateTimeUtilities.getCurrentUTCDate();
+    	}
+    	HashMap<String, String> queryTuples = QueryParser.initializeTuples(originZip, destZip, shipDate, dropOffTime, mailClass, destType);
+        return outputService.getVerbose(queryTuples);
     }
     
     @Path("/people.xml")
