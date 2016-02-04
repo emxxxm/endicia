@@ -67,7 +67,7 @@ public class MainRestService {
     //Works for post body if in the form originzip=11111&destzip=22222 IF CONTENT_TYPE = form-urlencoded
     @Path("/people.xml")
     @Produces( {"application/xml"} )
-    @Consumes({"application/xml","application/json","application/x-www-form-urlencoded"})
+    @Consumes({"application/x-www-form-urlencoded"})
     @POST
     public Collection<Output> getPeopleXMLFromForm(@FormParam("originzip") String originZip, @FormParam("destzip") String destZip) {
     	System.out.println(originZip);
@@ -79,10 +79,28 @@ public class MainRestService {
     @Produces( {"application/json"} )
     @Consumes( {"application/xml"} )
     @POST
-    public Collection<DazzleOutput> getPeopleJSONPost(Location input) {
-    	System.out.println("Inside the POST xml body path");
-    	System.out.println(input.getFacCity());
-    	return null;
+    public Collection<DazzleOutputMain> getPeopleJSONPost(XMLInput input) throws InvalidQueryFormatException, NumberFormatException, CalculationNotPossibleException, ParseException {
+    	System.out.println("Inside the POST xml body path that produces JSON");
+    	if(input.getShipDate() == null) {
+    		input.setShipDate(DateTimeUtilities.getCurrentUTCDate());
+    	}
+    	HashMap<String, String> queryTuples = QueryParser.initializeTuples(input.getOriginZip(), input.getDestZip(), input.getShipDate(), input.getShipTime(), input.getMailClass(), input.getDestType());
+    	Collection<DazzleOutputMain> output = outputService.getVerbose(queryTuples);
+    	return output;
+    }
+    
+    @Path("/people.xml")
+    @Produces( {"application/xml"} )
+    @Consumes( {"application/xml"} )
+    @POST
+    public Collection<DazzleOutputMain> getPeopleXMLPost(XMLInput input) throws InvalidQueryFormatException, NumberFormatException, CalculationNotPossibleException, ParseException {
+    	System.out.println("Inside the POST xml body path that produces XML");
+    	if(input.getShipDate() == null) {
+    		input.setShipDate(DateTimeUtilities.getCurrentUTCDate());
+    	}
+    	HashMap<String, String> queryTuples = QueryParser.initializeTuples(input.getOriginZip(), input.getDestZip(), input.getShipDate(), input.getShipTime(), input.getMailClass(), input.getDestType());
+    	Collection<DazzleOutputMain> output = outputService.getVerbose(queryTuples);
+    	return output;
     }
     
     @Path("/people.json")
