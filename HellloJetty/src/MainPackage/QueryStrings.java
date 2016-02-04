@@ -116,9 +116,9 @@ public class QueryStrings {
 	public static ArrayList<String> getDestTypes() {
 		ArrayList<String> destTypes = new ArrayList<String>();
 		
-		destTypes.add(DESTTYPE_HFPU);
 		destTypes.add(DESTTYPE_STREET_ADDRESS);
 		destTypes.add(DESTTYPE_PO_BOX);
+		destTypes.add(DESTTYPE_HFPU);
 		
 		return destTypes;
 	}

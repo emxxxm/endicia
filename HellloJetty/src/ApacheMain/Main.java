@@ -1,19 +1,24 @@
 package ApacheMain;
 
 
-import org.eclipse.jetty.server.Server;  
-import org.eclipse.jetty.server.handler.HandlerList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.cxf.transport.servlet.CXFServlet;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
-import org.springframework.web.context.ContextLoaderListener;
+import MainPackage.LoggingHub;
 
 public class Main {
-
+	private final static Logger logger = Logger.getLogger(LoggingHub.class.getName());
 	public static void main(String[] args) {
+		
+		LoggingHub.initLogger();
 		
 		Server server = new Server(4651);
 		
@@ -39,12 +44,12 @@ public class Main {
 			server.start();
 			server.join();
 		} catch (Exception e) {
-			System.out.println("Level.SEVERE" + e.getMessage() + e);
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		} finally {
 			try {
 				server.stop();
 			} catch (Exception e) {
-				System.out.println("Level.SEVERE" + e.getMessage() + e);
+				logger.log(Level.SEVERE, e.getMessage(), e);
 			}
 		}
 	}

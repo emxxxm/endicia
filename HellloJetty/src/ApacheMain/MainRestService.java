@@ -1,28 +1,27 @@
 package ApacheMain;
 
-import java.text.ParseException; 
-import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 
 import ApacheMain.outputwrappers.DazzleOutputMain;
 import MainPackage.DateTimeUtilities;
+import MainPackage.InvalidQueryFormatException;
+import MainPackage.LoggingHub;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
@@ -32,6 +31,9 @@ import atfImplementation.MainATFImplementation;
 public class MainRestService {
     @Inject private OutputService outputService;
     MainATFImplementation mainLogic;
+
+	private final static Logger logger = Logger.getLogger(LoggingHub.class.getName());
+	
     
     @Path("/people")
     @Produces( { "application/xml"} )
@@ -42,12 +44,19 @@ public class MainRestService {
     									   @QueryParam(QueryStrings.SHIP_DATE) @DefaultValue("") String shipDate,
     									   @QueryParam(QueryStrings.SHIP_TIME) String dropOffTime,
     									   @QueryParam(QueryStrings.MAIL_CLASS) String mailClass, 
-    									   @QueryParam(QueryStrings.DEST_TYPE) String destType) throws NumberFormatException, CalculationNotPossibleException, ParseException {
+    									   @QueryParam(QueryStrings.DEST_TYPE) String destType) throws NumberFormatException, CalculationNotPossibleException, ParseException, InvalidQueryFormatException {
+    	Collection<DazzleOutputMain> output = null;
     	if(shipDate.isEmpty()) {
     		shipDate = DateTimeUtilities.getCurrentUTCDate();
     	}
-    	HashMap<String, String> queryTuples = QueryParser.initializeTuples(originZip, destZip, shipDate, dropOffTime, mailClass, destType);
-        return outputService.getVerbose(queryTuples);
+    	try {
+    		HashMap<String, String> queryTuples = QueryParser.initializeTuples(originZip, destZip, shipDate, dropOffTime, mailClass, destType);
+        	output = outputService.getVerbose(queryTuples);
+    	} catch (Exception e) {
+    		logger.log(Level.SEVERE, e.getMessage(), e);
+    		throw new WebApplicationException(e.getMessage());
+    	}
+    	return output;
     }
     
     @Path("/people.xml")
@@ -76,7 +85,7 @@ public class MainRestService {
 			   @QueryParam(QueryStrings.SHIP_DATE) @DefaultValue("") String shipDate,
 			   @QueryParam(QueryStrings.SHIP_TIME) String dropOffTime,
 			   @QueryParam(QueryStrings.MAIL_CLASS) String mailClass, 
-			   @QueryParam(QueryStrings.DEST_TYPE) String destType) throws NumberFormatException, CalculationNotPossibleException, ParseException {
+			   @QueryParam(QueryStrings.DEST_TYPE) String destType) throws NumberFormatException, CalculationNotPossibleException, ParseException, InvalidQueryFormatException {
     	if(shipDate.isEmpty()) {
     		shipDate = DateTimeUtilities.getCurrentUTCDate();
     	}

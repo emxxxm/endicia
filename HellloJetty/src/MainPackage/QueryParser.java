@@ -152,14 +152,29 @@ public class QueryParser {
 		}
 	}
 	
-	public static HashMap<String, String> initializeTuples(String originZip, String destZip, String shipDate, String shipTime, String mailClass, String destType) {
+	public static HashMap<String, String> initializeTuples(String originZip, String destZip, String shipDate, String shipTime, String mailClass, String destType) throws InvalidQueryFormatException {
 		HashMap<String, String> tuples = new HashMap<String, String>();
-		tuples.put(QueryStrings.ORIGIN_ZIP, originZip.replaceAll("\"", ""));
-		tuples.put(QueryStrings.DEST_ZIP, destZip.replaceAll("\"", ""));
-		tuples.put(QueryStrings.SHIP_DATE, shipDate.replaceAll("\"", ""));
-		tuples.put(QueryStrings.SHIP_TIME, shipTime.replaceAll("\"", ""));
-		tuples.put(QueryStrings.MAIL_CLASS, mailClass.replaceAll("\"", ""));
-		tuples.put(QueryStrings.DEST_TYPE, destType.replaceAll("\"", ""));
+		
+		originZip = originZip.replaceAll("\"", "");
+		destZip = destZip.replaceAll("\"", "");
+		shipDate = shipDate.replaceAll("\"", "");
+		mailClass = mailClass.replaceAll("\"", "");
+		destType = destType.replaceAll("\"", "");
+		
+		validateZip(originZip);
+		validateZip(destZip);
+		validateDate(shipDate);
+		validateDropOffTime(shipTime);
+		validateMailClass(mailClass);
+		validateDestType(destType);
+		
+		tuples.put(QueryStrings.ORIGIN_ZIP, originZip);
+		tuples.put(QueryStrings.DEST_ZIP, destZip);
+		tuples.put(QueryStrings.SHIP_DATE, shipDate);
+		tuples.put(QueryStrings.SHIP_TIME, shipTime);
+		tuples.put(QueryStrings.MAIL_CLASS, mailClass);
+		tuples.put(QueryStrings.DEST_TYPE, destType);
+		
 		return tuples;
 	}
 
