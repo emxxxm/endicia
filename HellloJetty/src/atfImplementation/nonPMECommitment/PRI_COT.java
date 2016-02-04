@@ -48,6 +48,7 @@ public class PRI_COT {
 		IDataMaster d = DataMaster.getInstance();
 		String PRI_COT = d.getCotAll().getCot(DOW, ZIP, QueryStrings.MAIL_CLASS_PRI); //TODO return all
 		locationList = d.getCotAll().getLocationList();
+		d.getCotAll().resetLocationList();
 		return PRI_COT;
 	}
 	

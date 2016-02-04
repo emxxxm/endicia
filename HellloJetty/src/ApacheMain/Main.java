@@ -29,7 +29,7 @@ public class Main {
 		
 		final ServletContextHandler context2 = new ServletContextHandler();
 		//context.setContextPath("/");
-		context2.addServlet(servletHolder, "/rest/*");
+		context2.addServlet(servletHolder, MainRestService.BASE_CONTEXT + "*");
 		context2.addEventListener(new ContextLoaderListener());
 		
 		context2.setInitParameter("contextClass", AnnotationConfigWebApplicationContext.class.getName());
@@ -37,8 +37,9 @@ public class Main {
 		
 		//handlerList.addHandler(context1);
 		handlerList.addHandler(context2);
-
 		
+		System.out.println("Current URL for API access is " + MainRestService.BASE_CONTEXT + MainRestService.API + MainRestService.BASE_PATH );
+
 		try {
 			server.setHandler(handlerList);
 			server.start();
