@@ -24,6 +24,7 @@ public class AppConfig {
         JAXRSServerFactoryBean factory = RuntimeDelegate.getInstance().createEndpoint( jaxRsApiApplication(), JAXRSServerFactoryBean.class );
         factory.setServiceBeans( Arrays.< Object >asList( peopleRestService() ) );
         factory.setAddress(factory.getAddress() );
+        System.out.println("Factory address: " + factory.getAddress());
         factory.setProviders( Arrays.< Object >asList( jsonProvider() ) );
         factory.setProviders( Arrays.< Object >asList(xmlProvider() ) );
         factory.setProvider(customException());

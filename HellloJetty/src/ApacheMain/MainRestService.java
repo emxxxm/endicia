@@ -13,6 +13,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
+import org.apache.cxf.jaxrs.ext.multipart.Multipart;
+
 import ApacheMain.outputwrappers.DazzleOutputMain;
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
@@ -38,10 +40,8 @@ public class MainRestService {
     	if(shipDate.isEmpty()) {
     		shipDate = DateTimeUtilities.getCurrentUTCDate();
     	}
-    	
     	HashMap<String, String> queryTuples = QueryParser.initializeTuples(originZip, destZip, shipDate, dropOffTime, mailClass, destType);
-   
-        return outputService.getVerbose(queryTuples);//peopleService.getPeople( 1, 5 );
+        return outputService.getVerbose(queryTuples);
     }
     
     @Path("/people.xml")
@@ -53,11 +53,29 @@ public class MainRestService {
     	return null;
     }
     
+    @Path("/people.xml")
+    @Produces( {"application/xml"} )
+    @Consumes( {"application/x-www-form-urlencoded"} )
+    @POST
+    public Collection<DazzleOutput> getPeopleJSONPost( @Multipart(value = "originzip", type = "text/xml") String originZip) {
+    	System.out.println(originZip);
+    	return null;
+    }
+    
     @Path("/people.json")
     @Produces( { "application/json"} )
     @GET
-    public Collection<Output> getPeopleJSON( @QueryParam( "page") @DefaultValue( "1" ) final int page ) {
-        return outputService.getPeople( page, 5 );
+    public Collection<DazzleOutputMain> getPeopleJSON(  @QueryParam( QueryStrings.ORIGIN_ZIP) String originZip, 
+			   @QueryParam(QueryStrings.DEST_ZIP) String destZip,
+			   @QueryParam(QueryStrings.SHIP_DATE) @DefaultValue("") String shipDate,
+			   @QueryParam(QueryStrings.SHIP_TIME) String dropOffTime,
+			   @QueryParam(QueryStrings.MAIL_CLASS) String mailClass, 
+			   @QueryParam(QueryStrings.DEST_TYPE) String destType) throws NumberFormatException, CalculationNotPossibleException, ParseException {
+    	if(shipDate.isEmpty()) {
+    		shipDate = DateTimeUtilities.getCurrentUTCDate();
+    	}
+    	HashMap<String, String> queryTuples = QueryParser.initializeTuples(originZip, destZip, shipDate, dropOffTime, mailClass, destType);
+        return outputService.getVerbose(queryTuples);
     }
     
     @Path("/people.xml")
