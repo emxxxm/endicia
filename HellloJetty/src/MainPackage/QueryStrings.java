@@ -74,6 +74,7 @@ public class QueryStrings {
 	
 	public static String mapMailClassToInt(String mailClass) throws CalculationNotPossibleException {
 		String mailClassNum;
+		System.out.println("Mail class is: " + mailClass);
 		switch(mailClass) {
 		case MAIL_CLASS_PME:
 			mailClassNum = "1";
@@ -94,7 +95,7 @@ public class QueryStrings {
 			mailClassNum = "6";
 			break;
 		default:
-			throw new CalculationNotPossibleException("mail class is invalid");
+			throw new CalculationNotPossibleException("mail class" + mailClass + "is invalid");
 		}
 		return mailClassNum;
 	}
