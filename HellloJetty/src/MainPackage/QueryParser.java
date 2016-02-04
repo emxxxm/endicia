@@ -194,6 +194,22 @@ public class QueryParser {
 
 		return fakeQueryTuples;
 	}
+	
+	public static HashMap<String, String> getFakeQueryPMETuples() {
+		HashMap<String, String> fakeQueryTuples = new HashMap<String, String>();
+
+		fakeQueryTuples.put(QueryStrings.ORIGIN_ZIP, "32669");
+		fakeQueryTuples.put(QueryStrings.DEST_ZIP, "32669");
+		fakeQueryTuples.put(QueryStrings.SHIP_DATE, "01-Feb-2016");
+		fakeQueryTuples.put(QueryStrings.SHIP_TIME, "1000");
+		fakeQueryTuples.put(QueryStrings.MAIL_CLASS, QueryStrings.MAIL_CLASS_PME);
+		fakeQueryTuples.put(QueryStrings.DEST_TYPE, QueryStrings.DESTTYPE_HFPU);
+		//fakeQueryTuples.put(QueryStrings, QueryStrings.DESTTYPE_HFPU);
+		fakeQueryTuples.put(QueryStrings.EAD, "01-Feb-2016");
+		//fakeQueryTuples.put(QueryStrings.DELIVERY_DATE, "17-Jan-2016");
+
+		return fakeQueryTuples;
+	}
 
 	public static boolean isPOBox(String destType) {
 		return destType.equals(QueryStrings.DESTTYPE_PO_BOX);

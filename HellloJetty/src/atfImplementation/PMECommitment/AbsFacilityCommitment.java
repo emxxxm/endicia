@@ -79,7 +79,7 @@ public abstract class AbsFacilityCommitment implements IFacilityCommitment {
 		while(true) {
 			DOW = getDayOfWeek(transitDate, commitmentDate);
 
-			DOW_COT = DataMaster.getInstance().getCotAll().getCot(DOW, originZip);  
+			DOW_COT = DataMaster.getInstance().getCotAll().getCot(DOW, originZip, QueryStrings.MAIL_CLASS_PME);  
 			if((DOW_COT.equals("0") || DOW_COT.equals("0000") || DOW_COT.equals(""))) { //DOW_COT does no exist
 				if(daysElapsed > 0){
 					throw new ReturnToMainLogicException(); //TODO test; is exception required? Almost certain it is not. Commitment cannot be calculated

@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import org.apache.commons.csv.CSVRecord;
 
+import MainPackage.QueryStrings;
 import atfImplementation.Location;
 
 public class COT_ALL extends AbsDataFile {
-	private int tupleID = 0, rangeID = 4, ZIP_ID = 0, FAC_NAME_ID = 1, FAC_ADDRESS_ID = 2, FAC_CITY_ID =3, FAC_STATE_ID = 4;
+	private int tupleID = 0, rangeID = 4, ZIP_ID = 0, FAC_NAME_ID = 1, FAC_ADDRESS_ID = 2, FAC_CITY_ID =3, FAC_STATE_ID = 4, PME_VALUE_ID= 12;
 	private ArrayList<Location> locationList = new ArrayList<Location>();
 	           
 	
@@ -18,7 +19,7 @@ public class COT_ALL extends AbsDataFile {
 
 	// TODO [optimization] add index
 	// TODO return all records
-	public String getCot(int dow, String ZIP) {
+	public String getCot(int dow, String ZIP, String mailClass) {
 		Location newLoc;
 		int cot = Integer.MAX_VALUE;
 		for (CSVRecord r : recordsList) {
@@ -26,9 +27,15 @@ public class COT_ALL extends AbsDataFile {
 			if (r.get(tupleID).startsWith(ZIP)) {
 				newLoc = getLocationFromFile(r, dow);
 				locationList.add(newLoc);
-				 
-				if (Integer.parseInt(r.get(dow + rangeID)) < cot)
-					cot = Integer.parseInt(r.get(dow + rangeID));
+				if(mailClass.equals(QueryStrings.MAIL_CLASS_PRI)){
+					if (Integer.parseInt(r.get(dow + rangeID)) < cot)
+						cot = Integer.parseInt(r.get(dow + rangeID));
+				}
+				else if(mailClass.equals(QueryStrings.MAIL_CLASS_PME)){
+					if (Integer.parseInt(r.get(dow + PME_VALUE_ID)) < cot)
+						cot = Integer.parseInt(r.get(dow + PME_VALUE_ID));
+				}
+				
 			}
 		}
 		if (cot != Integer.MAX_VALUE)
@@ -36,6 +43,8 @@ public class COT_ALL extends AbsDataFile {
 		else
 			return "";
 	}
+	
+
 	
 	public ArrayList<Location> getLocationList() {
 		return locationList;

@@ -26,7 +26,7 @@ public class PMECommitmentSubroutine {
 		int originFACID = 5, destFACID = 1;
 		String originZIP = queryTuples.get(QueryStrings.ORIGIN_ZIP);
 		String destZIP = queryTuples.get(QueryStrings.DEST_ZIP);
-		String destType = queryTuples.get(QueryStrings.getDestTypes());
+		String destType = queryTuples.get(QueryStrings.DEST_TYPE);
 		ArrayList<CSVRecord> originList = DataMaster.getInstance().getOriginScheduleAll().getOriginList(originZIP);
 		ArrayList<CSVRecord> destList = DataMaster.getInstance().getPMEDest().getDestList(destType, destZIP);
 		ArrayList<CSVRecord> dispList;
@@ -54,11 +54,11 @@ public class PMECommitmentSubroutine {
 					}
 				}
 			}
-		}
+		} 
 		if (commitmentList.isEmpty()) {
 			//TODO test if its origin or dest for following line
 			String DOW_COT = DataMaster.getInstance().getCotAll().getCot(
-					DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.SHIP_DATE)), queryTuples.get(QueryStrings.ORIGIN_ZIP));  
+					DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.SHIP_DATE)), queryTuples.get(QueryStrings.ORIGIN_ZIP), QueryStrings.MAIL_CLASS_PME);  
 			if (Integer.parseInt(queryTuples.get(QueryStrings.SHIP_TIME)) < Integer
 					.parseInt(DOW_COT)) {
 				commitment = new Commitment(PMECommitmentRank, PMEPreferredIndicator, PMEServiceStd, PMEDeliverytime,

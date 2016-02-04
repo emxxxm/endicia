@@ -106,13 +106,12 @@ public class BestPMECommitment {
 		int i = 0;
 		for(i = 0; i < commitments.size(); i++){
 			if(comparator.compare(commitments.get(i), lastCommit) == 0){
-				lastCommit = commitments.get(i);
+				lastCommit = commitments.get(i);		
 			}
 			else {
 				break;
 			}
 		}
-		
 		return commitments.subList(0, i);
 	}
 	
