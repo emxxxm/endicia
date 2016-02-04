@@ -81,7 +81,8 @@ public class MainRestService {
     		shipDate = DateTimeUtilities.getCurrentUTCDate();
     	}
     	HashMap<String, String> queryTuples = QueryParser.initializeTuples(originZip, destZip, shipDate, dropOffTime, mailClass, destType);
-        return outputService.getVerbose(queryTuples);
+    	Collection<DazzleOutputMain> output = outputService.getVerbose(queryTuples);
+    	return output;
     }
     
     @Path("/people.xml")
