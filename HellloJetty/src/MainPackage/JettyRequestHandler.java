@@ -27,8 +27,7 @@ public class JettyRequestHandler extends AbstractHandler
     	
     	response.setContentType("application/xml;charset=utf-8"); //TODO have serializer to dispatch based on content-type in get request
         baseRequest.setHandled(true);
-        
-      //  System.out.println("This is the queryString: " + request.getQueryString());
+      
              
 		try {
 			queryTuples = QueryParser.parseStringForTuples(request.getQueryString());
@@ -44,16 +43,22 @@ public class JettyRequestHandler extends AbstractHandler
 	        mainLogic.execute();
 	        
 	        output = mainLogic.getOutput();
+	        System.out.println("Output size in Jetty: " + output.keySet().size());
 	        
 	        xmlResp = "<ExpressMail>";
 	        for (String s: output.keySet()) {
-	        	xmlResp += "<" + s + ">" + output.get(s).toString() + "</" + s + ">"; 
+	        	if (output.get(s) != null) {
+	        		xmlResp += "<" + s + ">" + output.get(s).toString() + "</" + s + ">";
+	        	} else {
+	        		System.out.println("Null key: " + s);
+	        	}
 	        }
 	        xmlResp += "</ExpressMail>";
 	        
-	        System.out.println(xmlResp);
-	        
 	        response.setStatus(HttpServletResponse.SC_OK);
+	        
+	        System.out.println("Sending the following xml response to browser: " + xmlResp);
+	        
 	        response.getWriter().println(xmlResp);
 	        
 		} catch (Exception e) {//(InvalidQueryFormatException e) {

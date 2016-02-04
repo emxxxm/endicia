@@ -30,7 +30,8 @@ public class MainATFImplementation implements IATFImplementation {
 
 	@Override
 	public LinkedHashMap<String, Object> getOutput() throws CalculationNotPossibleException {
-		return mainLogic.getOutput();
+		LinkedHashMap<String, Object> output = mainLogic.getOutput();
+		return output;
 	}
 
 	@Override

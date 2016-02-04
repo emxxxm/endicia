@@ -11,8 +11,9 @@ import javax.ws.rs.WebApplicationException;
 
 import org.springframework.stereotype.Service;
 
-import ApacheMain.outputwrappers.DazzlePMEOutput;
+import ApacheMain.outputwrappers.DazzleOutputMain;
 import MainPackage.LoggingHub;
+import atfImplementation.CalculationNotPossibleException;
 import atfImplementation.MainATFImplementation;
 
 @Service
@@ -30,7 +31,7 @@ public class OutputService {
         return persons;
     }
     
-    public Collection<DazzlePMEOutput> getVerbose(HashMap<String, String> queryTuples) {
+    public Collection<DazzleOutputMain> getVerbose(HashMap<String, String> queryTuples) throws CalculationNotPossibleException {
     	MainATFImplementation mainLogic = new MainATFImplementation(queryTuples);
     	LinkedHashMap<String, Object> output;
    	
@@ -43,8 +44,8 @@ public class OutputService {
     		throw new WebApplicationException(e.getMessage());
     	}
     	
-    	Collection<DazzlePMEOutput> outputCollection = new ArrayList< DazzlePMEOutput >();
-    	outputCollection.add(new DazzlePMEOutput(output));
+    	Collection<DazzleOutputMain> outputCollection = new ArrayList< DazzleOutputMain >();
+    	outputCollection.add(new DazzleOutputMain(output));
     	
     	return outputCollection;
     	

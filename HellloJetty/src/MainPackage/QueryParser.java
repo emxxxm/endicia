@@ -11,8 +11,6 @@ public class QueryParser {
 		HashMap<String, String> queryTuples = new HashMap<String, String>();
 
 		// count number of "=" in string
-
-		System.out.println(queryString);
 		URI decoder = null;
 		try {
 			decoder = new URI("/?" + queryString);

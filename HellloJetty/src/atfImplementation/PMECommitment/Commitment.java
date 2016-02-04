@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "Commitment")
 public class Commitment {
-	private int commitmentRank, preferredIndicator, serviceStd, deliveryTime; //cutOffTime; //TODO is this needed?
+	private int commitmentRank, preferredIndicator, serviceStd, deliveryTime; //cutOffTime; //TODO cutoff time is needed for final output
 	private String commitmentDate;
 
 	public Commitment(int commitmentRank, int preferredIndicator, int serviceStd, int deliveryTime,
@@ -25,6 +25,11 @@ public class Commitment {
 		commitmentString += "<serviceStd>" + serviceStd + "</serviceStd>";
 		commitmentString += "<preferredIndicator>" + preferredIndicator + "</preferredIndicator>";
 		return commitmentString;
+	}
+	
+	@Override
+	public String toString() {
+		return printCommitment();
 	}
 
 	public int getCommitmentRank() {

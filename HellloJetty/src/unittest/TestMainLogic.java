@@ -48,7 +48,7 @@ public class TestMainLogic {
 		System.out.println(xmlResp);
 	}
 	
-	@Test (timeout=1000) //Run through the main logic, if no error is thrown then it passes
+	@Test //(timeout=1000) //Run through the main logic, if no error is thrown then it passes
 	public void testMainLogicPME() throws NumberFormatException, CalculationNotPossibleException, ParseException {
 		HashMap<String, String> q = QueryParser.getFakeQueryPRITuples();
 		q.put(QueryStrings.DEST_TYPE, "2");

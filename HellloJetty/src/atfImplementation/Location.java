@@ -47,12 +47,7 @@ public class Location {
 	
 	public static Location getHFPULocation(String HFPUAddress) {
 		String[] locationContents = HFPUAddress.split(",");
-		
-		for (String s: locationContents) {
-			System.out.println(s);
-		}
-		
-		Location HFPULoc = new Location(locationContents[0], locationContents[1], locationContents[2], locationContents[4]);
+		Location HFPULoc = new Location(locationContents[0], locationContents[4], locationContents[2], locationContents[1]);
 		
 		ArrayList<Location> locationList = new ArrayList<Location>();
 		locationList.add(HFPULoc);
@@ -66,6 +61,10 @@ public class Location {
 			output += r.toXMLString();
 		}
 		return output;
+	}
+	
+	public String toString() {
+		return toXMLString();
 	}
 
 	public String getZipCode() {

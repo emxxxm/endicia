@@ -130,7 +130,6 @@ public class SDCKnowledgeDTO {
 	}
 	
 	public void incrementDeliveryDate(int increment) throws ParseException {
-		System.out.println("Incrementing Delivery Date");
 		deliveryDate = DateTimeUtilities.incrementDate(deliveryDate,  increment);
 	}
 	

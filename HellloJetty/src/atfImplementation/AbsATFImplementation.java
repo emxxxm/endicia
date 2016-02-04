@@ -63,13 +63,11 @@ public abstract class AbsATFImplementation implements IATFImplementation {
     
     protected void executeTransitRules() {
 		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsgForTransit(queryTuples); //TODO test
-		System.out.println("Transit svc " + droolsMsg.svcStd);
 		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_TRANSIT);
     }
     
 	protected void executeServiceStandardRules() {
 		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsgForPost(queryTuples); //TODO test
-		System.out.println("Post svc " + droolsMsg.svcStd);
 		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_POSTPROCESSING);
 	}
 	
