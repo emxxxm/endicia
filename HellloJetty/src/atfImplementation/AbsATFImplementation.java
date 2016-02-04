@@ -102,6 +102,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		output.put(QueryStrings.EAD, queryTuples.get(QueryStrings.EAD));
 		output.put(QueryStrings.DELIVERY_DATE, queryTuples.get(QueryStrings.DELIVERY_DATE)); //SDD
 		output.put(QueryStrings.SHIP_TIME, queryTuples.get(QueryStrings.SHIP_TIME)); //Accept Time and Ship Time
+		output.put(QueryStrings.SHIP_DATE, queryTuples.get(QueryStrings.SHIP_DATE));
 		output.put(RulesObject.SERVICE_STD_MSG, svcStdMsg);
 		output.put(RulesObject.GUARANTEE, guarantee);
 		

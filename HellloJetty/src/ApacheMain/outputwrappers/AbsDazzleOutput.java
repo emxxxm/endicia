@@ -22,6 +22,7 @@ public abstract class AbsDazzleOutput implements IOutput {
 	String shipTime;
 	String shipDate;
 	
+	String deliveryDate;
 	String svcStdMsg;
 	String guarantee;
 	
@@ -42,8 +43,12 @@ public abstract class AbsDazzleOutput implements IOutput {
 		shipTime = (String) output.get(QueryStrings.SHIP_TIME);
 		shipDate = (String) output.get(QueryStrings.SHIP_DATE);
 		
+		deliveryDate =  (String) output.get(QueryStrings.DELIVERY_DATE);
 		guarantee = (String) output.get(RulesObject.GUARANTEE);
 		svcStdMsg = (String) output.get(RulesObject.SERVICE_STD_MSG);
+	}
+
+	public AbsDazzleOutput() {
 	}
 
 	public String getOriginZip() {
@@ -100,6 +105,14 @@ public abstract class AbsDazzleOutput implements IOutput {
 
 	public String getGuarantee() {
 		return guarantee;
+	}
+	
+	public String getDeliveryDate() {
+		return deliveryDate;
+	}
+	
+	public void setDeliveryDate(String deliveryDate) {
+		this.deliveryDate = deliveryDate;
 	}
 
 	public void setOriginZip(String originZip) {

@@ -1,5 +1,6 @@
 package atfImplementation.PMECommitment;
 
+import javax.ws.rs.WebApplicationException;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "Commitment")
@@ -7,6 +8,10 @@ public class Commitment {
 	private int commitmentRank, preferredIndicator, serviceStd, deliveryTime; //cutOffTime; //TODO cutoff time is needed for final output
 	private String commitmentDate;
 
+	public Commitment() {
+		throw new WebApplicationException("Called wrong commitment constructor");
+	}
+	
 	public Commitment(int commitmentRank, int preferredIndicator, int serviceStd, int deliveryTime,
 			String commitmentDate) {
 		this.commitmentRank = commitmentRank;
