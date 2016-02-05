@@ -20,7 +20,7 @@ public class DateTimeUtilities {
 	private final static Logger logger = Logger.getLogger(LoggingHub.class.getName());
 	private static final String HOLIDAY_FORMAT = "yyyy-MM-dd";
 
-	public static TimeZone getTimeZone() { //TODO fix get timeZone to not be UTC; should be based off ZIP due to cutoff time
+	public static TimeZone getTimeZone() { //TODO [Endicia] fix get timeZone to not be UTC; should be based off ZIP due to cutoff time
 		return TimeZone.getTimeZone("UTC");
 	}
 	/**

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import org.apache.commons.csv.CSVRecord;
 
 import MainPackage.QueryStrings;
-import dataHandler.DataMaster;
 
 public class HFPULocation {
 	//Input Destination ZIP Code, Mail Class
@@ -24,7 +23,6 @@ public class HFPULocation {
 			throw new CalculationNotPossibleException("The input mailclass does not supoort HFPU");
 		}
 		else{
-		//	ArrayList<CSVRecord> records = DataMaster.getInstance().getAddressClose().getAddressRecords(destZIP); //TODO OPtimize
 			CSVRecord record = records.get(0);
 			if(destZIP.length() == 9){
 				if(records.isEmpty()){

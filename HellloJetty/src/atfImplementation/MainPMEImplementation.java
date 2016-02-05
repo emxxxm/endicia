@@ -8,6 +8,7 @@ import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
 import atfImplementation.PMECommitment.BestPMECommitment;
+import atfImplementation.PMECommitment.Commitment;
 import atfImplementation.PMECommitment.PMECommitmentSubroutine;
 import atfImplementation.PMECommitment.PMEDeliveryDate;
 
@@ -58,7 +59,9 @@ public class MainPMEImplementation extends AbsATFImplementation {
 	@Override 
 	public DazzleOutputMain formatOutput() throws CalculationNotPossibleException {
 		super.formatOutput();
-		output.put(QueryStrings.COMMITMENT, bestCommitmentCalc.getBestCommitment());
+		Commitment c = bestCommitmentCalc.getBestCommitment();
+		output.put(QueryStrings.COMMITMENT, c);
+		output.put(QueryStrings.CUTOFF_TIME, Integer.toString(c.getCutoffTime()));
 		return new DazzleOutputMain(output);
 	}	
 

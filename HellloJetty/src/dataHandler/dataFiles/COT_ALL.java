@@ -16,7 +16,7 @@ public class COT_ALL extends AbsDataFile {
 		return FilenameConstants.COT_ALL;
 	}
 
-	// TODO [optimization] add index
+	// TODO [Optimization] add index
 	// TODO return all records
 	public String getCot(int dow, String ZIP, String mailClass) {
 		Location newLoc;
@@ -61,7 +61,7 @@ public class COT_ALL extends AbsDataFile {
 		return new Location(zip, facName, facAddress, facCity, facState, cutOffTime);
 	}
 
-	//TODO fix this jank
+	//TODO [optimization] fix this jank
 	public void resetLocationList() {
 		locationList = new ArrayList<Location>();
 	}

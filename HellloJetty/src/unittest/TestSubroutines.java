@@ -17,11 +17,10 @@ import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
 import atfImplementation.HFPULocation;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
-import atfImplementation.PMECommitment.PMEDeliveryDate;
 import atfImplementation.PMECommitment.BestPMECommitment;
 import atfImplementation.PMECommitment.Commitment;
 import atfImplementation.PMECommitment.IntraFacilityCommitment;
-import atfImplementation.PMECommitment.PMECommitmentSubroutine;
+import atfImplementation.PMECommitment.PMEDeliveryDate;
 import dataHandler.DataMaster;
 
 
@@ -126,11 +125,11 @@ public class TestSubroutines {
 	@Test
 	public void testBestCommitment() throws ParseException{
 		ArrayList<Commitment> commits = new ArrayList<Commitment>();
-		Commitment c1 = new Commitment(1, 1, 3, 1600, "29-Jan-2016");
-		Commitment c2 = new Commitment(1, 1, 3, 1600, "30-Jan-2016");
-		Commitment c3 = new Commitment(2, 1, 3, 1600, "29-Jan-2016");
-		Commitment c4 = new Commitment(1, 1, 3, 1600, "31-Jan-2016");
-		Commitment c5 = new Commitment(1, 1, 3, 1700, "29-Jan-2016");
+		Commitment c1 = new Commitment(1, 1, 3, 1600, "29-Jan-2016", "0");
+		Commitment c2 = new Commitment(1, 1, 3, 1600, "30-Jan-2016", "0");
+		Commitment c3 = new Commitment(2, 1, 3, 1600, "29-Jan-2016", "0");
+		Commitment c4 = new Commitment(1, 1, 3, 1600, "31-Jan-2016", "0");
+		Commitment c5 = new Commitment(1, 1, 3, 1700, "29-Jan-2016", "0");
 		commits.add(c1);
 		commits.add(c2);
 		commits.add(c3);
@@ -142,7 +141,7 @@ public class TestSubroutines {
 	@Test
 	public void testBestCommitmentOneCommitment() throws ParseException{
 		ArrayList<Commitment> commits = new ArrayList<Commitment>();
-		Commitment c1 = new Commitment(1, 1, 3, 1600, "29-Jan-2016");
+		Commitment c1 = new Commitment(1, 1, 3, 1600, "29-Jan-2016", "0");
 		
 		commits.add(c1);
 	

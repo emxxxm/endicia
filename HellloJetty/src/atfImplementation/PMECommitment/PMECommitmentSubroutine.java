@@ -35,7 +35,7 @@ public class PMECommitmentSubroutine {
 			for (int j = 0; j < destList.size(); j++) {
 				CSVRecord destRecord = destList.get(j);
 				if (originRecord.get(originFACID).equals(destRecord.get(destFACID))) {
-					infraFac = new IntraFacilityCommitment(queryTuples);// TODO debug intrafacility
+					infraFac = new IntraFacilityCommitment(queryTuples);// TODO [debug] intrafacility
 					commitment = infraFac.getCommitment();
 					if (commitment != null) {
 						commitmentList.add(commitment);
@@ -46,7 +46,7 @@ public class PMECommitmentSubroutine {
 
 					for (int k = 0; i < dispList.size(); k++) {
 						CSVRecord dispRecord = dispList.get(k);
-						extraFac = new ExtraFacilityCommitment(queryTuples); // TODO debug
+						extraFac = new ExtraFacilityCommitment(queryTuples); // TODO [debug]
 						commitment = extraFac.getCommitment();
 						if (commitment != null) {
 							commitmentList.add(commitment);
@@ -56,16 +56,16 @@ public class PMECommitmentSubroutine {
 			}
 		} 
 		if (commitmentList.isEmpty()) {
-			//TODO test if its origin or dest for following line
+			//TODO [Debug] test if its origin or dest for following line
 			String DOW_COT = DataMaster.getInstance().getCotAll().getCot(
 					DateTimeUtilities.getDayOfWeek(queryTuples.get(QueryStrings.SHIP_DATE)), queryTuples.get(QueryStrings.ORIGIN_ZIP), QueryStrings.MAIL_CLASS_PME);  
 			if (Integer.parseInt(queryTuples.get(QueryStrings.SHIP_TIME)) < Integer
 					.parseInt(DOW_COT)) {
 				commitment = new Commitment(PMECommitmentRank, PMEPreferredIndicator, PMEServiceStd, PMEDeliverytime,
-						queryTuples.get(QueryStrings.EAD));
+						queryTuples.get(QueryStrings.EAD), DOW_COT);
 			} else {
 				commitment = new Commitment(PMECommitmentRank, PMEPreferredIndicator, PMEServiceStd, PMEDeliverytime,
-						DateTimeUtilities.incrementDate(queryTuples.get(QueryStrings.EAD), 1));
+						DateTimeUtilities.incrementDate(queryTuples.get(QueryStrings.EAD), 1), DOW_COT);
 			}
 			commitmentList.add(commitment);
 		}

@@ -25,11 +25,10 @@ public class IntraFacilityCommitment extends AbsFacilityCommitment {
 		} else {
 			DOW = DateTimeUtilities.getDayOfWeek(EAD);
 		}
-
-		queryTuples.put(QueryStrings.CUTOFF_TIME, DOW_COT); //TODO is this correct? should it be returned elsewhere?
+		
 		commitmentRank = destRank * originRank;
 
-		outputCommitment = new Commitment(commitmentRank, preferredIndicator, serviceStd, deliveryTime, commitmentDate); 
+		outputCommitment = new Commitment(commitmentRank, preferredIndicator, serviceStd, deliveryTime, commitmentDate, DOW_COT); 
 		
 	}
 	
