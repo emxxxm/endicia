@@ -9,7 +9,7 @@ import MainPackage.DateTimeUtilities;
 
 public class PMEDispSchedule extends AbsDataFile {
 	int originRangeID = 0, destRangeID = 2;
-	CSVRecord record; //TODO test if this updates correctly
+	CSVRecord record; //TODO [Debug] test if this updates correctly
 	
 	public static final int DEPART_TIME = 1;
 	public static final int ARR_TIME = 3;
@@ -41,8 +41,8 @@ public class PMEDispSchedule extends AbsDataFile {
 		if (dispList.isEmpty()) {
 			return output;
 		}
-		
-		record = dispList.get(0); //TODO this should correctly cache and retreive the record
+		//TODO [Optimization] this should correctly cache and retreive the record
+		record = dispList.get(0); //TODO [USPS] what to do with more than one record
 		
 		output.put(DEPART_TIME, Integer.parseInt(record.get(DEPART_TIME)));
 		output.put(ARR_TIME, Integer.parseInt(record.get(ARR_TIME)));
@@ -51,7 +51,7 @@ public class PMEDispSchedule extends AbsDataFile {
 		return output;
 	}
 	
-	public int getDOWINDforTransitDateDow(String transitDate) {//TODO this should correctly retreive value from cacheed record
+	public int getDOWINDforTransitDateDow(String transitDate) {//TODO [Optimization] this should correctly retreive value from cacheed record
 		String IND = record.get(DOW_OFFSET + DateTimeUtilities.getDayOfWeek(transitDate));
 		return Integer.parseInt(IND);
 	}

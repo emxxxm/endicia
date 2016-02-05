@@ -17,7 +17,7 @@ public class IntraFacilityCommitment extends AbsFacilityCommitment {
 	@Override
 	public void setCommitmentValues(HashMap<String, String> queryTuples) throws ParseException {
 		serviceStd = daysElapsed;
-		queryTuples.put(QueryStrings.DELIVERY_TIME, Integer.toString(deliveryTime));//TODO is this correct? should it be returned elsewhere?
+		queryTuples.put(QueryStrings.DELIVERY_TIME, Integer.toString(deliveryTime));
 		preferredIndicator = 0;
 
 		if(DataMaster.getInstance().getRefValue().isUSPSHoliday(EAD)){

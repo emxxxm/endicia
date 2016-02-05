@@ -14,7 +14,7 @@ public class HFPULocation {
 	ArrayList<CSVRecord> records;
 	
 	
-	//TODO refactor the integer constants
+	//TODO [US] refactor the integer constants
 	public HFPULocation(HashMap<String, String> queryTuples, ArrayList<CSVRecord> cachedRecords) throws CalculationNotPossibleException{
 		records = cachedRecords;
 		String mailClass = queryTuples.get(QueryStrings.MAIL_CLASS);

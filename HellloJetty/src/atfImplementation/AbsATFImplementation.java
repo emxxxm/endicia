@@ -22,7 +22,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	HashMap<String, String> queryTuples;
 	HFPULocation HFPUloc = null;
 	Location HFPUAddress;
-	int originCloseTime; //TODO what does this do
+	int originCloseTime; //TODO [USPS] what does this do
 	SDCKnowledgeDTO droolsMsg;
 	LinkedHashMap<String, Object> output = new LinkedHashMap<String, Object>();
 	HashMap<String, ArrayList<CSVRecord>> locationRecords;
