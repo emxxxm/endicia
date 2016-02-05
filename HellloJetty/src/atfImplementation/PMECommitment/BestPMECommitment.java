@@ -4,35 +4,20 @@ import java.text.ParseException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import MainPackage.DateTimeUtilities;
+import MainPackage.LoggingHub;
 
 public class BestPMECommitment {
 	Commitment bestCommitment;
+	private final static Logger logger = Logger.getLogger(LoggingHub.class.getName());
 	int transitTime;
 	String EAD;
 	public BestPMECommitment(List<Commitment> commitments) throws ParseException {
 		
-	Comparator<Commitment> commitDateComparator = new Comparator<Commitment>(){
-		@Override
-		public int compare(Commitment commit1, Commitment commit2){
-			String date1 = commit1.getCommitmentDate(), date2 = commit2.getCommitmentDate();
-			boolean isEarlier = false;
-			try {
-				isEarlier = DateTimeUtilities.isDate1BeforeDate2(date1, date2);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if( isEarlier){
-				return -1;
-			}
-			else if(date1.equals(date2)){
-				return 0;
-			}
-			else return 1;
-		}
-	};
+
 	Comparator<Commitment> rankComparator = new Comparator<Commitment>(){
 		@Override
 		public int compare(Commitment commit1, Commitment commit2){
@@ -81,6 +66,25 @@ public class BestPMECommitment {
 	//transitTime = serviceStandard
 	//EAD = commitmentDate
 	}
+	Comparator<Commitment> commitDateComparator = new Comparator<Commitment>(){
+		@Override
+		public int compare(Commitment commit1, Commitment commit2){
+			String date1 = commit1.getCommitmentDate(), date2 = commit2.getCommitmentDate();
+			boolean isEarlier = false;
+			try {
+				isEarlier = DateTimeUtilities.isDate1BeforeDate2(date1, date2);
+			} catch (ParseException e) {
+				logger.log(Level.SEVERE, e.getMessage(), e);
+			}
+			if( isEarlier){
+				return -1;
+			}
+			else if(date1.equals(date2)){
+				return 0;
+			}
+			else return 1;
+		}
+	};
 
 	private List<Commitment> removeNegativeIndicator(List<Commitment> commitments) {
 		for(int i = 0; i < commitments.size(); i ++){

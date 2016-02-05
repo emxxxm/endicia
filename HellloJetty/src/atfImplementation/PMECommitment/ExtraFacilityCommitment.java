@@ -138,7 +138,7 @@ public class ExtraFacilityCommitment extends AbsFacilityCommitment {
 		while (true) {
 			DOW = DateTimeUtilities.getDayOfWeek(transitDate);
 
-			if (DataMaster.getInstance().getRefValue().isUspsHoliday(transitDate)) {
+			if (DataMaster.getInstance().getRefValue().isUSPSHoliday(transitDate)) {
 				DOW = 8;
 			}
 			if (DataMaster.getInstance().getRefValue().isHolidayEve(transitDate)) {

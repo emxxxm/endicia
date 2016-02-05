@@ -13,12 +13,14 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import MainPackage.LoggingHub;
+import dataHandler.DataMaster;
 
 public class Main {
 	private final static Logger logger = Logger.getLogger(LoggingHub.class.getName());
 	public static void main(String[] args) {
 		
 		LoggingHub.initLogger();
+		DataMaster.getInstance();
 		
 		Server server = new Server(4651);
 		

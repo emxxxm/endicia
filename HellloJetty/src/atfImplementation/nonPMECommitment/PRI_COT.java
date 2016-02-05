@@ -13,14 +13,13 @@ public class PRI_COT {
 	String PRI_COT;
 	String ZIP, EAD;
 	ArrayList<Location> locationList;
-	//TODO change the constructor later after format EAD
 	public PRI_COT(HashMap<String, String> queryTuples) throws ParseException{
 		ZIP = queryTuples.get(QueryStrings.ORIGIN_ZIP);
 		EAD = queryTuples.get(QueryStrings.EAD);
 		
 		int DOW = 0;
 		//[DataAccess] get USPS_HOL from ATF_REF_VALUE
-		if(DataMaster.getInstance().getRefValue().isUspsHoliday(EAD)){
+		if(DataMaster.getInstance().getRefValue().isUSPSHoliday(EAD)){
 			DOW = 8;
 		}
 		else{

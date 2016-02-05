@@ -25,7 +25,7 @@ public class JettyRequestHandler extends AbstractHandler
     {
     	HashMap<String, String> queryTuples = new LinkedHashMap<String,String>();
     	
-    	response.setContentType("application/xml;charset=utf-8"); //TODO have serializer to dispatch based on content-type in get request
+    	response.setContentType("application/xml;charset=utf-8");
         baseRequest.setHandled(true);
       
              

@@ -87,7 +87,7 @@ public class RefValue extends AbsDataFile {
 	}
 	
 	//From Delivery Drools File
-	public boolean isUspsHoliday(String deliveryDate) throws ParseException {
+	public boolean isUSPSHoliday(String deliveryDate) throws ParseException {
 		return holidays.contains(deliveryDate);
 	}
 	

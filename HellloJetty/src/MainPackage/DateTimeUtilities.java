@@ -9,13 +9,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DateTimeUtilities {
-	
+
+
+	public static final int DAY_SATURDAY = 6;
 	public static final int DAY_SUNDAY = 7;
+	public static final int DAY_HOLIDAY = 8;
 	
 	public static String DATE_FORMAT = "dd-MMM-yyyy";
 	public static String TIME_ZONE = "UTC";
 	private final static Logger logger = Logger.getLogger(LoggingHub.class.getName());
 	private static final String HOLIDAY_FORMAT = "yyyy-MM-dd";
+
 	public static TimeZone getTimeZone() { //TODO fix get timeZone to not be UTC; should be based off ZIP due to cutoff time
 		return TimeZone.getTimeZone("UTC");
 	}
@@ -110,8 +114,6 @@ public class DateTimeUtilities {
 			return false;
 	}
 	
-	//TODO fix this method to not always return a date in january
-	//TODO fix this method to not always return a date in january!!
 	public static String convertDateFromHolidayFormat(String holidayDate) throws ParseException {
 		SimpleDateFormat correctFormating = new SimpleDateFormat(DATE_FORMAT);
 		SimpleDateFormat holidayFormating = new SimpleDateFormat(HOLIDAY_FORMAT);

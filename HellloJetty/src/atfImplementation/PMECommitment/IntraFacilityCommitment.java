@@ -20,7 +20,7 @@ public class IntraFacilityCommitment extends AbsFacilityCommitment {
 		queryTuples.put(QueryStrings.DELIVERY_TIME, Integer.toString(deliveryTime));//TODO is this correct? should it be returned elsewhere?
 		preferredIndicator = 0;
 
-		if(DataMaster.getInstance().getRefValue().isUspsHoliday(EAD)){
+		if(DataMaster.getInstance().getRefValue().isUSPSHoliday(EAD)){
 			DOW = 8;
 		} else {
 			DOW = DateTimeUtilities.getDayOfWeek(EAD);

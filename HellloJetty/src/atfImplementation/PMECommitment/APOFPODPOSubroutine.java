@@ -30,7 +30,7 @@ public class APOFPODPOSubroutine {
 
 		q.put(QueryStrings.PROGRADE_ZIP, null);
 		q.put(QueryStrings.RETROGRADE_ZIP, null);
-		
+
 		if (refVal.isZipInRange(originZip)) {//Path if origin zip is within military range
 			if (refVal.isZipInRange(destZip)) {
 				if (isOriginOrDestDPO()) {
@@ -39,27 +39,20 @@ public class APOFPODPOSubroutine {
 					return;//progradeOffset and retrogradeOffset are 0
 				}
 			}
-
-			initRecords(originZip);
-			if (records.size() == 1) {//If one record is found
-				initAPOFPODPOData(records.get(0));
+			if (initAPOFPODPOData(originZip)) {//If one record is found
 				retrogradeOffset = retrogradeOffsetFromRecord; 
 				q.put(QueryStrings.ORIGIN_ZIP, retrogradeZip);
 				retrogradeZip = originZip;
 				q.put(QueryStrings.RETROGRADE_ZIP, retrogradeZip);
-				
+
 				return;
-			} else { //TODO figure out where to get retrograde arrival time in this branch -- TYPO IN CHART??
-				//TODO THIS LINE IS REQUIRED FOR PROGRAM ACCORDING TO FLOWCHART BUT YOU CANNOT HAVE A RETROGRADE_ARRIVAL_TIME WITHOUT A RECORD FOUND -- TYPO IN CHART??
-			//	queryTuples.put("dropOffTime",retrogradeArrivalTime); //TODO THIS LINE IS REQUIRED FOR PROGRAM ACCORDING TO FLOWCHART BUT YOU CANNOT HAVE A RETROGRADE_ARRIVAL_TIME WITHOUT A RECORD FOUND
+			} else {
 				throw new CalculationNotPossibleException("Failed to find a record during lookup with supplied Origin ZIP and Mail Class. Calculation not possible with supplied data");
 			}
 
 		} else {//Path if origin zip is not within military range
 			if (refVal.isZipInRange(destZip)) {
-				initRecords(destZip);
-				if (records.size() == 1) {//If one record is found
-					initAPOFPODPOData(records.get(0));
+				if (initAPOFPODPOData(destZip)) {//If one record is found
 					if (isHFPUOrPOBox()) {
 						throw new CalculationNotPossibleException("Destination Type is either PO Box or HFPU. Calculation is not possible with the supplied data.");
 					} else {
@@ -67,11 +60,11 @@ public class APOFPODPOSubroutine {
 						q.put(QueryStrings.DEST_ZIP, progradeZip);
 						progradeZip = destZip;
 						q.put(QueryStrings.PROGRADE_ZIP, progradeZip);
-					
+
 					}
+				} else {
+					throw new CalculationNotPossibleException("Failed to find a record during lookup with supplied dest ZIP and Mail Class. Calculation not possible with supplied data");
 				}
-			} else {
-				return;
 			}
 		} 	
 	}
@@ -86,24 +79,28 @@ public class APOFPODPOSubroutine {
 		destZip = q.get(QueryStrings.DEST_ZIP);
 		mailClass = q.get(QueryStrings.MAIL_CLASS);
 		destType = q.get(QueryStrings.DEST_TYPE);
-		
+
 		IDataMaster dm = DataMaster.getInstance();
 		refVal =  dm.getRefValue();
 		DPOZips = refVal.getDPOZips();
 	}
 	
-	private void initRecords(String zip) throws CalculationNotPossibleException { //TODO possible optimization betwene this and initAPOFPODPOData
+	private boolean initAPOFPODPOData(String zip) throws CalculationNotPossibleException {
 		APOFPODPO APOData = DataMaster.getInstance().getAPOFPODPO(); 
 		records = APOData.getRecords(QueryStrings.mapMailClassToInt(mailClass), zip);
-	}
-
-	//TODO test this method
-	private void initAPOFPODPOData(CSVRecord record) {
+		
+		if (records.size() != 1) {
+			return false;
+		}
+		
+		CSVRecord record = records.get(0);
+		
 		progradeOffsetFromRecord = Integer.parseInt(record.get(APOFPODPO.PRO_OFFSET));
 		retrogradeOffsetFromRecord = Integer.parseInt(record.get(APOFPODPO.RETRO_OFFSET));
 		progradeZip = record.get(APOFPODPO.PRO_FAC_ZIP);
 		retrogradeZip = record.get(APOFPODPO.RETRO_FAC_ZIP);
-		retrogradeArrivalTime = record.get(APOFPODPO.RETRO_ARRIVAL);		
+		retrogradeArrivalTime = record.get(APOFPODPO.RETRO_ARRIVAL);	
+		return true;
 	}
 
 	private boolean isOriginOrDestDPO() {

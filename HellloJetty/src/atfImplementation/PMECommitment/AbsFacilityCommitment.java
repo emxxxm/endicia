@@ -67,7 +67,7 @@ public abstract class AbsFacilityCommitment implements IFacilityCommitment {
 
 	protected int getDayOfWeek(String transitDate, String commitmentDate) throws ParseException {
 		int DOW;
-		if(DataMaster.getInstance().getRefValue().isUspsHoliday(transitDate)){	
+		if(DataMaster.getInstance().getRefValue().isUSPSHoliday(transitDate)){	
 			DOW = 8;
 		} else {
 			DOW = DateTimeUtilities.getDayOfWeek(commitmentDate);
@@ -82,7 +82,7 @@ public abstract class AbsFacilityCommitment implements IFacilityCommitment {
 			DOW_COT = DataMaster.getInstance().getCotAll().getCot(DOW, originZip, QueryStrings.MAIL_CLASS_PME);  
 			if((DOW_COT.equals("0") || DOW_COT.equals("0000") || DOW_COT.equals(""))) { //DOW_COT does no exist
 				if(daysElapsed > 0){
-					throw new ReturnToMainLogicException(); //TODO test; is exception required? Almost certain it is not. Commitment cannot be calculated
+					throw new ReturnToMainLogicException();
 				}
 
 				daysElapsed++;
@@ -109,7 +109,7 @@ public abstract class AbsFacilityCommitment implements IFacilityCommitment {
 		commitmentDOW = DateTimeUtilities.getDayOfWeek(commitmentDate);
 
 		if(commitmentDOW != DateTimeUtilities.DAY_SUNDAY){
-			if(DataMaster.getInstance().getRefValue().isUspsHoliday(commitmentDate)){
+			if(DataMaster.getInstance().getRefValue().isUSPSHoliday(commitmentDate)){
 				DOW = 8;
 			}
 			else { 

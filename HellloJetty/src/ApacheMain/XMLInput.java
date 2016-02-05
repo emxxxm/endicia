@@ -1,11 +1,6 @@
 package ApacheMain;
 
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.QueryParam;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import MainPackage.DateTimeUtilities;
-import MainPackage.QueryStrings;
 
 @XmlRootElement(name="XMLInput")
 public class XMLInput {
@@ -15,6 +10,7 @@ public class XMLInput {
 	String shipTime;
 	String mailClass;
 	String destType;
+	String noDeliveryOption;
 	
 	public XMLInput() {	
 	}
@@ -66,6 +62,16 @@ public class XMLInput {
 	
 	public void setMailClass(String mailClass) {
 		this.mailClass = mailClass;
+	}
+
+
+	public String getNoDeliveryOption() {
+		return noDeliveryOption;
+	}
+
+
+	public void setNoDeliveryOption(String noDeliveryOption) {
+		this.noDeliveryOption = noDeliveryOption;
 	}
 	
 }

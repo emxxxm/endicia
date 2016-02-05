@@ -87,7 +87,7 @@ public class TestFileClasses{
 	@Test
 	public void testIsUSPSHoliday() throws ParseException {
 		String knownHoliday = "01-Jan-2016";
-		assertTrue(refVal.isUspsHoliday(knownHoliday));
+		assertTrue(refVal.isUSPSHoliday(knownHoliday));
 	}
 	
 	@Test

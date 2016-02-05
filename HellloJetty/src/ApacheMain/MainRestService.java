@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -21,7 +20,6 @@ import MainPackage.LoggingHub;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
-import atfImplementation.Location;
 
 //@Path( "/people" ) 
 public class MainRestService extends AbsGetMailOutput {
@@ -48,8 +46,10 @@ public class MainRestService extends AbsGetMailOutput {
 			@QueryParam(QueryStrings.SHIP_DATE) @DefaultValue("") String shipDate,
 			@QueryParam(QueryStrings.SHIP_TIME) String dropOffTime,
 			@QueryParam(QueryStrings.MAIL_CLASS) String mailClass, 
-			@QueryParam(QueryStrings.DEST_TYPE) String destType) throws NumberFormatException, CalculationNotPossibleException, ParseException, InvalidQueryFormatException {
-		return absGetMail(originZip, destZip, shipDate, dropOffTime, mailClass, destType);
+			@QueryParam(QueryStrings.DEST_TYPE) String destType,
+			@QueryParam(QueryStrings.NODELIVERY_OPTION) @DefaultValue(QueryStrings.OPTION_NONE) String noDeliveryOption) throws NumberFormatException, CalculationNotPossibleException, ParseException, InvalidQueryFormatException {
+		System.out.println("Delivery option selected: " + noDeliveryOption);
+		return absGetMail(originZip, destZip, shipDate, dropOffTime, mailClass, destType, noDeliveryOption);
 	}
 
 	@Path(BASE_PATH + URL_JSON)
@@ -60,8 +60,9 @@ public class MainRestService extends AbsGetMailOutput {
 			@QueryParam(QueryStrings.SHIP_DATE) @DefaultValue("") String shipDate,
 			@QueryParam(QueryStrings.SHIP_TIME) String dropOffTime,
 			@QueryParam(QueryStrings.MAIL_CLASS) String mailClass, 
-			@QueryParam(QueryStrings.DEST_TYPE) String destType) throws NumberFormatException, CalculationNotPossibleException, ParseException, InvalidQueryFormatException {
-		return absGetMail(originZip, destZip, shipDate, dropOffTime, mailClass, destType);
+			@QueryParam(QueryStrings.DEST_TYPE) String destType,
+			@QueryParam(QueryStrings.NODELIVERY_OPTION) @DefaultValue(QueryStrings.OPTION_NONE) String noDeliveryOption) throws NumberFormatException, CalculationNotPossibleException, ParseException, InvalidQueryFormatException {
+		return absGetMail(originZip, destZip, shipDate, dropOffTime, mailClass, destType, noDeliveryOption);
 	}
 
 	@Path(BASE_PATH + URL_XML)
@@ -72,8 +73,9 @@ public class MainRestService extends AbsGetMailOutput {
 			@QueryParam(QueryStrings.SHIP_DATE) @DefaultValue("") String shipDate,
 			@QueryParam(QueryStrings.SHIP_TIME) String dropOffTime,
 			@QueryParam(QueryStrings.MAIL_CLASS) String mailClass, 
-			@QueryParam(QueryStrings.DEST_TYPE) String destType) throws NumberFormatException, CalculationNotPossibleException, ParseException, InvalidQueryFormatException {
-		return absGetMail(originZip, destZip, shipDate, dropOffTime, mailClass, destType);
+			@QueryParam(QueryStrings.DEST_TYPE) String destType,
+			@QueryParam(QueryStrings.NODELIVERY_OPTION) @DefaultValue(QueryStrings.OPTION_NONE) String noDeliveryOption) throws NumberFormatException, CalculationNotPossibleException, ParseException, InvalidQueryFormatException {
+		return absGetMail(originZip, destZip, shipDate, dropOffTime, mailClass, destType, noDeliveryOption);
 	}
    
     //Works for post body if in the form originzip=11111&destzip=22222 IF CONTENT_TYPE = form-urlencoded
@@ -96,7 +98,7 @@ public class MainRestService extends AbsGetMailOutput {
     	if(input.getShipDate() == null) {
     		input.setShipDate(DateTimeUtilities.getCurrentUTCDate());
     	}
-    	HashMap<String, String> queryTuples = QueryParser.initializeTuples(input.getOriginZip(), input.getDestZip(), input.getShipDate(), input.getShipTime(), input.getMailClass(), input.getDestType());
+    	HashMap<String, String> queryTuples = QueryParser.initializeTuples(input.getOriginZip(), input.getDestZip(), input.getShipDate(), input.getShipTime(), input.getMailClass(), input.getDestType(), input.getNoDeliveryOption());
     	Collection<DazzleOutputMain> output = outputService.getVerbose(queryTuples);
     	return output;
     }
@@ -110,7 +112,7 @@ public class MainRestService extends AbsGetMailOutput {
     	if(input.getShipDate() == null) {
     		input.setShipDate(DateTimeUtilities.getCurrentUTCDate());
     	}
-    	HashMap<String, String> queryTuples = QueryParser.initializeTuples(input.getOriginZip(), input.getDestZip(), input.getShipDate(), input.getShipTime(), input.getMailClass(), input.getDestType());
+    	HashMap<String, String> queryTuples = QueryParser.initializeTuples(input.getOriginZip(), input.getDestZip(), input.getShipDate(), input.getShipTime(), input.getMailClass(), input.getDestType(), input.getNoDeliveryOption());
     	Collection<DazzleOutputMain> output = outputService.getVerbose(queryTuples);
     	return output;
     }

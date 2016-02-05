@@ -38,8 +38,8 @@ public class PMEDeliveryDate {
 			else {
 				dow = DateTimeUtilities.getDayOfWeek(droolsMsg.deliveryDate);
 				if(QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
-					if(DataMaster.getInstance().getRefValue().isUspsHoliday(droolsMsg.deliveryDate)) {
-						dow = 8;
+					if(DataMaster.getInstance().getRefValue().isUSPSHoliday(droolsMsg.deliveryDate)) {
+						dow = DateTimeUtilities.DAY_HOLIDAY;
 					}
 					closeTime = AddressClose.getCloseTimeOnDOWWrapper(dow, droolsMsg.destinationZip);
 					if(closeTime == 0) {
@@ -57,19 +57,19 @@ public class PMEDeliveryDate {
 					return;
 				}
 				else {
-					if(dow == 6 || dow == 7) {
-						if(isNoDeliverySelected(dow)){
+					if(dow == DateTimeUtilities.DAY_SATURDAY || dow == DateTimeUtilities.DAY_SUNDAY) {
+						if(isNoDeliverySelected(dow, queryTuples.get(QueryStrings.NODELIVERY_OPTION))){
 							droolsMsg.deliveryDate = DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
 							continue;
 						}
 					}
-					else if(DataMaster.getInstance().getRefValue().isUspsHoliday(droolsMsg.deliveryDate)) {
-						if(isNoDeliverySelected(dow)) {
+					else if(DataMaster.getInstance().getRefValue().isUSPSHoliday(droolsMsg.deliveryDate)) {
+						if(isNoDeliverySelected(dow, queryTuples.get(QueryStrings.NODELIVERY_OPTION))) {
 							droolsMsg.deliveryDate =  DateTimeUtilities.incrementDate(droolsMsg.deliveryDate, 1);
 							continue;
 						}
 						else {
-							dow = 8;
+							dow = DateTimeUtilities.DAY_HOLIDAY;
 						}
 					}
 					if(queryTuples.get(QueryStrings.DEST_TYPE).equals(QueryStrings.DESTTYPE_PO_BOX)) {
@@ -90,7 +90,6 @@ public class PMEDeliveryDate {
 				}
 			}
 		}
-	
 	}
 
 	//if(Delivery Date > 7 Days after the EAD){
@@ -152,14 +151,60 @@ public class PMEDeliveryDate {
 	//}
 	//}
 
-	//TODO Actually need to change to queryTuples.deliveryDate
 	public String getDeliveryDate() {
 		return droolsMsg.deliveryDate;
 	}
+	
+	public boolean isNoDeliverySelected(int dow, String deliveryOption) {
 
-	//TODO actually implement
-	public boolean isNoDeliverySelected(int dow) {
-		return false;
+		boolean result = false;
+		
+		if (deliveryOption.equals(QueryStrings.OPTION_NONE)) {
+			result = false;
+		}
+
+		if (deliveryOption.equals(QueryStrings.OPTION_SAT)) {
+			result = isDowSat(dow);
+		}
+
+		if (deliveryOption.equals(QueryStrings.OPTION_SUN)) {
+			result = isDowSun(dow);
+		}
+
+		if (deliveryOption.equals(QueryStrings.OPTION_HOLIDAY)) {
+			result = isDowHoliday(dow);
+		}
+		
+		if (deliveryOption.equals(QueryStrings.OPTION_WEEKEND)) {
+			result = isDowSat(dow) || isDowSun(dow);
+		}
+
+		if (deliveryOption.equals(QueryStrings.OPTION_SAT_HOLIDAY)) {
+			result = isDowSat(dow) || isDowHoliday(dow);
+		}
+		
+		if (deliveryOption.equals(QueryStrings.OPTION_SUN_HOLIDAY)) {
+			result = isDowSun(dow) || isDowHoliday(dow);
+		}
+		
+		if (deliveryOption.equals(QueryStrings.OPTION_ALL)) {
+			result = isDowSat(dow) || isDowSun(dow) || isDowHoliday(dow);
+ 		}
+		
+		System.out.println("Delivery date option selected: " + result + " for dow " + dow);
+		return result;
+	}
+	
+	private boolean isDowSat(int dow) {
+		return dow == DateTimeUtilities.DAY_SATURDAY;
+	}
+	
+	private boolean isDowSun(int dow) {
+		return dow == DateTimeUtilities.DAY_SUNDAY;
+	}
+	
+	private boolean isDowHoliday(int dow) {
+		return dow == DateTimeUtilities.DAY_HOLIDAY;
 	}
 
 }

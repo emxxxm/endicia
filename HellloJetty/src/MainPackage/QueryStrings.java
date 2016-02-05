@@ -11,6 +11,17 @@ public class QueryStrings {
 	public static final String DESTTYPE_HFPU = "3";
 	public static final String HPFU_LOCATIONS = "HFPU";
 	
+
+	public static final String NODELIVERY_OPTION = "deliveryoption";
+	public static final String OPTION_NONE = "0";
+	public static final String OPTION_SAT = "1";
+	public static final String OPTION_SUN = "2";
+	public static final String OPTION_WEEKEND = "3";
+	public static final String OPTION_HOLIDAY = "4";
+	public static final String OPTION_SAT_HOLIDAY = "5";
+	public static final String OPTION_SUN_HOLIDAY = "6";
+	public static final String OPTION_ALL = "7";
+	
 	public static final String MAIL_CLASS_PME = "PME";
 	public static final String MAIL_CLASS_PRI = "PRI";
 	public static final String MAIL_CLASS_FCM = "FCM";

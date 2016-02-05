@@ -22,13 +22,13 @@ public class AbsGetMailOutput {
 	MainATFImplementation mainLogic;
 	private final static Logger logger = Logger.getLogger(LoggingHub.class.getName());
 
-	public Collection<DazzleOutputMain> absGetMail( String originZip, String destZip, String shipDate, String dropOffTime, String mailClass, String destType) throws NumberFormatException, CalculationNotPossibleException, ParseException, InvalidQueryFormatException {
+	public Collection<DazzleOutputMain> absGetMail( String originZip, String destZip, String shipDate, String dropOffTime, String mailClass, String destType, String noDeliveryOption) throws NumberFormatException, CalculationNotPossibleException, ParseException, InvalidQueryFormatException {
 		Collection<DazzleOutputMain> output = null;
 		if(shipDate.isEmpty()) {
 			shipDate = DateTimeUtilities.getCurrentUTCDate();
 		}
 		try {
-			HashMap<String, String> queryTuples = QueryParser.initializeTuples(originZip, destZip, shipDate, dropOffTime, mailClass, destType);
+			HashMap<String, String> queryTuples = QueryParser.initializeTuples(originZip, destZip, shipDate, dropOffTime, mailClass, destType, noDeliveryOption);
 			output = outputService.getVerbose(queryTuples);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage(), e);

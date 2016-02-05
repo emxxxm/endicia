@@ -9,9 +9,7 @@ import MainPackage.QueryStrings;
 import dataHandler.DataMaster;
 
 public class SDCKnowledgeDTO {
-	//TODO Change everything back to private
-	//TODO Check on the isNotGuarantee method
-	//TODO refactor into four classes
+	//TODO make these private
 	//Delivery Drools File
 	public String deliveryDate, ead, mailClass, progradeZip, originZipAs5Digit, destinationZipAs5Digit, originZip, destinationZip;
 	public int transitTime, deliveryDow;
@@ -112,7 +110,7 @@ public class SDCKnowledgeDTO {
 	
 	//From Delivery Drools File
 	public boolean isUspsHoliday(String deliveryDate) throws ParseException {
-		return DataMaster.getInstance().getRefValue().isUspsHoliday(deliveryDate);
+		return DataMaster.getInstance().getRefValue().isUSPSHoliday(deliveryDate);
 	}
 	
 	public boolean isApoFpoDpo(String destinationZip) {

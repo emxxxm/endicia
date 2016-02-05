@@ -132,7 +132,7 @@ public class QueryParser {
 			DateTimeUtilities.isDateValid(date);
 		} catch (ParseException e) {
 			throw new InvalidQueryFormatException(
-					"Invalid date given. Date must be in the format" + DateTimeUtilities.DATE_FORMAT);
+					"Invalid date given. Date must be in the format " + DateTimeUtilities.DATE_FORMAT);
 		}
 	}
 
@@ -152,7 +152,20 @@ public class QueryParser {
 		}
 	}
 	
-	public static HashMap<String, String> initializeTuples(String originZip, String destZip, String shipDate, String shipTime, String mailClass, String destType) throws InvalidQueryFormatException {
+	private static void validateDeliveryOption(String noDeliveryOption) throws InvalidQueryFormatException {
+		int testOption = -1;
+		try {
+			testOption = Integer.parseInt(noDeliveryOption);
+		} catch (NumberFormatException e) {
+			throw new InvalidQueryFormatException("Attempted to parse the delivery option " + noDeliveryOption 
+					+ ", but it is not a valid. Please use an integer in the range 0-7.");
+		}
+		if (! (testOption >= 0 && testOption <= 7) ) {
+			throw new InvalidQueryFormatException("The delivery option is not a valid value. It must be in the range 0-7");
+		}	
+	}
+	
+	public static HashMap<String, String> initializeTuples(String originZip, String destZip, String shipDate, String shipTime, String mailClass, String destType, String noDeliveryOption) throws InvalidQueryFormatException {
 		HashMap<String, String> tuples = new HashMap<String, String>();
 		
 		originZip = originZip.replaceAll("\"", "");
@@ -160,6 +173,7 @@ public class QueryParser {
 		shipDate = shipDate.replaceAll("\"", "");
 		mailClass = mailClass.replaceAll("\"", "");
 		destType = destType.replaceAll("\"", "");
+		noDeliveryOption = noDeliveryOption.replaceAll("\"", "");
 		
 		validateZip(originZip);
 		validateZip(destZip);
@@ -167,6 +181,7 @@ public class QueryParser {
 		validateDropOffTime(shipTime);
 		validateMailClass(mailClass);
 		validateDestType(destType);
+		validateDeliveryOption(noDeliveryOption);
 		
 		tuples.put(QueryStrings.ORIGIN_ZIP, originZip);
 		tuples.put(QueryStrings.DEST_ZIP, destZip);
@@ -174,6 +189,9 @@ public class QueryParser {
 		tuples.put(QueryStrings.SHIP_TIME, shipTime);
 		tuples.put(QueryStrings.MAIL_CLASS, mailClass);
 		tuples.put(QueryStrings.DEST_TYPE, destType);
+		tuples.put(QueryStrings.NODELIVERY_OPTION, noDeliveryOption);
+		
+		validateNoNullStrings(tuples);
 		
 		return tuples;
 	}
@@ -189,6 +207,7 @@ public class QueryParser {
 		fakeQueryTuples.put(QueryStrings.DEST_TYPE, QueryStrings.DESTTYPE_HFPU);
 		fakeQueryTuples.put(QueryStrings.EAD, DateTimeUtilities.getCurrentUTCDate());
 		fakeQueryTuples.put(QueryStrings.DELIVERY_DATE, DateTimeUtilities.getCurrentUTCDate());
+		fakeQueryTuples.put(QueryStrings.NODELIVERY_OPTION, QueryStrings.OPTION_NONE);
 
 		return fakeQueryTuples;
 	}
@@ -204,6 +223,7 @@ public class QueryParser {
 		fakeQueryTuples.put(QueryStrings.DEST_TYPE, QueryStrings.DESTTYPE_HFPU);
 		fakeQueryTuples.put(QueryStrings.EAD, "15-Jan-2016");
 		fakeQueryTuples.put(QueryStrings.DELIVERY_DATE, "17-Jan-2016");
+		fakeQueryTuples.put(QueryStrings.NODELIVERY_OPTION, QueryStrings.OPTION_NONE);
 
 		return fakeQueryTuples;
 	}
@@ -220,6 +240,7 @@ public class QueryParser {
 		//fakeQueryTuples.put(QueryStrings, QueryStrings.DESTTYPE_HFPU);
 		fakeQueryTuples.put(QueryStrings.EAD, "01-Feb-2016");
 		//fakeQueryTuples.put(QueryStrings.DELIVERY_DATE, "17-Jan-2016");
+		fakeQueryTuples.put(QueryStrings.NODELIVERY_OPTION, QueryStrings.OPTION_NONE);
 
 		return fakeQueryTuples;
 	}
