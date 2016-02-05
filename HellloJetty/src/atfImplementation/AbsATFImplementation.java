@@ -22,7 +22,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	HashMap<String, String> queryTuples;
 	HFPULocation HFPUloc = null;
 	Location HFPUAddress;
-	int originCloseTime; //TODO what does this do
+	int originCloseTime; //TODO [USPS] what does this do
 	SDCKnowledgeDTO droolsMsg;
 	LinkedHashMap<String, Object> output = new LinkedHashMap<String, Object>();
 	HashMap<String, ArrayList<CSVRecord>> locationRecords;
@@ -57,17 +57,17 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	}
 	
     protected void executeAcceptanceRules() {
-		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples, new SDCKnowledgeDTO()); //TODO test
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples, new SDCKnowledgeDTO()); //TODO [debug] test
 		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_ACCEPTANCE);
     }
     
     protected void executeTransitRules() {
-		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsgForTransit(queryTuples); //TODO test
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsgForTransit(queryTuples); //TODO [debug] test
 		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_TRANSIT);
     }
     
 	protected void executeServiceStandardRules() {
-		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsgForPost(queryTuples); //TODO test
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsgForPost(queryTuples); //TODO [debug] test
 		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_POSTPROCESSING);
 	}
 	
@@ -94,7 +94,6 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		
 		output.put(QueryStrings.DEST_TYPE, queryTuples.get(QueryStrings.DEST_TYPE));
 		
-		//TODO inspect where cutoff time is set for PME
 		output.put(QueryStrings.CUTOFF_TIME, queryTuples.get(QueryStrings.CUTOFF_TIME));
 		output.put(QueryStrings.ORIGIN_ZIP, queryTuples.get(QueryStrings.ORIGIN_ZIP));
 		output.put(QueryStrings.DEST_ZIP, queryTuples.get(QueryStrings.DEST_ZIP));

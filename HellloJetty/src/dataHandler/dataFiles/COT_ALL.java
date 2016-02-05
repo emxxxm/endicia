@@ -16,13 +16,13 @@ public class COT_ALL extends AbsDataFile {
 		return FilenameConstants.COT_ALL;
 	}
 
-	// TODO [optimization] add index
-	// TODO return all records
+	// TODO [Optimization] add index
+	// TODO [USPS] how to get individual record - return all records
 	public String getCot(int dow, String ZIP, String mailClass) {
 		Location newLoc;
 		int cot = Integer.MAX_VALUE;
 		for (CSVRecord r : recordsList) {
-			// TODO return earliest or latest
+			// TODO [USPS] return earliest or latest
 			if (r.get(tupleID).startsWith(ZIP)) {
 				newLoc = getLocationFromFile(r, dow);
 				locationList.add(newLoc);
@@ -61,7 +61,7 @@ public class COT_ALL extends AbsDataFile {
 		return new Location(zip, facName, facAddress, facCity, facState, cutOffTime);
 	}
 
-	//TODO fix this jank
+	//TODO [optimization] fix this jank
 	public void resetLocationList() {
 		locationList = new ArrayList<Location>();
 	}

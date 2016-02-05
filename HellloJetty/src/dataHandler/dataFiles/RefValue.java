@@ -121,7 +121,6 @@ public class RefValue extends AbsDataFile {
 	 * Calculates whether the given zip code string is numerically within the Military ZIP boundaries specified in ATF_REF_VALUE
 	 * @param zip The ZIP Code to be checked against the lower and upper bounds
 	 * @return true if the zip code is inclusively between the lower and upper bounds
-	 * TODO make private once testing is not needed
 	 */
 	public boolean isZipInRange(String zip) {
 		ArrayList<Integer> lowerbounds = new ArrayList<Integer>();
@@ -136,7 +135,7 @@ public class RefValue extends AbsDataFile {
 		return inRange;
 	}
 
-	//TODO further clarification on COT of mailclass
+	//TODO [USPS] further clarification on COT of mailclass
 	public String getDefaultPMCOT(int DOW){
 		String dowInFile = "";
 		String cot = "";

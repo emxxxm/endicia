@@ -17,7 +17,7 @@ public class IntraFacilityCommitment extends AbsFacilityCommitment {
 	@Override
 	public void setCommitmentValues(HashMap<String, String> queryTuples) throws ParseException {
 		serviceStd = daysElapsed;
-		queryTuples.put(QueryStrings.DELIVERY_TIME, Integer.toString(deliveryTime));//TODO is this correct? should it be returned elsewhere?
+		queryTuples.put(QueryStrings.DELIVERY_TIME, Integer.toString(deliveryTime));
 		preferredIndicator = 0;
 
 		if(DataMaster.getInstance().getRefValue().isUSPSHoliday(EAD)){
@@ -25,11 +25,10 @@ public class IntraFacilityCommitment extends AbsFacilityCommitment {
 		} else {
 			DOW = DateTimeUtilities.getDayOfWeek(EAD);
 		}
-
-		queryTuples.put(QueryStrings.CUTOFF_TIME, DOW_COT); //TODO is this correct? should it be returned elsewhere?
+		
 		commitmentRank = destRank * originRank;
 
-		outputCommitment = new Commitment(commitmentRank, preferredIndicator, serviceStd, deliveryTime, commitmentDate); 
+		outputCommitment = new Commitment(commitmentRank, preferredIndicator, serviceStd, deliveryTime, commitmentDate, DOW_COT); 
 		
 	}
 	

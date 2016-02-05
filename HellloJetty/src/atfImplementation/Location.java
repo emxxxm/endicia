@@ -2,22 +2,20 @@ package atfImplementation;
 
 import java.util.ArrayList;
 
-import javax.ws.rs.WebApplicationException;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "Location")
 public class Location {
-	private String zipCode, facAddress, facState, facCity;
+	//TODO [US] add null annotation to omit cutofftime for HFPU locations in JSON
+	private String zipCode, facAddress, facState, facCity, cutOffTime;
 
 	public Location() {
 		//throw new WebApplicationException("Called wrong location constructor");
 	}
-	
-	//TODO sort out what fields are needed to output
+
 	public Location(String zip, String facName, String facAddress, String facCity, String facState, String cutOffTime) {
 		init(zip, facAddress, facCity, facState);
-		//this.cutOffTime = cutOffTime;//TODO needed?
-		//this.facName = facName; //TODO what is
+		this.cutOffTime = cutOffTime;
 	}
 	
 	public Location(String zip, String facAddress, String facCity, String facState) {
@@ -39,9 +37,9 @@ public class Location {
 		locString += "<FAC_Address> " + facAddress + " </FAC_Address>";
 		locString += "<FAC_State> " + facState + " </FAC_State>";
 		locString += "<FAC_City>" + facCity + " </FAC_City>";
-		/*if (cutOffTime != null) {
+		if (cutOffTime != null) {
 			locString += "<COT> " + cutOffTime + " </COT>";
-		}*/
+		}
 		locString += "</location>";
 		
 		return locString;
@@ -83,6 +81,14 @@ public class Location {
 
 	public String getFacCity() {
 		return facCity;
+	}
+	
+	public String getCutOffTime() {
+		return cutOffTime;
+	}
+
+	public void setCutOffTime(String cutOffTime) {
+		this.cutOffTime = cutOffTime;
 	}
 
 	public void setZipCode(String zipCode) {

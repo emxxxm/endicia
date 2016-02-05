@@ -36,7 +36,7 @@ public class OriginScheduleAll extends AbsDataFile {
 			return output;
 		}
 		
-		//TODO this should not just get the first record! USPS!!!!!!!!!!!!!!!!!!!!!!!
+		//TODO [USPS] this should not just get the first record! USPS!!!!!!!!!!!!!!!!!!!!!!!
 		CSVRecord record = originList.get(0);
 		
 		output.put(CLRNC_ID, record.get(CLRNC_ID));

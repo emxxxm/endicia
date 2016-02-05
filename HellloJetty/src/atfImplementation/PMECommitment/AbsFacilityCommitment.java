@@ -36,9 +36,9 @@ public abstract class AbsFacilityCommitment implements IFacilityCommitment {
 			} catch(ReturnToMainLogicException e) {
 				return;
 			}
-			//TODO verify that dropOffTime should be local
+			
 			if(dropOffTime <= Integer.parseInt(DOW_COT)){ //Drop off time <= origin DOW COT
-				//TODO how to deal with multiple records
+				//TODO [USPS] how to deal with multiple records
 				initValues();
 
 				try {
@@ -116,7 +116,7 @@ public abstract class AbsFacilityCommitment implements IFacilityCommitment {
 				return; 
 			}
 		}
-		if(AddressClose.getCloseTimeOnDOWWrapper(commitmentDOW, originZip) == 0) {//TODO fix this so it caches
+		if(AddressClose.getCloseTimeOnDOWWrapper(commitmentDOW, originZip) == 0) {//TODO [optimization] fix this so it caches
 			transitDate = DateTimeUtilities.incrementDate(transitDate, 1);
 			commitmentDate = DateTimeUtilities.incrementDate(commitmentDate, 1);
 		}

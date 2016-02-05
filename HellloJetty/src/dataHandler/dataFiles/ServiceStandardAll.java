@@ -35,7 +35,7 @@ public class ServiceStandardAll extends AbsDataFile{
 	
 		return FilenameConstants.SERVICE_STANDARD_ALL;
 	}
-	//TODO index and determine ONE or FOUR arraylists
+	//TODO [optimization] index and determine ONE or FOUR arraylists
 	public String getServiceStandard(String orginZIP, String destZIP, String mailClass) throws CalculationNotPossibleException{
 		switch(mailClass){
 			case QueryStrings.MAIL_CLASS_PRI:
@@ -57,7 +57,7 @@ public class ServiceStandardAll extends AbsDataFile{
 				break;
 		}
 		String service = "";
-		//TODO input origin and dest zip can be 5 or 9 digits
+		//TODO [USPS] What if input zip is 9 digits? Even 5 digit zips have repeat records. which one do we choose out of multiple records
 		for(CSVRecord r: ori5Dest5){
 			if(orginZIP.startsWith(r.get(tupleID)) &&
 					destZIP.startsWith(r.get(tupleID+1)))

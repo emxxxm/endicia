@@ -9,7 +9,7 @@ import MainPackage.QueryStrings;
 import dataHandler.DataMaster;
 
 public class SDCKnowledgeDTO {
-	//TODO make these private
+	//TODO [US - Nick] make these private
 	//Delivery Drools File
 	public String deliveryDate, ead, mailClass, progradeZip, originZipAs5Digit, destinationZipAs5Digit, originZip, destinationZip;
 	public int transitTime, deliveryDow;
@@ -227,7 +227,7 @@ public class SDCKnowledgeDTO {
 		droolsMsg.cutOffTime = q.get(QueryStrings.CUTOFF_TIME);
 		droolsMsg.acceptDate = q.get(QueryStrings.SHIP_DATE);
 		
-		//TODO Add in prograde zip
+		//TODO [US] Add in prograde zip
 		droolsMsg.progradeZip = "00000";
 		return droolsMsg;
 	}

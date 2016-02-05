@@ -173,7 +173,7 @@ public class ExtraFacilityCommitment extends AbsFacilityCommitment {
 		commitmentRank = destRank * originRank;
 		commitmentDate = DateTimeUtilities.incrementDate(commitmentDate, serviceStd);
 
-		outputCommitment = new Commitment(commitmentRank, preferredIndicator, serviceStd, deliveryTime,commitmentDate);
+		outputCommitment = new Commitment(commitmentRank, preferredIndicator, serviceStd, deliveryTime,commitmentDate, DOW_COT);
 	}
 
 }	

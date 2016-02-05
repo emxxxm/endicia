@@ -17,10 +17,8 @@ import atfImplementation.PMECommitment.Commitment;
 public class DazzleOutputMain extends AbsDazzleOutput {
 	
 	@XmlElement(name = "PRILocation")
+	//TODO [US] add null annotation for non abstract fields
 	LocationList PRILocationList = null;
-	//Collection<Location> PRILocationList = null;
-	//GenericEntity<ArrayList<Location>> PRILocationList = null;
-	//ArrayList<Location> PRIlocationList = null;
 	Location HFPULoc = null;
 	Commitment commitment = null;
 
@@ -35,14 +33,6 @@ public class DazzleOutputMain extends AbsDazzleOutput {
 		if (output.get(QueryStrings.LOCATION) != null) {
 			PRILocationList = new LocationList((ArrayList<Location>) output.get(QueryStrings.LOCATION));
 		}
-		
-//		if (output.get(QueryStrings.LOCATION) != null) {
-//			PRILocationList = (ArrayList<Location>) output.get(QueryStrings.LOCATION);
-//		}
-
-		//		if (output.get(QueryStrings.LOCATION) != null) {
-		//			PRILocationList = new GenericEntity<ArrayList<Location>>((ArrayList<Location>) output.get(QueryStrings.LOCATION)){};
-		//		}
 
 		if (output.get(QueryStrings.destTypeToString(QueryStrings.DESTTYPE_HFPU)) != null) {
 			HFPULoc = (Location) output.get(QueryStrings.destTypeToString(QueryStrings.DESTTYPE_HFPU));
@@ -57,9 +47,6 @@ public class DazzleOutputMain extends AbsDazzleOutput {
 	public Collection<Location> getPRILocationList() {
 		return PRILocationList;
 	}
-	//	public GenericEntity<ArrayList<Location>> getPRILocationList() {
-	//		return PRILocationList;
-	//	}
 
 	public Location getHFPULoc() {
 		return HFPULoc;
@@ -72,10 +59,6 @@ public class DazzleOutputMain extends AbsDazzleOutput {
 	public void setPRILocationList(LocationList PRILocationList) {
 		this.PRILocationList = PRILocationList;
 	}
-
-	//	public void setPRILocationList(GenericEntity<ArrayList<Location>> PRILocationList) {
-	//		this.PRILocationList = PRILocationList;
-	//	}
 
 	public void setHFPULoc(Location hFPULoc) {
 		HFPULoc = hFPULoc;

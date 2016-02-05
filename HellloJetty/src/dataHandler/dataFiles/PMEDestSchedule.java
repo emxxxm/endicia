@@ -28,7 +28,7 @@ public class PMEDestSchedule extends AbsDataFile {
 		return destList;
 	}
 	
-	//TODO get the values from the correct record instead of the first
+	//TODO [USPS] get the values from the correct record instead of the first
 	public HashMap<Integer, String> getDestFacilityInfo(String destZip, String destType) {
 		HashMap<Integer, String> output = new HashMap<Integer, String>();
 		ArrayList<CSVRecord> destList = getDestList(destType, destZip);
