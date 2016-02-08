@@ -9,9 +9,7 @@ import MainPackage.QueryStrings;
 import dataHandler.DataMaster;
 
 public class SDCKnowledgeDTO {
-	//TODO Change everything back to private
-	//TODO Check on the isNotGuarantee method
-	//TODO refactor into four classes
+	//TODO [US - Nick] make these private
 	//Delivery Drools File
 	public String deliveryDate, ead, mailClass, progradeZip, originZipAs5Digit, destinationZipAs5Digit, originZip, destinationZip;
 	public int transitTime, deliveryDow;
@@ -111,8 +109,8 @@ public class SDCKnowledgeDTO {
 	}
 	
 	//From Delivery Drools File
-	public boolean isUspsHoliday(String deliveryDate) {
-		return DataMaster.getInstance().getRefValue().getHolidays().contains(deliveryDate);
+	public boolean isUspsHoliday(String deliveryDate) throws ParseException {
+		return DataMaster.getInstance().getRefValue().isUSPSHoliday(deliveryDate);
 	}
 	
 	public boolean isApoFpoDpo(String destinationZip) {
@@ -130,7 +128,6 @@ public class SDCKnowledgeDTO {
 	}
 	
 	public void incrementDeliveryDate(int increment) throws ParseException {
-		System.out.println("Incrementing Delivery Date");
 		deliveryDate = DateTimeUtilities.incrementDate(deliveryDate,  increment);
 	}
 	
@@ -230,7 +227,7 @@ public class SDCKnowledgeDTO {
 		droolsMsg.cutOffTime = q.get(QueryStrings.CUTOFF_TIME);
 		droolsMsg.acceptDate = q.get(QueryStrings.SHIP_DATE);
 		
-		//TODO Add in prograde zip
+		//TODO [US] Add in prograde zip
 		droolsMsg.progradeZip = "00000";
 		return droolsMsg;
 	}

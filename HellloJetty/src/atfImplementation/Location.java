@@ -2,23 +2,25 @@ package atfImplementation;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "Location")
 public class Location {
-	private String zipCode;
-	private String facName;
-	private String facAddress;
-	private String facState;
-	private String cutOffTime;
-	private String facCity;
+	//TODO [US] add null annotation to omit cutofftime for HFPU locations in JSON
+	private String zipCode, facAddress, facState, facCity, cutOffTime;
+
+	public Location() {
+		//throw new WebApplicationException("Called wrong location constructor");
+	}
 
 	public Location(String zip, String facName, String facAddress, String facCity, String facState, String cutOffTime) {
 		init(zip, facAddress, facCity, facState);
 		this.cutOffTime = cutOffTime;
-		this.facName = facName;
 	}
 	
 	public Location(String zip, String facAddress, String facCity, String facState) {
 		init(zip, facAddress, facCity, facState);
-		this.cutOffTime = null;
+	//	this.cutOffTime = null;
 	}
 	
 	private void init(String zip, String facAddress, String facCity, String facState) {
@@ -43,19 +45,14 @@ public class Location {
 		return locString;
 	}
 	
-	public static String printHFPULocation(String HFPUAddress) {
+	public static Location getHFPULocation(String HFPUAddress) {
 		String[] locationContents = HFPUAddress.split(",");
-		
-		for (String s: locationContents) {
-			System.out.println(s);
-		}
-		
-		Location HFPULoc = new Location(locationContents[0], locationContents[1], locationContents[2], locationContents[4]);
+		Location HFPULoc = new Location(locationContents[0], locationContents[4], locationContents[2], locationContents[1]);
 		
 		ArrayList<Location> locationList = new ArrayList<Location>();
 		locationList.add(HFPULoc);
 		
-		return printLocationList(locationList);		
+		return HFPULoc;		
 	}
 	
 	public static String printLocationList(ArrayList<Location> locationList) {
@@ -64,6 +61,50 @@ public class Location {
 			output += r.toXMLString();
 		}
 		return output;
+	}
+	
+	public String toString() {
+		return toXMLString();
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public String getFacAddress() {
+		return facAddress;
+	}
+
+	public String getFacState() {
+		return facState;
+	}
+
+	public String getFacCity() {
+		return facCity;
+	}
+	
+	public String getCutOffTime() {
+		return cutOffTime;
+	}
+
+	public void setCutOffTime(String cutOffTime) {
+		this.cutOffTime = cutOffTime;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public void setFacAddress(String facAddress) {
+		this.facAddress = facAddress;
+	}
+
+	public void setFacState(String facState) {
+		this.facState = facState;
+	}
+
+	public void setFacCity(String facCity) {
+		this.facCity = facCity;
 	}
 
 }

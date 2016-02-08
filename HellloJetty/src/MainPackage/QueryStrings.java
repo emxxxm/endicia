@@ -11,6 +11,17 @@ public class QueryStrings {
 	public static final String DESTTYPE_HFPU = "3";
 	public static final String HPFU_LOCATIONS = "HFPU";
 	
+
+	public static final String NODELIVERY_OPTION = "deliveryoption";
+	public static final String OPTION_NONE = "0";
+	public static final String OPTION_SAT = "1";
+	public static final String OPTION_SUN = "2";
+	public static final String OPTION_WEEKEND = "3";
+	public static final String OPTION_HOLIDAY = "4";
+	public static final String OPTION_SAT_HOLIDAY = "5";
+	public static final String OPTION_SUN_HOLIDAY = "6";
+	public static final String OPTION_ALL = "7";
+	
 	public static final String MAIL_CLASS_PME = "PME";
 	public static final String MAIL_CLASS_PRI = "PRI";
 	public static final String MAIL_CLASS_FCM = "FCM";
@@ -21,14 +32,14 @@ public class QueryStrings {
 	
 	public static final String ORIGIN_ZIP = "originzip";
 	public static final String DEST_ZIP = "destzip";
-	public static final String SHIP_DATE = "date";
+	public static final String SHIP_DATE = "shipdate";
 	public static final String SHIP_TIME = "dropofftime";
 	public static final String MAIL_CLASS = "mailclass";
 	public static final String DEST_TYPE = "desttype";
 	public static final String EAD = "ead";
 	public static final String DELIVERY_DATE = "deliverydate"; //SDD
 	public static final String CUTOFF_TIME = "cutofftime";
-	public static final String TRANSIT_TIME = "transitTime";
+	public static final String TRANSIT_TIME = "transittime";
 	
 	public static final String RETROGRADE_ZIP = "retrogradezip";
 	public static final String PROGRADE_ZIP = "progradezip";
@@ -38,6 +49,8 @@ public class QueryStrings {
 	public static final String ORIGIN_CITY = "origincity";
 	public static final String ORIGIN_STATE = "originstate";
 	public static final String LOCATION = "location";
+	public static final String DELIVERY_TIME = "deliverytime";
+	public static final String COMMITMENT = "commitment";
 	
 	public static ArrayList<String> getQueryParameters() {
 		ArrayList<String> queryParameters = new ArrayList<String>();
@@ -72,6 +85,7 @@ public class QueryStrings {
 	
 	public static String mapMailClassToInt(String mailClass) throws CalculationNotPossibleException {
 		String mailClassNum;
+		System.out.println("Mail class is: " + mailClass);
 		switch(mailClass) {
 		case MAIL_CLASS_PME:
 			mailClassNum = "1";
@@ -92,7 +106,7 @@ public class QueryStrings {
 			mailClassNum = "6";
 			break;
 		default:
-			throw new CalculationNotPossibleException("mail class is invalid");
+			throw new CalculationNotPossibleException("mail class" + mailClass + "is invalid");
 		}
 		return mailClassNum;
 	}
@@ -113,9 +127,9 @@ public class QueryStrings {
 	public static ArrayList<String> getDestTypes() {
 		ArrayList<String> destTypes = new ArrayList<String>();
 		
-		destTypes.add(DESTTYPE_HFPU);
 		destTypes.add(DESTTYPE_STREET_ADDRESS);
 		destTypes.add(DESTTYPE_PO_BOX);
+		destTypes.add(DESTTYPE_HFPU);
 		
 		return destTypes;
 	}

@@ -1,30 +1,73 @@
 package dataHandler.dataFiles;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.apache.commons.csv.CSVRecord;
+
+import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
 
 public class RefValue extends AbsDataFile {
 	int tupleID = 0, valueID = 2;
+	private static int PRIMARY_ID = 0;
+	private static int SECONDARY_ID = 1;
 	private static String MILITARY_RANGE_ID = "APOFPODPO_ZIP_RANGE";
 	private static String HOLIDAY_RANGE_ID = "HOLIDAY";
+	private static String HOLIDAY_EVE = "HOL_EVE";
 	private static String DPO_ZIP_ID = "DPO_ZIPS";
 	private static String NON_PME_DEFAULT_COT_ID = "NON_PME_DEFAULT_COT";
 	private static String PTFAS_ID = "PTFAS_ZIPS";
 	private static String PM_DEFAULT_COT_ID = "DEFAULT_COT_PM";
+	private ArrayList<String> holidays;// = initUSPSHolidays();
+	ArrayList<String> ranges;
 	
-	public ArrayList<String> getMilitaryZipRanges() {
-		
-		ArrayList<String> ranges = new ArrayList<String>();
-		
+	public RefValue() throws ParseException {
+		super();
+		holidays = initUSPSHolidays();
+		ranges = initMilitaryZipRanges();
+	}
+	
+	private ArrayList<String> initMilitaryZipRanges() {
+		ranges = new ArrayList<String>();
 		for (CSVRecord r: recordsList) {
 			if (r.get(tupleID).equals(MILITARY_RANGE_ID)) {
 				ranges.add(r.get(valueID)); 
 			}
 		}
+		return ranges;
+	}
+	
+	public boolean isHolidayEve(String date) throws ParseException {
+		ArrayList<String> holidayEves = new ArrayList<String>();
+		
+		String currHoliday;
+		for (CSVRecord r: recordsList) {
+			if (r.get(PRIMARY_ID).equals(HOLIDAY_RANGE_ID) && r.get(SECONDARY_ID).equals(HOLIDAY_EVE)) {
+				currHoliday = DateTimeUtilities.convertDateFromHolidayFormat(r.get(valueID));
+				holidayEves.add(currHoliday);
+			}
+		}
+		
+		return holidayEves.contains(date);
+	}
+	
+	private ArrayList<String> initUSPSHolidays() throws ParseException {
+		ArrayList<String> holidays = new ArrayList<String>();
+		
+		String currHoliday;
+		for(CSVRecord r: recordsList){
+			if(r.get(tupleID).equals(HOLIDAY_RANGE_ID)){
+				currHoliday = DateTimeUtilities.convertDateFromHolidayFormat(r.get(valueID));
+				holidays.add(currHoliday);
+			}
+		}
+		return holidays;
+	}
+ 	
+	public ArrayList<String> getMilitaryZipRanges() {
 		return ranges;
 	}
 	
@@ -40,14 +83,12 @@ public class RefValue extends AbsDataFile {
 	}
 	
 	public ArrayList<String> getHolidays(){
-		ArrayList<String> holidays = new ArrayList<String>();
-		
-		for(CSVRecord r: recordsList){
-			if(r.get(tupleID).equals(HOLIDAY_RANGE_ID)){
-				holidays.add(r.get(valueID));
-			}
-		}
 		return holidays;
+	}
+	
+	//From Delivery Drools File
+	public boolean isUSPSHoliday(String deliveryDate) throws ParseException {
+		return holidays.contains(deliveryDate);
 	}
 	
 	public ArrayList<String> getDPOZips() {
@@ -80,7 +121,6 @@ public class RefValue extends AbsDataFile {
 	 * Calculates whether the given zip code string is numerically within the Military ZIP boundaries specified in ATF_REF_VALUE
 	 * @param zip The ZIP Code to be checked against the lower and upper bounds
 	 * @return true if the zip code is inclusively between the lower and upper bounds
-	 * TODO make private once testing is not needed
 	 */
 	public boolean isZipInRange(String zip) {
 		ArrayList<Integer> lowerbounds = new ArrayList<Integer>();
@@ -95,7 +135,7 @@ public class RefValue extends AbsDataFile {
 		return inRange;
 	}
 
-	//TODO further clarification on COT of mailclass
+	//TODO [USPS] further clarification on COT of mailclass
 	public String getDefaultPMCOT(int DOW){
 		String dowInFile = "";
 		String cot = "";

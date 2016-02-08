@@ -1,16 +1,28 @@
 package unittest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.commons.csv.CSVRecord;
 import org.junit.Before;
 import org.junit.Test;
 
+import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
+import atfImplementation.HFPULocation;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
+import atfImplementation.PMECommitment.BestPMECommitment;
+import atfImplementation.PMECommitment.Commitment;
+import atfImplementation.PMECommitment.IntraFacilityCommitment;
+import atfImplementation.PMECommitment.PMEDeliveryDate;
+import dataHandler.DataMaster;
+
 
 public class TestSubroutines {
 
@@ -86,6 +98,92 @@ public class TestSubroutines {
 		System.out.print("herebtw");
 		
 		APOFPODPOSubroutine AFDsub = new APOFPODPOSubroutine(queryTuples);
+	}
+	
+
+	/*****************Test bestCommitment subroutine******************************/
+
+	@Test //PMEDeliveryDate First IF
+	public void testPMEDeliveryDate() throws NumberFormatException, ParseException, CalculationNotPossibleException {
+		String originalDatePlusSeven = "16-Feb-2016";
+		queryTuples.put(QueryStrings.DELIVERY_DATE, "01-Feb-2016");
+		queryTuples.put(QueryStrings.EAD, "09-Feb-2016");
+		PMEDeliveryDate pmeDeliv = new PMEDeliveryDate(queryTuples);
+		String delivDate = pmeDeliv.getDeliveryDate();
+		assertEquals(originalDatePlusSeven,  delivDate);
+	}
+	
+	
+	
+	@Test
+	public void testIncrementSunday() throws ParseException {
+		String sundayDate = "07-Feb-2016";
+		String incrementSunday = "08-Feb-2016";
+		assertEquals(incrementSunday, DateTimeUtilities.incrementDate(sundayDate, 1));	
+	}
+
+	@Test
+	public void testBestCommitment() throws ParseException{
+		ArrayList<Commitment> commits = new ArrayList<Commitment>();
+		Commitment c1 = new Commitment(1, 1, 3, 1600, "29-Jan-2016", "0");
+		Commitment c2 = new Commitment(1, 1, 3, 1600, "30-Jan-2016", "0");
+		Commitment c3 = new Commitment(2, 1, 3, 1600, "29-Jan-2016", "0");
+		Commitment c4 = new Commitment(1, 1, 3, 1600, "31-Jan-2016", "0");
+		Commitment c5 = new Commitment(1, 1, 3, 1700, "29-Jan-2016", "0");
+		commits.add(c1);
+		commits.add(c2);
+		commits.add(c3);
+		commits.add(c4);
+		commits.add(c5);
+		BestPMECommitment bs = new BestPMECommitment(commits);
+		assertEquals(bs.getBestCommitment(), c1);
+	}
+	@Test
+	public void testBestCommitmentOneCommitment() throws ParseException{
+		ArrayList<Commitment> commits = new ArrayList<Commitment>();
+		Commitment c1 = new Commitment(1, 1, 3, 1600, "29-Jan-2016", "0");
+		
+		commits.add(c1);
+	
+		BestPMECommitment bs = new BestPMECommitment(commits);
+		assertEquals(bs.getBestCommitment(), c1);
+	}
+	
+	
+	/*****************Test getHFPU subroutine******************************/
+	@Test
+	public void testGetHFPU() throws CalculationNotPossibleException {
+		HashMap<String, String> fakeQueryTuples = QueryParser.getFakeQueryPRITuples();
+		ArrayList<CSVRecord> destRecord = DataMaster.getInstance().getAddressClose().getAddressRecords(fakeQueryTuples.get(QueryStrings.ORIGIN_ZIP),fakeQueryTuples.get(QueryStrings.DEST_ZIP)).get(QueryStrings.DEST_ZIP);
+		HFPULocation loc = new HFPULocation(QueryParser.getFakeQueryPRITuples(), destRecord);
+		
+		assertEquals(loc.getHFPULocation(), "816549001,SNOWMASS,26900 HIGHWAY 82,SNOWMASS,CO");
+	}  
+	
+	@Test
+	public void testIntraFacility() throws CalculationNotPossibleException, NumberFormatException, ParseException{
+		HashMap<String, String> fakeQueryTuples = QueryParser.getFakeQueryPMETuples();
+		IntraFacilityCommitment intra = new IntraFacilityCommitment(fakeQueryTuples);
+		System.out.println(intra.getCommitment().getCommitmentDate());
+		System.out.println(intra.getCommitment().getDeliveryTime());
+		System.out.println(intra.getCommitment().getCommitmentRank());
+		System.out.println(intra.getCommitment().getServiceStd());
+		
+	}
+	
+	@Test
+	public void testIntraFacilityInnerLoop() throws CalculationNotPossibleException, NumberFormatException, ParseException{
+		HashMap<String, String> fakeQueryTuples = QueryParser.getFakeQueryPMETuples();
+		fakeQueryTuples.put(QueryStrings.SHIP_DATE, "07-Feb-2016");
+		fakeQueryTuples.put(QueryStrings.EAD, "07-Feb-2016");
+		//PMECommitmentSubroutine pme = new PMECommitmentSubroutine(fakeQueryTuples);
+		//pme.getCommitments();
+//		IntraFacilityCommitment intra = new IntraFacilityCommitment(fakeQueryTuples);
+//		System.out.println(intra.getCommitment().getCommitmentDate());
+//		System.out.println(intra.getCommitment().getDeliveryTime());
+//		System.out.println(intra.getCommitment().getCommitmentRank());
+//		System.out.println(intra.getCommitment().getServiceStd());
+		
 	}
 
 }

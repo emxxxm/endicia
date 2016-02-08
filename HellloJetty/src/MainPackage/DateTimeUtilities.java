@@ -2,24 +2,25 @@ package MainPackage;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import dataHandler.DataMaster;
-import dataHandler.IDataMaster;
-import dataHandler.dataFiles.RefValue;
-
-import java.util.Date;
-
 public class DateTimeUtilities {
+
+
+	public static final int DAY_SATURDAY = 6;
+	public static final int DAY_SUNDAY = 7;
+	public static final int DAY_HOLIDAY = 8;
 	
 	public static String DATE_FORMAT = "dd-MMM-yyyy";
 	public static String TIME_ZONE = "UTC";
 	private final static Logger logger = Logger.getLogger(LoggingHub.class.getName());
-	public static TimeZone getTimeZone() {
+	private static final String HOLIDAY_FORMAT = "yyyy-MM-dd";
+
+	public static TimeZone getTimeZone() { //TODO [Endicia] fix get timeZone to not be UTC; should be based off ZIP due to cutoff time
 		return TimeZone.getTimeZone("UTC");
 	}
 	/**
@@ -82,8 +83,7 @@ public class DateTimeUtilities {
 	
 	public static Date getDateFromString(String currentDate) throws ParseException {
 		SimpleDateFormat formating = new SimpleDateFormat(DateTimeUtilities.DATE_FORMAT);
-		Date newDate = formating.parse(currentDate);
-		return newDate;
+		return formating.parse(currentDate);
 	}
 	
 	public static int getDayOfWeek(String date){
@@ -98,15 +98,10 @@ public class DateTimeUtilities {
 		calendar.setTime(calendarDate);
 		int dow =  calendar.get(Calendar.DAY_OF_WEEK);
 		if(dow == Calendar.SUNDAY) {
-			return 7;
+			return DAY_SUNDAY;
 		}
 		else
 			return dow-1;
-	}
-	public static ArrayList<String> getUSPSHolidays(){
-		IDataMaster d = DataMaster.getInstance();
-		RefValue ref = d.getRefValue();
-		return ref.getHolidays();
 	}
 	
 	public static boolean isDate1BeforeDate2(String dateString1, String dateString2) throws ParseException {
@@ -117,5 +112,17 @@ public class DateTimeUtilities {
 			return true;
 		else
 			return false;
+	}
+	
+	public static String convertDateFromHolidayFormat(String holidayDate) throws ParseException {
+		SimpleDateFormat correctFormating = new SimpleDateFormat(DATE_FORMAT);
+		SimpleDateFormat holidayFormating = new SimpleDateFormat(HOLIDAY_FORMAT);
+		correctFormating.setTimeZone(getTimeZone());
+		holidayFormating.setTimeZone(getTimeZone());
+		
+		Date holiday = holidayFormating.parse(holidayDate);
+		
+		return correctFormating.format(holiday);
+		
 	}
 }

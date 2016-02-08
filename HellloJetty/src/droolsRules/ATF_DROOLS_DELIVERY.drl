@@ -23,7 +23,6 @@ rule "70104"
 			getDaysBetweenDates(ead,deliveryDate) < 30)
 	then
 		modify ( $dto ) {
-			printStatement(),
 			incrementDeliveryDate(1)
 		}
 end

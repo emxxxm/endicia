@@ -1,12 +1,11 @@
 package MainPackage;
-import javax.servlet.http.HttpServletRequest;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletException;
- 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
@@ -16,7 +15,7 @@ import atfImplementation.MainATFImplementation;
 public class JettyRequestHandler extends AbstractHandler
 {
 	MainATFImplementation mainLogic;
-	HashMap<String, String> output;
+	HashMap<String, Object> output;
 	//This method is called in main when the server receives a request
     public void handle(String target,
                        Request baseRequest,
@@ -26,10 +25,9 @@ public class JettyRequestHandler extends AbstractHandler
     {
     	HashMap<String, String> queryTuples = new LinkedHashMap<String,String>();
     	
-    	response.setContentType("application/xml;charset=utf-8"); //TODO have serializer to dispatch based on content-type in get request
+    	response.setContentType("application/xml;charset=utf-8");
         baseRequest.setHandled(true);
-        
-      //  System.out.println("This is the queryString: " + request.getQueryString());
+      
              
 		try {
 			queryTuples = QueryParser.parseStringForTuples(request.getQueryString());
@@ -45,16 +43,22 @@ public class JettyRequestHandler extends AbstractHandler
 	        mainLogic.execute();
 	        
 	        output = mainLogic.getOutput();
+	        System.out.println("Output size in Jetty: " + output.keySet().size());
 	        
 	        xmlResp = "<ExpressMail>";
 	        for (String s: output.keySet()) {
-	        	xmlResp += "<" + s + ">" + output.get(s) + "</" + s + ">"; 
+	        	if (output.get(s) != null) {
+	        		xmlResp += "<" + s + ">" + output.get(s).toString() + "</" + s + ">";
+	        	} else {
+	        		System.out.println("Null key: " + s);
+	        	}
 	        }
 	        xmlResp += "</ExpressMail>";
 	        
-	        System.out.println(xmlResp);
-	        
 	        response.setStatus(HttpServletResponse.SC_OK);
+	        
+	        System.out.println("Sending the following xml response to browser: " + xmlResp);
+	        
 	        response.getWriter().println(xmlResp);
 	        
 		} catch (Exception e) {//(InvalidQueryFormatException e) {

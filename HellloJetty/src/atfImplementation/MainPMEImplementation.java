@@ -3,10 +3,12 @@ package atfImplementation;
 import java.text.ParseException;
 import java.util.HashMap;
 
+import ApacheMain.outputwrappers.DazzleOutputMain;
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
 import atfImplementation.PMECommitment.APOFPODPOSubroutine;
 import atfImplementation.PMECommitment.BestPMECommitment;
+import atfImplementation.PMECommitment.Commitment;
 import atfImplementation.PMECommitment.PMECommitmentSubroutine;
 import atfImplementation.PMECommitment.PMEDeliveryDate;
 
@@ -37,6 +39,7 @@ public class MainPMEImplementation extends AbsATFImplementation {
 	    bestCommitmentCalc = new BestPMECommitment(PMECommitment.getCommitments());
 	    
 	    transitTime = bestCommitmentCalc.getTransitTime();
+	    queryTuples.put(QueryStrings.TRANSIT_TIME, Integer.toString(transitTime));
 	    
 	    executeAcceptanceRules();
 	    executeTransitRules();
@@ -50,30 +53,16 @@ public class MainPMEImplementation extends AbsATFImplementation {
 		queryTuples.put(QueryStrings.DELIVERY_DATE, deliveryDate);
 		
 		executeServiceStandardRules();
+			
 	}
 	
-	//TODO create and run get APO/FPO/DPO data subroutine
-	
-	//if (destination is of type HFPU) 
-		//TODO create and run get HFPU Location subroutine
-	//else
-		//TODO lookup origin close times from ATF_Address_close
-	
-	//TODO create and run Calculate PME Commitments subroutine
-	
-	//TODO create and run Get Best PME Commitment subroutine
-	
-	//TODO [Drools] execute rules engine for Acceptance Rules
-	
-	//TODO [Drools] execute rule engine for Transit Time Rules
-	
-	//TODO Set delivery date based on calculated values
-		//What is retrograde offset?
-		//What is prograde offset?
-	
-	//TODO create and run Calculate PME Delivery Date subroutine
-	
-	//TODO return data back up to ATF main
-	
+	@Override 
+	public DazzleOutputMain formatOutput() throws CalculationNotPossibleException {
+		super.formatOutput();
+		Commitment c = bestCommitmentCalc.getBestCommitment();
+		output.put(QueryStrings.COMMITMENT, c);
+		output.put(QueryStrings.CUTOFF_TIME, Integer.toString(c.getCutoffTime()));
+		return new DazzleOutputMain(output);
+	}	
 
 }

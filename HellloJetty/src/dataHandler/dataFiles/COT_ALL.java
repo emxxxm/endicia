@@ -4,32 +4,37 @@ import java.util.ArrayList;
 
 import org.apache.commons.csv.CSVRecord;
 
+import MainPackage.QueryStrings;
 import atfImplementation.Location;
 
 public class COT_ALL extends AbsDataFile {
-	private int tupleID = 0, rangeID = 4, ZIP_ID = 0, FAC_NAME_ID = 1, FAC_ADDRESS_ID = 2, FAC_CITY_ID =3, FAC_STATE_ID = 4;
+	private int tupleID = 0, rangeID = 4, ZIP_ID = 0, FAC_NAME_ID = 1, FAC_ADDRESS_ID = 2, FAC_CITY_ID =3, FAC_STATE_ID = 4, PME_VALUE_ID= 12;
 	private ArrayList<Location> locationList = new ArrayList<Location>();
-	
 	
 	@Override
 	public String getFileName() {
-
 		return FilenameConstants.COT_ALL;
 	}
 
-	// TODO [optimization] add index
-	// TODO return all records
-	public String getCot(int dow, String ZIP) {
+	// TODO [Optimization] add index
+	// TODO [USPS] how to get individual record - return all records
+	public String getCot(int dow, String ZIP, String mailClass) {
 		Location newLoc;
 		int cot = Integer.MAX_VALUE;
 		for (CSVRecord r : recordsList) {
-			// TODO return earliest or latest
+			// TODO [USPS] return earliest or latest
 			if (r.get(tupleID).startsWith(ZIP)) {
 				newLoc = getLocationFromFile(r, dow);
 				locationList.add(newLoc);
+				if(mailClass.equals(QueryStrings.MAIL_CLASS_PRI)){
+					if (Integer.parseInt(r.get(dow + rangeID)) < cot)
+						cot = Integer.parseInt(r.get(dow + rangeID));
+				}
+				else if(mailClass.equals(QueryStrings.MAIL_CLASS_PME)){
+					if (Integer.parseInt(r.get(dow + PME_VALUE_ID)) < cot)
+						cot = Integer.parseInt(r.get(dow + PME_VALUE_ID));
+				}
 				
-				if (Integer.parseInt(r.get(dow + rangeID)) < cot)
-					cot = Integer.parseInt(r.get(dow + rangeID));
 			}
 		}
 		if (cot != Integer.MAX_VALUE)
@@ -38,8 +43,12 @@ public class COT_ALL extends AbsDataFile {
 			return "";
 	}
 	
+
+	
 	public ArrayList<Location> getLocationList() {
-		return locationList;
+		ArrayList<Location> l = (ArrayList<Location>) locationList.clone();
+		resetLocationList();
+		return l;
 	}
 	
 	public Location getLocationFromFile(CSVRecord r, int dow) {
@@ -50,6 +59,11 @@ public class COT_ALL extends AbsDataFile {
 		String facState = r.get(FAC_STATE_ID);
 		String cutOffTime = r.get(dow + rangeID);
 		return new Location(zip, facName, facAddress, facCity, facState, cutOffTime);
+	}
+
+	//TODO [optimization] fix this jank
+	public void resetLocationList() {
+		locationList = new ArrayList<Location>();
 	}
 
 }

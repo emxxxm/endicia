@@ -6,6 +6,8 @@ import java.util.LinkedHashMap;
 
 import org.apache.commons.csv.CSVRecord;
 
+import ApacheMain.outputwrappers.DazzleOutputMain;
+import ApacheMain.outputwrappers.IOutput;
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
@@ -16,12 +18,13 @@ import droolsRules.SDCKnowledgeDTO;
 
 public abstract class AbsATFImplementation implements IATFImplementation {
 	
-	String EAD, HFPUAddress;
+	String EAD, HFPUAddressString;
 	HashMap<String, String> queryTuples;
-	HFPULocation HFPUloc = null; //TODO what does this do
-	int originCloseTime; //TODO what does this do
+	HFPULocation HFPUloc = null;
+	Location HFPUAddress;
+	int originCloseTime; //TODO [USPS] what does this do
 	SDCKnowledgeDTO droolsMsg;
-	LinkedHashMap<String, String> output = new LinkedHashMap<String, String>();
+	LinkedHashMap<String, Object> output = new LinkedHashMap<String, Object>();
 	HashMap<String, ArrayList<CSVRecord>> locationRecords;
 	
 	
@@ -44,7 +47,7 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		ArrayList<CSVRecord> destRecords = locationRecords.get(QueryStrings.DEST_ZIP);
 		if (QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
 				HFPUloc = new HFPULocation(queryTuples, destRecords); 
-				HFPUAddress = HFPUloc.getHFPULocation();
+				HFPUAddressString = HFPUloc.getHFPULocation();
 		}
 	}
 	
@@ -54,28 +57,31 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 	}
 	
     protected void executeAcceptanceRules() {
-		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples, new SDCKnowledgeDTO()); //TODO test
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsg(queryTuples, new SDCKnowledgeDTO()); //TODO [debug] test
 		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_ACCEPTANCE);
     }
     
     protected void executeTransitRules() {
-		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsgForTransit(queryTuples); //TODO test
-		System.out.println("Transit svc " + droolsMsg.svcStd);
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsgForTransit(queryTuples); //TODO [debug] test
 		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_TRANSIT);
     }
     
 	protected void executeServiceStandardRules() {
-		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsgForPost(queryTuples); //TODO test
-		System.out.println("Post svc " + droolsMsg.svcStd);
+		droolsMsg = SDCKnowledgeDTO.initializeDroolsMsgForPost(queryTuples); //TODO [debug] test
 		DataMaster.getInstance().getRulesObject().insertAndFire(droolsMsg, RulesObject.DROOLS_POSTPROCESSING);
 	}
 	
-	public HashMap<String, String> getOutput() throws CalculationNotPossibleException {
-		formatOutput();
+	public LinkedHashMap<String, Object> getOutput() throws CalculationNotPossibleException {
+		this.formatOutput();
 		return output;
 	}
 	
-	public void formatOutput() throws CalculationNotPossibleException {
+	public IOutput getCXFOutputWrapper() throws CalculationNotPossibleException {
+		IOutput output = this.formatOutput();
+		return output; 
+	}
+	
+	public IOutput formatOutput() throws CalculationNotPossibleException {
 		String svcStdMsg = droolsMsg.svcStdMsg;
 		String guarantee = String.valueOf(droolsMsg.isGuarantee);
 		
@@ -87,19 +93,22 @@ public abstract class AbsATFImplementation implements IATFImplementation {
 		output.put(QueryStrings.ORIGIN_STATE, AddressClose.getState(originRecord));
 		
 		output.put(QueryStrings.DEST_TYPE, queryTuples.get(QueryStrings.DEST_TYPE));
-		if (QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
-			output.put(QueryStrings.destTypeToString(QueryStrings.DESTTYPE_HFPU), Location.printHFPULocation(HFPUAddress));
-		}
 		
-		
+		output.put(QueryStrings.CUTOFF_TIME, queryTuples.get(QueryStrings.CUTOFF_TIME));
 		output.put(QueryStrings.ORIGIN_ZIP, queryTuples.get(QueryStrings.ORIGIN_ZIP));
 		output.put(QueryStrings.DEST_ZIP, queryTuples.get(QueryStrings.DEST_ZIP));
 		output.put(QueryStrings.MAIL_CLASS, queryTuples.get(QueryStrings.MAIL_CLASS));
 		output.put(QueryStrings.EAD, queryTuples.get(QueryStrings.EAD));
 		output.put(QueryStrings.DELIVERY_DATE, queryTuples.get(QueryStrings.DELIVERY_DATE)); //SDD
 		output.put(QueryStrings.SHIP_TIME, queryTuples.get(QueryStrings.SHIP_TIME)); //Accept Time and Ship Time
+		output.put(QueryStrings.SHIP_DATE, queryTuples.get(QueryStrings.SHIP_DATE));
 		output.put(RulesObject.SERVICE_STD_MSG, svcStdMsg);
 		output.put(RulesObject.GUARANTEE, guarantee);
+		
+		if (QueryParser.isHFPU(queryTuples.get(QueryStrings.DEST_TYPE))) {
+			output.put(QueryStrings.destTypeToString(QueryStrings.DESTTYPE_HFPU), Location.getHFPULocation(HFPUAddressString));
+		}
+		return new DazzleOutputMain(output);
 	}
 	
 }

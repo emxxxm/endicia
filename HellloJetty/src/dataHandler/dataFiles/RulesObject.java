@@ -1,6 +1,6 @@
 package dataHandler.dataFiles;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.HashMap;
 
 import org.drools.KnowledgeBase;
@@ -12,7 +12,6 @@ import org.drools.builder.KnowledgeBuilderFactory;
 import org.drools.builder.ResourceType;
 import org.drools.io.ResourceFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.StatelessKnowledgeSession;
 import org.drools.runtime.rule.FactHandle;
 
 import droolsRules.SDCKnowledgeDTO;
@@ -44,7 +43,6 @@ public class RulesObject implements IDataFile {
 			KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
 			String fileLocation;
 			fileLocation = "droolsRules/" + filenames.get(i);
-			//System.out.println(fileLocation);
 			kbuilder.add(ResourceFactory.newClassPathResource(fileLocation),ResourceType.DRL);
 			KnowledgeBuilderErrors errors = kbuilder.getErrors();
 			if (errors.size() > 0) {

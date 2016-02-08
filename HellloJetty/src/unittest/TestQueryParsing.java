@@ -1,7 +1,8 @@
 package unittest;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 
@@ -22,12 +23,12 @@ public class TestQueryParsing {
 		queryTuples = QueryParser.getFakeQueryTuples();
 	}
 	
-//	//@Test //TODO FIX
+//	@Test //TODO [Debug] FIX
 //	public void testParseTuples() throws InvalidQueryFormatException {
 //		HashMap<String, String> result, expected;
 //		result = QueryParser.parseStringForTuples("originZip=%2201609%22&destZip=%2290610%22&dropOffTiMe=%221100%22&mailClass=%22PME%22&destType=%223%22");
 //		expected = queryTuples;
-////		assertEquals(expected, result);
+//		assertEquals(expected, result);
 //	}
 	
 	@Test
@@ -49,6 +50,7 @@ public class TestQueryParsing {
 		queryTuples.remove(QueryStrings.DEST_ZIP);
 		queryTuples.remove(QueryStrings.SHIP_DATE);
 		queryTuples.remove(QueryStrings.DELIVERY_DATE);
+		queryTuples.remove(QueryStrings.ORIGIN_ZIP);
 		
 		try {
 			QueryParser.validateQuery(queryTuples);
@@ -168,7 +170,7 @@ public class TestQueryParsing {
 			QueryParser.validateQuery(queryTuples);
 			fail("An exception should have been thrown for an invalid date");
 		} catch (InvalidQueryFormatException e) {
-			assertEquals("Invalid date given. Date must be in the format" + DateTimeUtilities.DATE_FORMAT, e.getMessage());
+			assertEquals("Invalid date given. Date must be in the format " + DateTimeUtilities.DATE_FORMAT, e.getMessage());
 		}
 		
 	}
