@@ -20,6 +20,7 @@ import atfImplementation.PMECommitment.APOFPODPOSubroutine;
 import atfImplementation.PMECommitment.BestPMECommitment;
 import atfImplementation.PMECommitment.Commitment;
 import atfImplementation.PMECommitment.IntraFacilityCommitment;
+import atfImplementation.PMECommitment.PMECommitmentSubroutine;
 import atfImplementation.PMECommitment.PMEDeliveryDate;
 import dataHandler.DataMaster;
 
@@ -159,18 +160,18 @@ public class TestSubroutines {
 		
 		assertEquals(loc.getHFPULocation(), "816549001,SNOWMASS,26900 HIGHWAY 82,SNOWMASS,CO");
 	}  
-	
+	/*****************Test getHFPU subroutine******************************/
 	@Test
 	public void testIntraFacility() throws CalculationNotPossibleException, NumberFormatException, ParseException{
 		HashMap<String, String> fakeQueryTuples = QueryParser.getFakeQueryPMETuples();
-		IntraFacilityCommitment intra = new IntraFacilityCommitment(fakeQueryTuples);
-		System.out.println(intra.getCommitment().getCommitmentDate());
-		System.out.println(intra.getCommitment().getDeliveryTime());
-		System.out.println(intra.getCommitment().getCommitmentRank());
-		System.out.println(intra.getCommitment().getServiceStd());
+//		IntraFacilityCommitment intra = new IntraFacilityCommitment(fakeQueryTuples);
+//		System.out.println(intra.getCommitment().getCommitmentDate());
+//		System.out.println(intra.getCommitment().getDeliveryTime());
+//		System.out.println(intra.getCommitment().getCommitmentRank());
+//		System.out.println(intra.getCommitment().getServiceStd());
 		
 	}
-	
+	/*****************Test IntraFacilityInnerLoop subroutine******************************/
 	@Test
 	public void testIntraFacilityInnerLoop() throws CalculationNotPossibleException, NumberFormatException, ParseException{
 		HashMap<String, String> fakeQueryTuples = QueryParser.getFakeQueryPMETuples();
