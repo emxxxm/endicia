@@ -3,6 +3,8 @@ package atfImplementation.PMECommitment;
 import java.text.ParseException;
 import java.util.HashMap;
 
+import org.apache.commons.csv.CSVRecord;
+
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
@@ -10,8 +12,8 @@ import dataHandler.DataMaster;
 
 public class IntraFacilityCommitment extends AbsFacilityCommitment {
 
-	public IntraFacilityCommitment(HashMap<String, String> queryTuples) throws ParseException, NumberFormatException, CalculationNotPossibleException {
-		super(queryTuples);
+	public IntraFacilityCommitment(HashMap<String, String> queryTuples, CSVRecord record) throws ParseException, NumberFormatException, CalculationNotPossibleException {
+		super(queryTuples, record);
 	}
 	
 	@Override
@@ -49,5 +51,6 @@ public class IntraFacilityCommitment extends AbsFacilityCommitment {
 			throw new ReturnToMainLogicException(); //Commitment cannot be calculated
 		}
 	}
+
 
 }

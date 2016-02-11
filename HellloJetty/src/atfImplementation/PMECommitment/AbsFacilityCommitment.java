@@ -3,6 +3,8 @@ package atfImplementation.PMECommitment;
 import java.text.ParseException;
 import java.util.HashMap;
 
+import org.apache.commons.csv.CSVRecord;
+
 import MainPackage.DateTimeUtilities;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
@@ -19,8 +21,8 @@ public abstract class AbsFacilityCommitment implements IFacilityCommitment {
 	int CLRNC, CET, originRank, destRank;
 	int serviceStd, preferredIndicator, deliveryTime, commitmentRank;
 	String DOW_COT;
-
-	public AbsFacilityCommitment(HashMap<String, String> queryTuples) throws ParseException, NumberFormatException, CalculationNotPossibleException {
+	CSVRecord record;
+	public AbsFacilityCommitment(HashMap<String, String> queryTuples, CSVRecord record) throws ParseException, NumberFormatException, CalculationNotPossibleException {
 		daysElapsed=0;
 		dropOffTime = Integer.parseInt(queryTuples.get(QueryStrings.SHIP_TIME)); 
 		destZip = queryTuples.get(QueryStrings.DEST_ZIP);
@@ -29,6 +31,7 @@ public abstract class AbsFacilityCommitment implements IFacilityCommitment {
 		EAD = queryTuples.get(QueryStrings.EAD);
 		transitDate = EAD;
 		commitmentDate = EAD;
+		this.record = record;
 		
 		while(true){
 			try {

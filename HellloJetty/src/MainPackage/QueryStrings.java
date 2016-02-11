@@ -11,7 +11,7 @@ public class QueryStrings {
 	public static final String DESTTYPE_HFPU = "3";
 	public static final String HPFU_LOCATIONS = "HFPU";
 	
-
+	
 	public static final String NODELIVERY_OPTION = "deliveryoption";
 	public static final String OPTION_NONE = "0";
 	public static final String OPTION_SAT = "1";
@@ -51,6 +51,8 @@ public class QueryStrings {
 	public static final String LOCATION = "location";
 	public static final String DELIVERY_TIME = "deliverytime";
 	public static final String COMMITMENT = "commitment";
+	
+	public static final String DISPRECORD = "disprecord";
 	
 	public static ArrayList<String> getQueryParameters() {
 		ArrayList<String> queryParameters = new ArrayList<String>();

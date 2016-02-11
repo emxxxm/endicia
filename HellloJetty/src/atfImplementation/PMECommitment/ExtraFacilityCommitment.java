@@ -1,7 +1,10 @@
 package atfImplementation.PMECommitment;
 
 import java.text.ParseException;
+
 import java.util.HashMap;
+
+import org.apache.commons.csv.CSVRecord;
 
 import MainPackage.DateTimeUtilities;
 import atfImplementation.CalculationNotPossibleException;
@@ -11,11 +14,14 @@ import dataHandler.dataFiles.PMEDispSchedule;
 public class ExtraFacilityCommitment extends AbsFacilityCommitment {	
 	String destFacID, originFacID;
 	int departTime, arriveTime, DOWIND;
-
-	public ExtraFacilityCommitment(HashMap<String, String> queryTuples) throws NumberFormatException, ParseException, CalculationNotPossibleException {
-		super(queryTuples);
-
-
+	
+	public ExtraFacilityCommitment(HashMap<String, String> queryTuples,  CSVRecord dispRecord) throws NumberFormatException, ParseException, CalculationNotPossibleException {
+		
+		super(queryTuples, dispRecord);
+		
+		departTime = Integer.parseInt(dispRecord.get(1));
+		arriveTime = Integer.parseInt(dispRecord.get(3));
+		preferredIndicator = Integer.parseInt(dispRecord.get(4));
 		//while(1) {
 		//if(Transit Date = any USPS Holiday in ATF_REF_VAL_T) {
 		//DOW = 8
@@ -109,18 +115,18 @@ public class ExtraFacilityCommitment extends AbsFacilityCommitment {
 
 	}
 
-	@Override
-	public void initValues() {
-		super.initValues();
-
-		HashMap<Integer, Integer> dispOutput = DataMaster.getInstance().getPMEDisp().
-				getDestFacilityInfo(originFacID, destFacID);
-
-		departTime = dispOutput.get(PMEDispSchedule.DEPART_TIME);
-		arriveTime = dispOutput.get(PMEDispSchedule.ARR_TIME);
-		preferredIndicator = dispOutput.get(PMEDispSchedule.PREFFERED_INDICATOR);
-		DOWIND = dispOutput.get(PMEDispSchedule.DOW_IND_ID);
-	}
+	//@Override
+//	public void initValues() {
+//		super.initValues();
+//
+////		HashMap<Integer, Integer> dispOutput = DataMaster.getInstance().getPMEDisp().
+////				getDestFacilityInfo(originFacID, destFacID);
+//		//index
+//		departTime = Integer.parseInt(dispRecord.get(1));
+//		arriveTime = Integer.parseInt(dispRecord.get(3));
+//		preferredIndicator = Integer.parseInt(dispRecord.get(4));
+//		//DOWIND = dispRecord.get(PMEDispSchedule.DOW_IND_ID);
+//	}
 
 	@Override
 	public void incrementValues() throws ParseException, ReturnToMainLogicException {
@@ -133,7 +139,7 @@ public class ExtraFacilityCommitment extends AbsFacilityCommitment {
 		}
 	}
 
-	@Override
+	//@Override
 	public void setCommitmentValues(HashMap<String, String> queryTuples) throws ParseException, ReturnToMainLogicException {
 		while (true) {
 			DOW = DateTimeUtilities.getDayOfWeek(transitDate);
@@ -144,7 +150,7 @@ public class ExtraFacilityCommitment extends AbsFacilityCommitment {
 			if (DataMaster.getInstance().getRefValue().isHolidayEve(transitDate)) {
 				DOW = 7;
 			}
-			if(DataMaster.getInstance().getPMEDisp().getDOWINDforTransitDateDow(transitDate) != 1) {
+			if(record.get(4+DateTimeUtilities.getDayOfWeek(transitDate)).equals("1")) {
 				incrementTransitDateandDaysElapsed();
 
 				if (daysElapsed > 2) {
@@ -175,5 +181,8 @@ public class ExtraFacilityCommitment extends AbsFacilityCommitment {
 
 		outputCommitment = new Commitment(commitmentRank, preferredIndicator, serviceStd, deliveryTime,commitmentDate, DOW_COT);
 	}
+
+
+	
 
 }	

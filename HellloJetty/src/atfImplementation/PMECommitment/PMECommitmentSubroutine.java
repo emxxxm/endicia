@@ -35,7 +35,7 @@ public class PMECommitmentSubroutine {
 			for (int j = 0; j < destList.size(); j++) {
 				CSVRecord destRecord = destList.get(j);
 				if (originRecord.get(originFACID).equals(destRecord.get(destFACID))) {
-					infraFac = new IntraFacilityCommitment(queryTuples);// TODO [debug] intrafacility
+					infraFac = new IntraFacilityCommitment(queryTuples, destRecord);// TODO [debug] intrafacility
 					commitment = infraFac.getCommitment();
 					if (commitment != null) {
 						commitmentList.add(commitment);
@@ -44,9 +44,11 @@ public class PMECommitmentSubroutine {
 					dispList = DataMaster.getInstance().getPMEDisp().getDispList(originRecord.get(originFACID),
 							destRecord.get(destFACID)); 
 
-					for (int k = 0; i < dispList.size(); k++) {
+					for (int k = 0; k < dispList.size(); k++) {
 						CSVRecord dispRecord = dispList.get(k);
-						extraFac = new ExtraFacilityCommitment(queryTuples); // TODO [debug]
+						//HashMap<String, CSVRecord> recordsTuples = new HashMap<String, CSVRecord>();
+						//recordsTuples.put(QueryStrings.DISPRECORD, dispRecord);
+						extraFac = new ExtraFacilityCommitment(queryTuples, dispRecord); // TODO [debug]
 						commitment = extraFac.getCommitment();
 						if (commitment != null) {
 							commitmentList.add(commitment);

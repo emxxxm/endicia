@@ -12,6 +12,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import MainPackage.DateTimeUtilities;
 import MainPackage.QueryParser;
 import MainPackage.QueryStrings;
 import atfImplementation.CalculationNotPossibleException;
@@ -200,5 +201,16 @@ public class TestFileClasses{
 		assertEquals(ssd.getTransitTime(), 1);
 	    
 	}
+	/*****************Test getCOT on zip code and mail class******************************/
+	@Test
+	public void testGetCot(){
+		HashMap<String, String> fakeQueryTuples = QueryParser.getFakeQueryPMETuples();
+		String DOW_COT = DataMaster.getInstance().getCotAll().getCot(
+		DateTimeUtilities.getDayOfWeek(fakeQueryTuples.get(QueryStrings.SHIP_DATE)), 
+		fakeQueryTuples.get(QueryStrings.ORIGIN_ZIP),
+		QueryStrings.MAIL_CLASS_PME); 
+		
+	}
+
 
 }

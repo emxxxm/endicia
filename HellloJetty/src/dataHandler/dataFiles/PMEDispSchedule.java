@@ -23,11 +23,11 @@ public class PMEDispSchedule extends AbsDataFile {
 	public String getFileName() {
 		return FilenameConstants.PME_DISP;
 	}
-
-	public ArrayList<CSVRecord> getDispList(String originFACID, String destFACID) { //TODO [Optimization] cache result
+	//TODO [Optimization] cache result
+	public ArrayList<CSVRecord> getDispList(String originFACID, String destFACID) { 
 		ArrayList<CSVRecord> dispList = new ArrayList<CSVRecord>();
 		for(CSVRecord r: recordsList){
-			if(r.get(originRangeID).equals(originFACID) && r.get(destRangeID).equals(destFACID)){
+			if(r.get(originRangeID).startsWith(originFACID) && r.get(destRangeID).startsWith(destFACID)){
 				dispList.add(r);
 			}
 		}
