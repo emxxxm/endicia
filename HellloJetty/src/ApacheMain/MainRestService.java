@@ -1,6 +1,7 @@
 package ApacheMain;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.logging.Logger;
@@ -14,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 import ApacheMain.outputwrappers.DazzleOutputMain;
+import ApacheMain.outputwrappers.StringOutputWrapper;
 import MainPackage.DateTimeUtilities;
 import MainPackage.InvalidQueryFormatException;
 import MainPackage.LoggingHub;
@@ -33,10 +35,45 @@ public class MainRestService extends AbsGetMailOutput {
 	public static final String JSON = "json";
 	public static final String URL_JSON = "." + JSON;
 	public static final String XML = "xml";
+	public static final String EMPTY_REQUEST = ".empty";
+	public static final String PARAM = ".param";
 	public static final String URL_XML = "." + XML;
 
 	private final static Logger logger = Logger.getLogger(LoggingHub.class.getName());
 
+	@Path(BASE_PATH + EMPTY_REQUEST)
+	@Produces( {APPLICATION + XML} )
+	@GET
+	public Collection<StringOutputWrapper> getBaselineRequest() {
+		Collection<StringOutputWrapper> output = new ArrayList<StringOutputWrapper>();
+		output.add(new StringOutputWrapper("testing baseline performance"));
+		return output;
+	}
+	
+	@Path(BASE_PATH + URL_JSON + EMPTY_REQUEST)
+	@Produces( {APPLICATION + JSON} )
+	@GET
+	public Collection<StringOutputWrapper> getBaselineJSONRequest() {
+		Collection<StringOutputWrapper> output = new ArrayList<StringOutputWrapper>();
+		output.add(new StringOutputWrapper("testing baseline JSON performance"));
+		return output;
+	}
+	
+	@Path(BASE_PATH + PARAM + EMPTY_REQUEST)
+	@Produces( {APPLICATION + XML} )
+	@GET
+	public Collection<StringOutputWrapper> getBaselineParamRequest(@QueryParam( QueryStrings.ORIGIN_ZIP) String originZip, 
+			@QueryParam(QueryStrings.DEST_ZIP) String destZip,
+			@QueryParam(QueryStrings.SHIP_DATE) @DefaultValue("") String shipDate,
+			@QueryParam(QueryStrings.SHIP_TIME) String dropOffTime,
+			@QueryParam(QueryStrings.MAIL_CLASS) String mailClass, 
+			@QueryParam(QueryStrings.DEST_TYPE) String destType,
+			@QueryParam(QueryStrings.NODELIVERY_OPTION) @DefaultValue(QueryStrings.OPTION_NONE) String noDeliveryOption) {
+		Collection<StringOutputWrapper> output = new ArrayList<StringOutputWrapper>();
+		output.add(new StringOutputWrapper("testing baseline performance with Params"));
+		return output;
+	}
+	
 	@Path(BASE_PATH)
 	@Produces( {APPLICATION + XML} )
 	// @Consumes( {"application/x-www-form-urlencoded"} )
@@ -48,7 +85,6 @@ public class MainRestService extends AbsGetMailOutput {
 			@QueryParam(QueryStrings.MAIL_CLASS) String mailClass, 
 			@QueryParam(QueryStrings.DEST_TYPE) String destType,
 			@QueryParam(QueryStrings.NODELIVERY_OPTION) @DefaultValue(QueryStrings.OPTION_NONE) String noDeliveryOption) throws NumberFormatException, CalculationNotPossibleException, ParseException, InvalidQueryFormatException {
-		System.out.println("Delivery option selected: " + noDeliveryOption);
 		return absGetMail(originZip, destZip, shipDate, dropOffTime, mailClass, destType, noDeliveryOption);
 	}
 

@@ -1,14 +1,18 @@
 package ApacheMain;
 
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.cxf.transport.servlet.CXFServlet;
+import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.util.log.Log;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
@@ -22,7 +26,21 @@ public class Main {
 		LoggingHub.initLogger();
 		DataMaster.getInstance();
 		
+		long unixStartTime = System.currentTimeMillis();
+		logger.log(Level.INFO, "Start time: " + unixStartTime);
 		Server server = new Server(4651);
+		
+		MBeanContainer mbContainer =new MBeanContainer(ManagementFactory.getPlatformMBeanServer());
+		
+		MemoryMXBean mem = ManagementFactory.getMemoryMXBean();
+		//mem.setVerbose(true);
+		//mbContainer.addBean(mem);
+		
+		server.getContainer().addEventListener(mbContainer);
+		server.addBean(mbContainer);
+		server.addBean(Log.getLog());		
+		
+		
 		
 		HandlerList handlerList = new HandlerList();
 		
